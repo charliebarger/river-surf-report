@@ -7,10 +7,12 @@ interface ProfilePicParams {
 
 const ProfilePic = ({ headshot }: ProfilePicParams) => {
   return (
-    <img
-      className=" w-16 h-16 object-cover rounded-full border-secondaryColor border-2"
+    <Image
       src={headshot}
       alt="headshot"
+      width="50"
+      height="50"
+      className=" w-16 h-16 object-cover rounded-full border-secondaryColor border-2"
     />
   );
 };

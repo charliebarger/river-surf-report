@@ -23,6 +23,7 @@ const LocationInfo = ({ locationData }: locationInfoParams) => {
           </div>
           <div className=" w-full aspect-video lg:aspect-square m-auto ">
             <iframe
+              title={`Google Map pointing to the location of ${address}`}
               className=" w-full h-full"
               src={`https://www.google.com/maps/embed?${googleMapsID}`}
               loading="lazy"

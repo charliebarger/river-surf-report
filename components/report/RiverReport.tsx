@@ -39,7 +39,13 @@ const RiverReport = ({
       <div className="px-5 max-w-screen-md m-auto lg:max-w-none xl:max-w-7xl">
         <div className="   lg:grid lg:grid-cols-2 lg:gap-7">
           <div>
-            <img src={imgUrl} className="m-auto"></img>
+            <Image
+              src={imgUrl}
+              alt="surf location"
+              width={500}
+              height={500}
+              className="m-auto"
+            />
           </div>
           <div>
             <h3 className=" mt-8 mb-6 text-left font-semibold text-xl lg:mt-0">
@@ -49,7 +55,7 @@ const RiverReport = ({
               wrapperClasses="m-auto grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-2"
               list={liveRiverData}
               render={(item) => (
-                <div className="flex flex-col items-center space-y-4 border-2 border-primaryColor py-6 flex-1 bg-slate-200 ">
+                <div className="flex flex-col items-center space-y-4 border-2 border-primaryColor py-6 flex-1 bg-slate-100 ">
                   <span className=" text-primaryColor text-md font-bold whitespace-nowrap">
                     {item.title}
                   </span>
