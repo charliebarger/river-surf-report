@@ -1,6 +1,6 @@
-import { SectionWrapper } from "../utility/SectionWrapper";
+import { SectionWrapper } from "../../utility/SectionWrapper";
 import Image from "next/image";
-import List from "../utility/ListGenerator";
+import List from "../../utility/ListGenerator";
 
 interface boxData {
   title: string;
