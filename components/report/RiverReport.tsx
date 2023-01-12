@@ -1,6 +1,6 @@
-import { SectionWrapper } from "../../utility/SectionWrapper";
+import { SectionWrapper } from "../utility/SectionWrapper";
 import Image from "next/image";
-import List from "../../utility/ListGenerator";
+import List from "../utility/ListGenerator";
 
 interface boxData {
   title: string;
@@ -51,20 +51,20 @@ const RiverReport = ({
             <h3 className=" mt-8 mb-6 text-left font-semibold text-xl lg:mt-0">
               {`${surfSpotName} - ${riverName}`}
             </h3>
-            <List
-              wrapperClasses="m-auto grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-2"
-              list={liveRiverData}
-              render={(item) => (
-                <div className="flex flex-col items-center space-y-4 border-2 border-primaryColor py-6 flex-1 bg-slate-100 ">
-                  <span className=" text-primaryColor text-md font-bold whitespace-nowrap">
-                    {item.title}
-                  </span>
-                  <span className=" text-xl font-bold whitespace-nowrap ">
-                    {item.data}
-                  </span>
-                </div>
-              )}
-            />
+            <ul className="m-auto grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-2">
+              {liveRiverData.map((item, index) => (
+                <li key={index} data-testid={`river-${index}`}>
+                  <div className="flex flex-col items-center space-y-4 border-2 border-primaryColor py-6 flex-1 bg-slate-100">
+                    <span className=" text-primaryColor text-md font-bold whitespace-nowrap">
+                      {item.title}
+                    </span>
+                    <span className=" text-xl font-bold whitespace-nowrap ">
+                      {item.data}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

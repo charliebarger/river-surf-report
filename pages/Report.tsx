@@ -1,4 +1,4 @@
-import RiverReport from "../components/report/riverReport/RiverReport";
+import RiverReport from "../components/report/RiverReport";
 import { colors } from "../helpers/colors";
 import Chart from "../components/report/chart/Chart";
 import PageHeader from "../components/utility/PageHeader";
