@@ -1,86 +1,88 @@
+export type WeatherStatus = "windy" | "rain" | "sunny" | "snow" | "hail";
+
 export interface riverDataInterface {
-  riverName: string
-  surfSpot: string
-  riverDescription: string
-  imgUrl: string
+  riverName: string;
+  surfSpot: string;
+  riverDescription: string;
+  imgUrl: string;
   environmentInfo: {
-    usgsID: string
-    flowRatings: FlowRatings
+    usgsID: string;
+    flowRatings: FlowRatings;
     weatherValues: {
-      instantFlow: number
-      wind: number
-      temperature: number
-      lowTemp: number
-      highTemp: number
-    }
-  }
+      instantFlow: number;
+      wind: number;
+      temperature: number;
+      lowTemp: number;
+      highTemp: number;
+      weatherStatus: WeatherStatus;
+    };
+  };
   locationInfo: {
-    googleMapsID: string
-    parkingSpotName: string
-    address: string
-  }
+    googleMapsID: string;
+    parkingSpotName: string;
+    address: string;
+  };
   surfReport: {
-    reporter: Reporter
-    reportInfo: Report
-  }
+    reporter: Reporter;
+    reportInfo: Report;
+  };
 }
 
 interface Reporter {
-  img: string
-  name: string
-  description: string
+  img: string;
+  name: string;
+  description: string;
 }
 
 interface Report {
-  report: string
-  date: string
+  report: string;
+  date: string;
 }
 
 export interface ConditionNames {
-  name: SurfConditionStatus
-  color: BackgroundBad | BackgroundFair | BackgroundGood
+  name: SurfConditionStatus;
 }
 
 export interface ReportWithConditions extends Report {
-  surfConditions: ConditionNames
+  surfConditions: ConditionNames;
 }
 
 export interface SurfReport {
-  reporter: Reporter
-  report: Report
+  reporter: Reporter;
+  report: Report;
 }
 
 export interface FlowRatings {
-  fairConditions: number
-  goodConditions: number
-  badConditions: number
+  fairConditions: number;
+  goodConditions: number;
+  badConditions: number;
 }
 
 export interface SurfConditions<T, K> {
-  min: number
-  caption: SurfConditionStatus
+  min: number;
+  caption: SurfConditionStatus;
   color: {
-    background: T
-    border: K
-  }
+    background: T;
+    border: K;
+  };
 }
 
 export interface SurfConditionInfo {
-  fairConditions: SurfConditions<BackgroundFair, BorderFair>
-  goodConditions: SurfConditions<BackgroundGood, BorderGood>
-  badConditions: SurfConditions<BackgroundBad, BorderBad>
+  fairConditions: SurfConditions<BackgroundFair, BorderFair>;
+  goodConditions: SurfConditions<BackgroundGood, BorderGood>;
+  badConditions: SurfConditions<BackgroundBad, BorderBad>;
 }
 
-type BorderBad = "chartBadBorder"
-type BackgroundBad = "chartBad"
+type BorderBad = "chartBadBorder";
+type BackgroundBad = "chartBad";
 
-type BorderGood = "chartGoodBorder"
-type BackgroundGood = "chartGood"
+type BorderGood = "chartGoodBorder";
+type BackgroundGood = "chartGood";
 
-type BorderFair = "chartFairBorder"
-type BackgroundFair = "chartFair"
+type BorderFair = "chartFairBorder";
+type BackgroundFair = "chartFair";
 
-export type Backgrounds = BackgroundBad | BackgroundGood | BackgroundFair
-export type Borders = BorderBad | BorderFair | BorderGood
+export type Backgrounds = BackgroundBad | BackgroundGood | BackgroundFair;
+export type Borders = BorderBad | BorderFair | BorderGood;
 
-type SurfConditionStatus = "Good" | "Fair" | "Not Surfable"
+export type SurfConditionStatus = "Good" | "Fair" | "Not Surfable";

@@ -11,10 +11,6 @@ interface surfReportParams {
   report: {
     report: string;
     date: string;
-    surfConditions: {
-      name: string;
-      color: string;
-    };
   };
 }
 

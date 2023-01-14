@@ -1,5 +1,7 @@
 import { SectionWrapper } from "../utility/SectionWrapper";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { WeatherStatus } from "../../report.types";
 import { ConditionNames } from "../../report.types";
 import List from "../utility/ListGenerator";
 
@@ -8,16 +10,17 @@ interface boxData {
   data: string;
 }
 
-interface riverReportProps {
+export interface riverReportProps {
   imgUrl: string;
   surfSpotName: string;
   riverName: string;
-  squareData: {
+  weatherValues: {
     instantFlow: number;
     wind: number;
     temperature: number;
     lowTemp: number;
     highTemp: number;
+    weatherStatus: WeatherStatus;
   };
   conditionStatus: ConditionNames;
 }
@@ -26,16 +29,28 @@ const RiverReport = ({
   imgUrl,
   surfSpotName,
   riverName,
-  squareData,
+  weatherValues,
   conditionStatus,
 }: riverReportProps) => {
-  const { instantFlow, wind, temperature, highTemp, lowTemp } = squareData;
-  const liveRiverData: boxData[] = [
-    { title: "Flow", data: `${instantFlow} cfs` },
-    { title: "Wind", data: `${wind} mph` },
-    { title: "Temperature", data: `${temperature} °F` },
-    { title: "Low/High", data: `${lowTemp}/${highTemp}` },
-  ];
+  const { instantFlow, wind, temperature, weatherStatus } = weatherValues;
+
+  const imgURL = () => {
+    console.log(weatherStatus);
+    switch (weatherStatus) {
+      case "rain":
+        return "/weather-icons/rainy-3.svg";
+      case "hail":
+        return "/weather-icons/hail.svg";
+      case "snow":
+        return "/weather-icons/snowy-3.svg";
+      case "sunny":
+        return "/weather-icons/clear-day.svg";
+      case "windy":
+        return "/weather-icons/wind.svg";
+      default:
+        return "/weather-icons/clear-day.svg";
+    }
+  };
 
   return (
     <SectionWrapper>
@@ -61,8 +76,17 @@ const RiverReport = ({
                   <span className=" font-bold text-l">
                     <span className="text-4xl">{instantFlow}</span> cfs
                   </span>
-                  <span className="font-bold text-l bg-chartGoodBorder text-white text-center self-start py-1 px-3 rounded">
-                    Good
+                  <span
+                    className={`font-bold text-l  text-white text-center self-start py-1 px-3 rounded
+                   ${
+                     (conditionStatus.name === "Not Surfable" &&
+                       " bg-chartBadBorder") ||
+                     (conditionStatus.name === "Good" &&
+                       " bg-chartGoodBorder ") ||
+                     (conditionStatus.name === "Fair" && " bg-chartFairBorder")
+                   }`}
+                  >
+                    {conditionStatus.name}
                   </span>
                 </div>
               </div>
@@ -70,8 +94,8 @@ const RiverReport = ({
                 <div className="flex items-center">
                   <span className="text-xl">Weather</span>
                   <Image
-                    src={"/weather-icons/rainy-3.svg"}
-                    alt="rainy"
+                    src={imgURL()}
+                    alt={weatherStatus}
                     width={40}
                     height={40}
                   />

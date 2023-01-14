@@ -10,7 +10,6 @@ import Header from "../components/utility/Header";
 import {
   riverDataInterface,
   SurfConditionInfo,
-  ReportWithConditions,
   ConditionNames,
 } from "../report.types";
 import LocationInfo from "../components/report/LocationInfo";
@@ -49,18 +48,17 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
     const { goodConditions, badConditions, fairConditions } =
       riverData.environmentInfo.flowRatings;
     if (instantFlow > goodConditions) {
-      return { color: "chartGood", name: "Good" };
+      return { name: "Good" };
     } else if (instantFlow < goodConditions && instantFlow > fairConditions) {
-      return { color: "chartFair", name: "Fair" };
+      return { name: "Fair" };
     } else {
-      return { color: "chartBad", name: "Not Surfable" };
+      return { name: "Not Surfable" };
     }
   };
 
-  const report: ReportWithConditions = {
+  const report = {
     date: riverData.surfReport.reportInfo.date,
     report: riverData.surfReport.reportInfo.report,
-    surfConditions: getConditions(),
   };
 
   return (
@@ -79,7 +77,7 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
         imgUrl={riverData.imgUrl}
         surfSpotName={riverData.surfSpot}
         riverName={riverData.riverName}
-        squareData={riverData.environmentInfo.weatherValues}
+        weatherValues={riverData.environmentInfo.weatherValues}
         conditionStatus={getConditions()}
       />
       <SurfReport reporter={riverData.surfReport.reporter} report={report} />
@@ -120,6 +118,7 @@ export async function getServerSideProps() {
         temperature: 73,
         lowTemp: 53,
         highTemp: 72,
+        weatherStatus: "sunny",
       },
     },
     locationInfo: {
