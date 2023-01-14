@@ -80,6 +80,7 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
         surfSpotName={riverData.surfSpot}
         riverName={riverData.riverName}
         squareData={riverData.environmentInfo.weatherValues}
+        conditionStatus={getConditions()}
       />
       <SurfReport reporter={riverData.surfReport.reporter} report={report} />
       <Chart

@@ -35,12 +35,6 @@ const SurfReport = ({ reporter, report }: surfReportParams) => {
               {report.date}
             </time>
           </div>
-          <div className=" text-sm font-semibold">
-            <span className=" text-sm font-bold ">Last Rating: </span>
-            <span className={` text-${report.surfConditions.color}`}>
-              {report.surfConditions.name}
-            </span>
-          </div>
         </div>
       </div>
     </SectionWrapper>

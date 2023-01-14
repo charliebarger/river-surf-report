@@ -1,5 +1,6 @@
 import { SectionWrapper } from "../utility/SectionWrapper";
 import Image from "next/image";
+import { ConditionNames } from "../../report.types";
 import List from "../utility/ListGenerator";
 
 interface boxData {
@@ -18,6 +19,7 @@ interface riverReportProps {
     lowTemp: number;
     highTemp: number;
   };
+  conditionStatus: ConditionNames;
 }
 
 const RiverReport = ({
@@ -25,6 +27,7 @@ const RiverReport = ({
   surfSpotName,
   riverName,
   squareData,
+  conditionStatus,
 }: riverReportProps) => {
   const { instantFlow, wind, temperature, highTemp, lowTemp } = squareData;
   const liveRiverData: boxData[] = [
@@ -51,7 +54,46 @@ const RiverReport = ({
             <h3 className=" mt-8 mb-6 text-left font-semibold text-xl lg:mt-0">
               {`${surfSpotName} - ${riverName}`}
             </h3>
-            <ul className="m-auto grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-2">
+            <div className=" flex flex-col gap-4">
+              <div className=" flex  flex-1">
+                <div className="w-16 h-1.5 bg-slate-400 rotate-90 rounded self-center"></div>
+                <div className="flex flex-col gap-1 ">
+                  <span className=" font-bold text-l">
+                    <span className="text-4xl">{instantFlow}</span> cfs
+                  </span>
+                  <span className="font-bold text-l bg-chartGoodBorder text-white text-center self-start py-1 px-3 rounded">
+                    Good
+                  </span>
+                </div>
+              </div>
+              <div className=" flex-grow flex flex-col align-top font-bold">
+                <div className="flex items-center">
+                  <span className="text-xl">Weather</span>
+                  <Image
+                    src={"/weather-icons/rainy-3.svg"}
+                    alt="rainy"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="flex flex-col ">
+                  <div className="flex items-center text-slate-600">
+                    <span className=" text-md">Temp : </span>{" "}
+                    <span className=" text-md text-black ml-1">
+                      {temperature}{" "}
+                    </span>{" "}
+                    <span className="text-sm ml-1 text-black">°F</span>
+                  </div>
+                  <div className="flex items-center text-slate-600">
+                    <span className=" text-md">Wind : </span>{" "}
+                    <span className=" text-md text-black ml-1">{wind} </span>{" "}
+                    <span className="text-sm ml-1 text-black">mph</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* <ul className="m-auto grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-2">
               {liveRiverData.map((item, index) => (
                 <li key={index} data-testid={`river-${index}`}>
                   <div className="flex flex-col items-center space-y-4 border-2 border-primaryColor py-6 flex-1 bg-slate-100">
@@ -64,7 +106,7 @@ const RiverReport = ({
                   </div>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
