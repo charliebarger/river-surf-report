@@ -117,6 +117,8 @@ const plugins = (
   },
   legend: { display: false },
   tooltip: {
+    borderColor: "#cc8a8c",
+    displayColors: false,
     callbacks: {
       label: function (context) {
         let label = context.dataset.label || "";

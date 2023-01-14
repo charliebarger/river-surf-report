@@ -39,9 +39,9 @@ const RiverReport = ({
 
   return (
     <SectionWrapper>
-      <div className="px-5 max-w-screen-md m-auto lg:max-w-none xl:max-w-7xl">
-        <div className="   lg:grid lg:grid-cols-2 lg:gap-7">
-          <div>
+      <div className=" max-w-screen-md m-auto lg:max-w-none xl:max-w-7xl">
+        <div className="flex flex-wrap-reverse  md:grid md:grid-cols-2 gap-7">
+          <div className="m-auto">
             <Image
               src={imgUrl}
               alt="surf location"
@@ -50,13 +50,13 @@ const RiverReport = ({
               className="m-auto"
             />
           </div>
-          <div>
-            <h3 className=" mt-8 mb-6 text-left font-semibold text-xl lg:mt-0">
+          <div className="flex-1">
+            <h3 className=" text-center mt-0 mb-6 lg:text-left font-semibold text-xl ">
               {`${surfSpotName} - ${riverName}`}
             </h3>
-            <div className=" flex flex-col gap-4">
-              <div className=" flex  flex-1">
-                <div className="w-16 h-1.5 bg-slate-400 rotate-90 rounded self-center"></div>
+            <div className=" justify-center lg:justify-start flex lg:flex-col gap-4">
+              <div className=" flex  pl-10 relative">
+                <div className=" absolute w-16 h-1.5 bg-slate-400 rotate-90 -left-5 translate-x-1.5 rounded self-center"></div>
                 <div className="flex flex-col gap-1 ">
                   <span className=" font-bold text-l">
                     <span className="text-4xl">{instantFlow}</span> cfs
@@ -66,7 +66,7 @@ const RiverReport = ({
                   </span>
                 </div>
               </div>
-              <div className=" flex-grow flex flex-col align-top font-bold">
+              <div className=" flex flex-col align-top font-bold pl-4">
                 <div className="flex items-center">
                   <span className="text-xl">Weather</span>
                   <Image
