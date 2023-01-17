@@ -69,7 +69,7 @@ const RiverReport = ({
             <h3 className=" text-center mt-0 mb-6 lg:text-left font-semibold text-xl ">
               {`${surfSpotName} - ${riverName}`}
             </h3>
-            <div className=" justify-center lg:justify-start flex lg:flex-col gap-4">
+            <div className=" justify-center lg:justify-start flex gap-4">
               <div className=" flex  pl-10 relative">
                 <div className=" absolute w-16 h-1.5 bg-slate-400 rotate-90 -left-5 translate-x-1.5 rounded self-center"></div>
                 <div className="flex flex-col gap-1 ">

@@ -22,7 +22,7 @@ const riverAPIcall = async (
       throw Error("could not fetch data from server");
     }
     const infoson = await data.json();
-
+    console.log(infoson);
     const dataPoints: RiverAxis[] = infoson.value.timeSeries[0].values[0].value;
     const filteredData = dataPoints.map((item) => {
       return { dateTime: item.dateTime, value: Number(item.value) };
