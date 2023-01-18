@@ -2,7 +2,7 @@ const IS_BROWSER = typeof window !== undefined;
 
 export const setupMocks = async () => {
   console.log("reached");
-  if (true) {
+  if (IS_BROWSER) {
     const { mswWorker } = await import("./mswWorker");
     console.log("browser");
     mswWorker.start();

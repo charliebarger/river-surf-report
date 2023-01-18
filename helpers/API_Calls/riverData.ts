@@ -2,6 +2,7 @@ const getAllFlowsURL = (site: string): string => {
   const date = new Date();
   const dateNow = date.toISOString();
   const dateWeekAgo = new Date(date.setDate(date.getDate() - 7)).toISOString();
+  console.log("testing");
   return `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${site}&startDT=${dateWeekAgo}&endDT=${dateNow}&parameterCd=00060,00065&siteStatus=all`;
 };
 
