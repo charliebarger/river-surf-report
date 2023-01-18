@@ -71,7 +71,7 @@ export function Chart({ usgsID, flowRatings }: chartParams) {
       );
     } else if (chartData.error) {
       return (
-        <div>
+        <div className="d-flex text-red-600 text-lg font-bold text-center">
           <p className=" m-auto">Chart Data Not Available at This Time</p>
         </div>
       );
