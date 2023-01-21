@@ -17,8 +17,12 @@ type dataResults = RiverAxis[] | false;
 const riverAPIcall = async (
   site: string
 ): Promise<{ data: dataResults; error: boolean }> => {
+  console.log("fetching...");
   try {
+    console.log(getAllFlowsURL(site));
     const data = await fetch(getAllFlowsURL(site));
+    console.log("frick");
+    console.log(data);
     if (!data.ok) {
       throw Error("could not fetch data from server");
     }
@@ -30,6 +34,7 @@ const riverAPIcall = async (
     });
     return { data: filteredData, error: false };
   } catch (error) {
+    console.log(error);
     return { data: false, error: true };
   }
 };

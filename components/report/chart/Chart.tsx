@@ -4,6 +4,7 @@ import Annotation from "chartjs-plugin-annotation";
 import { ColorRing } from "react-loader-spinner";
 import useChart from "./useChart";
 import { Backgrounds, Borders } from "../../../report.types";
+import { riverAPIcall } from "../../../helpers/API_Calls/riverData";
 import { colors } from "../../../helpers/colors";
 import LegendItem from "./LegendItem";
 
@@ -51,6 +52,12 @@ export interface Conditions {
 }
 export function Chart({ usgsID, flowRatings }: chartParams) {
   const chartData = useChart(usgsID, flowRatings);
+  console.log(chartData);
+  // const data = async () => {
+  //   const data = await fetch("https://waterservices.usgs.gov/nwis");
+  //   console.log(data);
+  // };
+  // data();
   const getChartState = () => {
     if (chartData.res !== false) {
       return (

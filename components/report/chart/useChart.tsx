@@ -26,6 +26,7 @@ const useChart = (locationID: string, conditions: FlowRatings) => {
     const fetchRiverData = async () => {
       setChartData((prev) => ({ ...prev, loading: true }));
       const riverData = await riverAPIcall(locationID);
+
       if (riverData.error) {
         setChartData((prev) => ({
           ...prev,
