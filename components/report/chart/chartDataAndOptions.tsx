@@ -1,8 +1,8 @@
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
-import { RiverAxis } from "../../../helpers/API_Calls/riverData";
+import { RiverAxis } from "@/helpers/API_Calls/riverData";
 import Annotation from "chartjs-plugin-annotation";
-import { colors } from "../../../helpers/colors";
+import { colors } from "@/helpers/colors";
 import { _DeepPartialObject } from "chart.js/dist/types/utils";
 import { FlowRatings } from "./Chart";
 import {

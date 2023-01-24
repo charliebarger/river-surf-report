@@ -1,8 +1,8 @@
-import { render, screen, cleanup } from "@testing-library/react";
-import RiverReport from "../../../../components/report/RiverReport";
-import { SurfConditionStatus } from "../../../../report.types";
-import { WeatherStatus } from "../../../../report.types";
-import { riverReportProps } from "../../../../components/report/RiverReport";
+import { render, screen } from "@testing-library/react";
+import RiverReport from "@/components/report/RiverReport";
+import { SurfConditionStatus } from "report.types";
+import { WeatherStatus } from "report.types";
+import { riverReportProps } from "@/components/report/RiverReport";
 
 const getReportProps = (
   conditions: SurfConditionStatus,

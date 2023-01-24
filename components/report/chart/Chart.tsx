@@ -1,10 +1,10 @@
 import { Line } from "react-chartjs-2";
-import { SectionWrapper } from "../../utility/SectionWrapper";
+import { SectionWrapper } from "@/components/utility/SectionWrapper";
 import Annotation from "chartjs-plugin-annotation";
 import { ColorRing } from "react-loader-spinner";
 import useChart from "./useChart";
-import { Backgrounds, Borders } from "../../../report.types";
-import { colors } from "../../../helpers/colors";
+import { Borders, Backgrounds } from "report.types";
+import { colors } from "@/helpers/colors";
 import LegendItem from "./LegendItem";
 
 import {

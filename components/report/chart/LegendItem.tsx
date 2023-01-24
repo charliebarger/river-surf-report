@@ -1,4 +1,4 @@
-import { Backgrounds, Borders } from "../../../report.types";
+import { Backgrounds, Borders } from "report.types";
 
 interface LegendProps {
   boxColor: { border: Borders; background: Backgrounds };

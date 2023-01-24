@@ -1,17 +1,17 @@
-import RiverReport from "../components/report/RiverReport";
-import Chart from "../components/report/chart/Chart";
-import PageHeader from "../components/utility/PageHeader";
-import Banner from "../components/utility/Banner";
-import SurfReport from "../components/report/SurfReport";
-import Footer from "../components/utility/Footer";
+import RiverReport from "@/components/report/RiverReport";
+import Chart from "@/components/report/chart/Chart";
+import PageHeader from "@/components/utility/PageHeader";
+import Banner from "@/components/utility/Banner";
+import SurfReport from "@/components/report/SurfReport";
+import Footer from "@/components/utility/Footer";
 import Head from "next/head";
 import Header from "@/components/utility/Header";
 import {
   riverDataInterface,
   SurfConditionInfo,
   ConditionNames,
-} from "../report.types";
-import LocationInfo from "../components/report/LocationInfo";
+} from "report.types";
+import LocationInfo from "components/report/LocationInfo";
 
 const Report = ({ riverData }: { riverData: riverDataInterface }) => {
   const flowRatings: SurfConditionInfo = {

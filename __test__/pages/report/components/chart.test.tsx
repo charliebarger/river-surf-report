@@ -1,10 +1,9 @@
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
-import { setupServer } from "msw/node";
-import { riverData as riverDatabaseData } from "../../../../mocks/database";
-import { FlowRatings } from "../../../../components/report/chart/Chart";
-import { mswServer } from "../../../../mocks/mswServer";
-import Chart from "../../../../components/report/chart/Chart";
+import { riverData as riverDatabaseData } from "@/mocks/handler/api/riverData";
+import { FlowRatings } from "@/components/report/chart/Chart";
+import { mswServer } from "@/mocks/mswServer";
+import Chart from "@/components/report/chart/Chart";
 
 const flowRatings: FlowRatings = {
   goodConditions: {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { riverAPIcall } from "../../../helpers/API_Calls/riverData";
+import { riverAPIcall } from "@/helpers/API_Calls/riverData";
 import { chartDataAndOptions } from "./chartDataAndOptions";
 import { FlowRatings } from "./Chart";
 import { ChartOptions, ChartData } from "chart.js";

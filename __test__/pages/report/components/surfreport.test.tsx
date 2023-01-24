@@ -1,5 +1,5 @@
-import { render, screen, cleanup } from "@testing-library/react";
-import SurfReport from "../../../../components/report/SurfReport";
+import { render, screen } from "@testing-library/react";
+import SurfReport from "@/components/report/SurfReport";
 
 describe("Surf Report", () => {
   render(
