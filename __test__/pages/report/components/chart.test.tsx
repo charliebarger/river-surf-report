@@ -1,9 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { riverData as riverDatabaseData } from "@/mocks/handler/api/riverData";
-import { FlowRatings } from "@/components/report/chart/Chart";
 import { mswServer } from "@/mocks/mswServer";
-import Chart from "@/components/report/chart/Chart";
+import Chart, { FlowRatings } from "@/components/report/chart/Chart";
 
 const flowRatings: FlowRatings = {
   goodConditions: {
