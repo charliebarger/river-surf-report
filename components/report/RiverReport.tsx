@@ -1,9 +1,7 @@
 import { SectionWrapper } from "../utility/SectionWrapper";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { WeatherStatus } from "../../report.types";
 import { ConditionNames } from "../../report.types";
-import List from "../utility/ListGenerator";
 
 interface boxData {
   title: string;
@@ -35,7 +33,6 @@ const RiverReport = ({
   const { instantFlow, wind, temperature, weatherStatus } = weatherValues;
 
   const imgURL = () => {
-    console.log(weatherStatus);
     switch (weatherStatus) {
       case "rain":
         return "/weather-icons/rainy-3.svg";

@@ -1,12 +1,11 @@
 import RiverReport from "../components/report/RiverReport";
-import { colors } from "../helpers/colors";
 import Chart from "../components/report/chart/Chart";
 import PageHeader from "../components/utility/PageHeader";
 import Banner from "../components/utility/Banner";
 import SurfReport from "../components/report/SurfReport";
 import Footer from "../components/utility/Footer";
 import Head from "next/head";
-import Header from "../components/utility/Header";
+import Header from "@/components/utility/Header";
 import {
   riverDataInterface,
   SurfConditionInfo,
@@ -15,7 +14,6 @@ import {
 import LocationInfo from "../components/report/LocationInfo";
 
 const Report = ({ riverData }: { riverData: riverDataInterface }) => {
-  console.log(riverData);
   const flowRatings: SurfConditionInfo = {
     goodConditions: {
       min: riverData.environmentInfo.flowRatings.goodConditions,

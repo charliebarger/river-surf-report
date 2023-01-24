@@ -7,8 +7,6 @@ interface LegendProps {
 }
 
 const LegendItem = ({ boxColor, caption, description }: LegendProps) => {
-  console.log(boxColor);
-
   return (
     <figure className="flex items-center gap-2 ">
       <div
