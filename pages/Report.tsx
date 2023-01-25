@@ -128,7 +128,7 @@ export async function getServerSideProps() {
     surfReport: {
       reporter: {
         img: "https://cdn.vox-cdn.com/thumbor/eEZwVD9UYHSfXdKW-X1gKe-4XWs=/0x73:1100x806/1400x1400/filters:focal(0x73:1100x806):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/8270369/tv_eastbound_down01.0.jpg",
-        name: "Capt. Caleb McDaniel",
+        name: "Christian Seguna",
         description: "River Surfing God | Passionate Lover",
       },
       reportInfo: {
