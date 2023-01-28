@@ -103,6 +103,7 @@ const plugins = (
       },
     },
   },
+
   title: {
     display: true,
     text: "Historic River Flow",
