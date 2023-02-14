@@ -70,21 +70,23 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
         <meta property="og:url" content=""></meta> */}
       </Head>
       <Header />
-      <PageHeader>Surf Report</PageHeader>
-      <RiverReport
-        imgUrl={riverData.imgUrl}
-        surfSpotName={riverData.surfSpot}
-        riverName={riverData.riverName}
-        weatherValues={riverData.environmentInfo.weatherValues}
-        conditionStatus={getConditions()}
-      />
-      <SurfReport reporter={riverData.surfReport.reporter} report={report} />
-      <Chart
-        usgsID={riverData.environmentInfo.usgsID}
-        flowRatings={flowRatings}
-      />
-      <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
-      <LocationInfo locationData={riverData.locationInfo} />
+      <main>
+        <PageHeader>Surf Report</PageHeader>
+        <RiverReport
+          imgUrl={riverData.imgUrl}
+          surfSpotName={riverData.surfSpot}
+          riverName={riverData.riverName}
+          weatherValues={riverData.environmentInfo.weatherValues}
+          conditionStatus={getConditions()}
+        />
+        <SurfReport reporter={riverData.surfReport.reporter} report={report} />
+        <Chart
+          usgsID={riverData.environmentInfo.usgsID}
+          flowRatings={flowRatings}
+        />
+        <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
+        <LocationInfo locationData={riverData.locationInfo} />
+      </main>
       <Footer />
     </>
   );
