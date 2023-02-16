@@ -12,6 +12,9 @@ module.exports = {
       xl: "1440px",
     },
     extend: {
+      gridTemplateColumns: {
+        16: "minmax(600px, 1fr), 33%",
+      },
       colors: {
         primaryColor: "hsl(196deg 46% 48%)",
         secondaryColor: "hsl(194deg 65% 75%)",
@@ -24,6 +27,7 @@ module.exports = {
         chartFairBorder: "hsl(202deg 60% 46% / 100%)",
         chartGood: "hsl(90deg 55% 44% / 60%)",
         chartGoodBorder: "hsl(90deg 55% 44% / 100%)",
+        linkColor: "hsl(205deg 71% 53%)",
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
