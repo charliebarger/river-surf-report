@@ -166,11 +166,11 @@ export default function Home() {
                     <h3 className=" text-base font-bold mb-2 mt-4 text-slate-400 ">
                       {country.name}
                     </h3>
-                    <ul className="grid grid-cols-[repeat(3,_1fr)] gap-2 ">
+                    <ul className="grid grid-cols-2 gap-2 md:grid-cols-3">
                       {country.states.map((state) => (
                         <li
                           key={state.name}
-                          className="text-linkColor hover:underline"
+                          className="text-linkColor hover:underline overflow-hidden whitespace-nowrap overflow-ellipsis"
                         >
                           <Link
                             href={`/reports/${country.abbreviation}/${state.name}`}
