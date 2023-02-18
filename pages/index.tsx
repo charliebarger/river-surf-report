@@ -190,7 +190,7 @@ export default function Home() {
                 <Link
                   href={"/"}
                   className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-[#e6e6e6]
-        text-gray-700 font-medium flex items-center
+        text-gray-700 font-medium flex items-center hover:border-[#0daadc]
         "
                 >
                   <div className=" w-2 h-2 bg-chartGoodBorder rounded-full "></div>
@@ -201,7 +201,7 @@ export default function Home() {
                 <Link
                   href={"/"}
                   className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-[#e6e6e6]
-        text-gray-700 font-medium flex items-center
+        text-gray-700 font-medium flex items-center hover:border-[#0daadc]
         "
                 >
                   <div className=" w-2 h-2 bg-chartGoodBorder rounded-full "></div>
@@ -212,7 +212,7 @@ export default function Home() {
                 <Link
                   href={"/"}
                   className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-[#e6e6e6]
-        text-gray-700 font-medium flex items-center
+        text-gray-700 font-medium flex items-center hover:border-[#0daadc]
         "
                 >
                   <div className=" w-2 h-2 bg-chartGoodBorder rounded-full "></div>
@@ -223,7 +223,7 @@ export default function Home() {
                 <Link
                   href={"/"}
                   className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-[#e6e6e6]
-        text-gray-700 font-medium flex items-center
+        text-gray-700 font-medium flex items-center hover:border-[#0daadc]
         "
                 >
                   <div className=" w-2 h-2 bg-chartGoodBorder rounded-full "></div>
@@ -234,7 +234,7 @@ export default function Home() {
                 <Link
                   href={"/"}
                   className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-[#e6e6e6]
-        text-gray-700 font-medium flex items-center
+        text-gray-700 font-medium flex items-center hover:border-[#0daadc]
         "
                 >
                   <div className=" w-2 h-2 bg-chartGoodBorder rounded-full "></div>
@@ -249,9 +249,9 @@ export default function Home() {
                 </h2>
                 <Link
                   href={"/"}
-                  className=" my-2 bg-white  px-4 py-2 rounded text-base border-[1px] border-primaryColor
-        text-primaryColor font-medium flex items-center
-        hover:bg-primaryColor hover:text-white
+                  className=" my-2 bg-white  px-4 py-2 rounded text-base border-2 border-[#0CAADC]
+        text-[#0CAADC] font-medium flex items-center
+        hover:bg-[#0CAADC] hover:text-white hover:border-white
         "
                 >
                   <span className=" ml-2 font-bold ">
