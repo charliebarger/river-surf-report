@@ -16,7 +16,7 @@ module.exports = {
         16: "minmax(600px, 1fr), 33%",
       },
       colors: {
-        primaryColor: "hsl(196deg 46% 48%)",
+        primaryColor: "#001021",
         secondaryColor: "hsl(194deg 65% 75%)",
         fontColor: "black",
         highlightColor: "hsl(48deg 89% 50%)",
