@@ -57,7 +57,7 @@ const SearchBar = ({ deactivateSearch }: { deactivateSearch: () => void }) => {
                 key={index}
                 className=" group flex items-center gap-2 p-1 px-4 hover:bg-primaryColor hover:text-white"
               >
-                <div className=" h-3 w-3 fill-red ">
+                <div className=" h-3 w-3 ">
                   <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
                     <path
                       className=" fill-[#269] group-hover:fill-white"
