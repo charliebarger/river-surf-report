@@ -89,7 +89,7 @@ const Header = () => {
               alt={"Search Icon"}
             />
             <input
-              placeholder="Search for Waves, Reports, and Locations..."
+              placeholder="Search for River Waves, Reports, and Locations..."
               className=" text-white  flex-1 bg-inherit placeholder-white outline-none"
             />
           </div>
