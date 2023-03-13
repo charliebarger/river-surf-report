@@ -1,21 +1,25 @@
-import { useEffect, useState } from "react";
-import { riverAPIcall } from "@/helpers/API_Calls/riverData";
-import { chartDataAndOptions } from "./chartDataAndOptions";
-import { FlowRatings } from "./Chart";
-import { ChartOptions, ChartData } from "chart.js";
+import { MutableRefObject, RefObject, useEffect, useState } from 'react';
+import { riverAPIcall } from '@/helpers/API_Calls/riverData';
+import { chartDataAndOptions } from './chartDataAndOptions';
+import { FlowRatings } from './Chart';
+import { ChartOptions, ChartData } from 'chart.js';
 
 interface fetchInterface {
   res:
     | {
-        options: ChartOptions<"line">;
-        data: ChartData<"line">;
+        options: ChartOptions<'line'>;
+        data: ChartData<'line'>;
       }
     | false;
   error: boolean | string;
   loading: boolean;
 }
 
-const useChart = (locationID: string, conditions: FlowRatings) => {
+const useChart = (
+  locationID: string,
+  conditions: FlowRatings,
+  wrapperRef: RefObject<HTMLDivElement>
+) => {
   const [chartData, setChartData] = useState<fetchInterface>({
     res: false,
     error: false,
@@ -35,11 +39,11 @@ const useChart = (locationID: string, conditions: FlowRatings) => {
         }));
       } else {
         const { data } = riverData;
-        if (typeof data === "object") {
+        if (typeof data === 'object') {
           setChartData((prev) => ({
             ...prev,
             loading: false,
-            res: chartDataAndOptions(data, conditions),
+            res: chartDataAndOptions(data, conditions, wrapperRef),
           }));
         }
       }
