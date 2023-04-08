@@ -5,10 +5,9 @@ import Header from "@/components/utility/Header";
 import PageHeader from "@/components/utility/PageHeader";
 import { SectionWrapper } from "@/components/utility/SectionWrapper";
 import styles from "../styles/Home.module.css";
-import Footer from "@/components/utility/Footer";
 import { Fragment } from "react";
 import Link from "next/link";
-import QuickInfoCard from "@/components/reports-home/QuickInfoCard";
+import QuickInfoCard from "@/components/utility/QuickInfoCard";
 
 interface Sites {
   continent: string;
@@ -192,7 +191,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
       <main>
         <PageHeader>Reports</PageHeader>
         <SectionWrapper>

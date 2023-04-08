@@ -12,6 +12,9 @@ module.exports = {
       xl: "1440px",
     },
     extend: {
+      backgroundImage: {
+        surfin_otter: "url('../public/river-surf-welcome.png')",
+      },
       gridTemplateColumns: {
         16: "minmax(600px, 1fr), 33%",
       },

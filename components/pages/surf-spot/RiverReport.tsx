@@ -1,7 +1,7 @@
-import { SectionWrapper } from "../utility/SectionWrapper";
+import { SectionWrapper } from "../../utility/SectionWrapper";
 import Image from "next/image";
-import { WeatherStatus } from "../../report.types";
-import { ConditionNames } from "../../report.types";
+import { WeatherStatus } from "../../../report.types";
+import { ConditionNames } from "../../../report.types";
 
 interface boxData {
   title: string;

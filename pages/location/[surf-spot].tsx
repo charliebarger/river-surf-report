@@ -1,19 +1,17 @@
-import RiverReport from "@/components/report/RiverReport";
-import Chart from "@/components/report/chart/Chart";
+import RiverReport from "@/components/pages/surf-spot/RiverReport";
+import Chart from "@/components/pages/surf-spot/chart/Chart";
 import PageHeader from "@/components/utility/PageHeader";
 import Banner from "@/components/utility/Banner";
-import SurfReport from "@/components/report/SurfReport";
-import Footer from "@/components/utility/Footer";
+import SurfReport from "@/components/pages/surf-spot/SurfReport";
 import Head from "next/head";
-import Header from "@/components/utility/Header";
+import LocationInfo from "@/components/pages/surf-spot/LocationInfo";
 import {
   riverDataInterface,
   SurfConditionInfo,
   ConditionNames,
 } from "report.types";
-import LocationInfo from "components/report/LocationInfo";
 
-const Report = ({ riverData }: { riverData: riverDataInterface }) => {
+const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
   const flowRatings: SurfConditionInfo = {
     goodConditions: {
       min: riverData.environmentInfo.flowRatings.goodConditions,
@@ -69,7 +67,6 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
         <meta property="og:site_name" content=""></meta>
         <meta property="og:url" content=""></meta> */}
       </Head>
-      <Header />
       <main>
         <PageHeader>Surf Report</PageHeader>
         <RiverReport
@@ -87,7 +84,6 @@ const Report = ({ riverData }: { riverData: riverDataInterface }) => {
         <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
         <LocationInfo locationData={riverData.locationInfo} />
       </main>
-      <Footer />
     </>
   );
 };
@@ -150,4 +146,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Report;
+export default SurfSpot;

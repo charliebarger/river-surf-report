@@ -1,6 +1,6 @@
 import React from "react";
-import { SectionWrapper } from "../utility/SectionWrapper";
-import PageSubHeader from "../utility/PageSubHeader";
+import { SectionWrapper } from "../../utility/SectionWrapper";
+import PageSubHeader from "../../utility/PageSubHeader";
 
 interface locationInfoParams {
   locationData: {

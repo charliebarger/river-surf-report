@@ -1,6 +1,6 @@
-import { SectionWrapper } from "../utility/SectionWrapper";
-import ProfilePic from "../profile/ProfilePic";
-import ProfileInfo from "../profile/ProfileInfo";
+import { SectionWrapper } from "../../utility/SectionWrapper";
+import ProfilePic from "../../profile/ProfilePic";
+import ProfileInfo from "../../profile/ProfileInfo";
 
 interface surfReportParams {
   reporter: {
