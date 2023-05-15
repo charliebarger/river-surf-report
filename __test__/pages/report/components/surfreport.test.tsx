@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import SurfReport from "@/components/report/SurfReport";
+import SurfReport from "@/components/pages/surf-spot/SurfReport";
 
 describe("Surf Report", () => {
   render(
