@@ -1,7 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import QuickInfoCard from "@/components/utility/QuickInfoCard";
+import QuickInfoCard, {
+  LoadingQuickInfoCard,
+} from "@/components/utility/QuickInfoCard";
 import Head from "next/head";
 import axios from "axios";
 import { useQueryClient, useQuery } from "react-query";
@@ -58,7 +60,15 @@ const TopFlows = () => {
     return response.data as TopFlows[];
   }
   if (isLoading) {
-    return <div>Loading...</div>;
+    {
+      <div>
+        {Array(5)
+          .fill(" ")
+          .map((item) => (
+            <LoadingQuickInfoCard key={item} />
+          ))}
+      </div>;
+    }
   }
   if (isError) {
     return <div>Error</div>;
