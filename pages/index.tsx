@@ -6,7 +6,11 @@ import QuickInfoCard, {
 } from "@/components/utility/QuickInfoCard";
 import Head from "next/head";
 import axios from "axios";
-import { useQueryClient, useQuery } from "react-query";
+import { useQuery } from "react-query";
+
+//index uses ssg and csr for fetching top flows and favorites
+
+//favorites still needs to be implemented
 
 export interface TopFlows {
   waveName: string;
@@ -15,54 +19,25 @@ export interface TopFlows {
   urlPraram: string;
 }
 
-const topFlows: TopFlows[] = [
-  {
-    waveName: "Munich City Wave",
-    cfs: 100,
-    countryFlag: "🇩🇪",
-    urlPraram: "munich-city-wave",
-  },
-  {
-    waveName: "Bend Whitewater Park",
-    cfs: 150,
-    countryFlag: "🇺🇸",
-    urlPraram: "bend-whitewater-park",
-  },
-  {
-    waveName: "Habitat 67 Wave",
-    cfs: 200,
-    countryFlag: "🇨🇦",
-    urlPraram: "habitat-67-wave",
-  },
-  {
-    waveName: "River Arno Wave",
-    cfs: 120,
-    countryFlag: "🇮🇹",
-    urlPraram: "river-arno-wave",
-  },
-  {
-    waveName: "Sevilla Wave",
-    cfs: 180,
-    countryFlag: "🇪🇸",
-    urlPraram: "sevilla-wave",
-  },
-];
+// Put Values in tuple to confirm that the laoding and working states are in sync
+type TupleTopFlows = [TopFlows, TopFlows, TopFlows, TopFlows, TopFlows];
+type TupleLength = TupleTopFlows["length"];
+const tupleLength: TupleLength = 5;
 
 const TopFlows = () => {
-  const queryClient = useQueryClient();
-  const { data, isLoading, isError, isFetched } = useQuery<TopFlows[], Error>(
-    "top-flows",
-    () => fetchTopFlows()
-  );
+  const { data, isLoading, isError, isFetched } = useQuery<
+    TupleTopFlows,
+    Error
+  >("top-flows", () => fetchTopFlows());
 
-  async function fetchTopFlows(): Promise<TopFlows[]> {
+  async function fetchTopFlows(): Promise<TupleTopFlows> {
     const response = await axios.get("/api/top-flows");
-    return response.data as TopFlows[];
+    return response.data as TupleTopFlows;
   }
   if (isLoading) {
     {
       <div>
-        {Array(5)
+        {Array<string>(tupleLength)
           .fill(" ")
           .map((item) => (
             <LoadingQuickInfoCard key={item} />
@@ -89,17 +64,6 @@ const TopFlows = () => {
 };
 
 const Index = () => {
-  async function fetchTopFlows(): Promise<TopFlows[]> {
-    console.log("hi");
-    const response = await axios.get("/api/top-flows");
-    return response.data as TopFlows[];
-  }
-
-  const topFlowsQuery = useQuery<TopFlows[] | Error>({
-    queryKey: ["todos"],
-    queryFn: fetchTopFlows,
-  });
-
   return (
     <main className="m-auto max-w-screen-xl">
       <Head>
@@ -190,7 +154,7 @@ const Index = () => {
             </div>
           </div>
           <figcaption className="mt-2 font-medium">
-            Photo by Jake Voss
+            Photo by Jake Voss``
           </figcaption>
         </figure>
         <div className="flex-1">
