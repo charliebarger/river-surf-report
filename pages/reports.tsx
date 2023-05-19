@@ -3,6 +3,7 @@ import PageHeader from "@/components/utility/PageHeader";
 import { SectionWrapper } from "@/components/utility/SectionWrapper";
 import Link from "next/link";
 import QuickInfoCard from "@/components/utility/QuickInfoCard";
+import { TopFlows } from "@/helpers/types";
 
 interface Sites {
   continent: string;
@@ -14,13 +15,6 @@ interface Sites {
       name: string;
     }[];
   }[];
-}
-
-interface TopFlows {
-  waveName: string;
-  cfs: number;
-  countryFlag: string;
-  urlPraram: string;
 }
 
 export default function Reports({

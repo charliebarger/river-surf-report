@@ -1,69 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import QuickInfoCard, {
-  LoadingQuickInfoCard,
-} from "@/components/utility/QuickInfoCard";
+import QuickInfoCard from "@/components/utility/QuickInfoCard";
 import Head from "next/head";
-import axios from "axios";
-import { useQuery } from "react-query";
+
+import { TopFlows } from "@/helpers/types";
 
 //index uses ssg and csr for fetching top flows and favorites
 
 //favorites still needs to be implemented
 
-export interface TopFlows {
-  waveName: string;
-  cfs: number;
-  countryFlag: string;
-  urlPraram: string;
-}
-
-// Put Values in tuple to confirm that the laoding and working states are in sync
-type TupleTopFlows = [TopFlows, TopFlows, TopFlows, TopFlows, TopFlows];
-type TupleLength = TupleTopFlows["length"];
-const tupleLength: TupleLength = 5;
-
-const TopFlows = () => {
-  const { data, isLoading, isError, isFetched } = useQuery<
-    TupleTopFlows,
-    Error
-  >("top-flows", () => fetchTopFlows());
-
-  async function fetchTopFlows(): Promise<TupleTopFlows> {
-    const response = await axios.get("/api/top-flows");
-    return response.data as TupleTopFlows;
-  }
-  if (isLoading) {
-    {
-      <div>
-        {Array<string>(tupleLength)
-          .fill(" ")
-          .map((item) => (
-            <LoadingQuickInfoCard key={item} />
-          ))}
-      </div>;
-    }
-  }
-  if (isError) {
-    return <div>Error</div>;
-  }
-  return (
-    <div>
-      {data?.map(({ waveName, cfs, countryFlag, urlPraram }) => (
-        <QuickInfoCard
-          key={urlPraram}
-          wave={waveName}
-          cfs={cfs}
-          flag={countryFlag}
-          urlParam={urlPraram}
-        />
-      ))}
-    </div>
-  );
-};
-
-const Index = () => {
+const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
   return (
     <main className="m-auto max-w-screen-xl">
       <Head>
@@ -102,7 +49,15 @@ const Index = () => {
             </Link>
           </div>
           <h3 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Top Flows</h3>
-          <TopFlows />
+          {topFlows.map(({ waveName, cfs, countryFlag, urlPraram }) => (
+            <QuickInfoCard
+              key={urlPraram}
+              wave={waveName}
+              cfs={cfs}
+              flag={countryFlag}
+              urlParam={urlPraram}
+            />
+          ))}
         </div>
       </section>
       <section className="m-auto my-10 flex flex-col gap-6 px-5 lg:flex-row">
@@ -185,3 +140,44 @@ const Index = () => {
 };
 
 export default Index;
+
+export async function getServerSideProps() {
+  const topFlows: TopFlows[] = [
+    {
+      waveName: "Munich City Wave",
+      cfs: 100,
+      countryFlag: "🇩🇪",
+      urlPraram: "munich-city-wave",
+    },
+    {
+      waveName: "Bend Whitewater Park",
+      cfs: 150,
+      countryFlag: "🇺🇸",
+      urlPraram: "bend-whitewater-park",
+    },
+    {
+      waveName: "Habitat 67 Wave",
+      cfs: 200,
+      countryFlag: "🇨🇦",
+      urlPraram: "habitat-67-wave",
+    },
+    {
+      waveName: "River Arno Wave",
+      cfs: 120,
+      countryFlag: "🇮🇹",
+      urlPraram: "river-arno-wave",
+    },
+    {
+      waveName: "Sevilla Wave",
+      cfs: 180,
+      countryFlag: "🇪🇸",
+      urlPraram: "sevilla-wave",
+    },
+  ];
+
+  return {
+    props: {
+      topFlows,
+    },
+  };
+}
