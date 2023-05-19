@@ -31,7 +31,7 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
     },
     badConditions: {
       min: riverData.environmentInfo.flowRatings.badConditions,
-      caption: "Not Surfable",
+      caption: "Poor",
       color: {
         background: "chartBad",
         border: "chartBadBorder",
@@ -48,7 +48,7 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
     } else if (instantFlow < goodConditions && instantFlow > fairConditions) {
       return { name: "Fair" };
     } else {
-      return { name: "Not Surfable" };
+      return { name: "Poor" };
     }
   };
 

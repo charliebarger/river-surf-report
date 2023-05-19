@@ -12,7 +12,7 @@ import { TopFlows } from "@/helpers/types";
 
 const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
   return (
-    <main className="m-auto max-w-screen-xl">
+    <main className="m-auto max-w-screen-xl px-5 ">
       <Head>
         <title>Surf Otter : River Surf Reports</title>
         <meta
@@ -24,7 +24,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
         <h1 className="text-5xl text-primaryColor">Surf Otter</h1>
         <h2 className="text-xl text-primaryColor">River Surf Reports</h2>
       </div>
-      <section className="m-auto my-10 flex flex-col gap-6 px-5 lg:flex-row ">
+      <section className="m-auto my-10 flex flex-col gap-6 lg:flex-row ">
         <div className=" flex-1 ">
           <div className=" relative aspect-video">
             <Image
@@ -109,7 +109,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             </div>
           </div>
           <figcaption className="mt-2 font-medium">
-            Photo by Jake Voss``
+            Photo by Jake Voss
           </figcaption>
         </figure>
         <div className="flex-1">

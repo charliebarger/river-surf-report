@@ -85,4 +85,4 @@ type BackgroundFair = "chartFair";
 export type Backgrounds = BackgroundBad | BackgroundGood | BackgroundFair;
 export type Borders = BorderBad | BorderFair | BorderGood;
 
-export type SurfConditionStatus = "Good" | "Fair" | "Not Surfable";
+export type SurfConditionStatus = "Good" | "Fair" | "Poor";

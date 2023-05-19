@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import RiverReport from "@/components/report/RiverReport";
+import RiverReport from "@/components/pages/surf-spot/RiverReport";
 import { SurfConditionStatus } from "report.types";
 import { WeatherStatus } from "report.types";
-import { riverReportProps } from "@/components/report/RiverReport";
+import { riverReportProps } from "@/components/pages/surf-spot/RiverReport";
 
 const getReportProps = (
   conditions: SurfConditionStatus,
@@ -31,9 +31,9 @@ it("Surf Spot comes before river name in header", () => {
 });
 
 describe("Check that surf status is rendered correctly", () => {
-  it("Surf Status has correct background color for Not Surfable status", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "hail")} />);
-    const titleValue = screen.getByText("Not Surfable");
+  it("Surf Status has correct background color for Poor status", () => {
+    render(<RiverReport {...getReportProps("Poor", "hail")} />);
+    const titleValue = screen.getByText("Poor");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveClass("bg-chartBadBorder");
   });
@@ -55,35 +55,35 @@ describe("Check that surf status is rendered correctly", () => {
 
 describe("Check correct icon is rendered based on weatherStatus prop", () => {
   it("Weather Icon displays a hail", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "hail")} />);
+    render(<RiverReport {...getReportProps("Poor", "hail")} />);
     const titleValue = screen.getByAltText("hail");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveAttribute("src", "/weather-icons/hail.svg");
   });
 
   it("Weather Icon displays the rain icon", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "rain")} />);
+    render(<RiverReport {...getReportProps("Poor", "rain")} />);
     const titleValue = screen.getByAltText("rain");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveAttribute("src", "/weather-icons/rainy-3.svg");
   });
 
   it("Weather Icon displays the snow icon", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "snow")} />);
+    render(<RiverReport {...getReportProps("Poor", "snow")} />);
     const titleValue = screen.getByAltText("snow");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveAttribute("src", "/weather-icons/snowy-3.svg");
   });
 
   it("Weather Icon displays the sun icon", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "sunny")} />);
+    render(<RiverReport {...getReportProps("Poor", "sunny")} />);
     const titleValue = screen.getByAltText("sunny");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveAttribute("src", "/weather-icons/clear-day.svg");
   });
 
   it("Weather Icon displays the wind icon", () => {
-    render(<RiverReport {...getReportProps("Not Surfable", "windy")} />);
+    render(<RiverReport {...getReportProps("Poor", "windy")} />);
     const titleValue = screen.getByAltText("windy");
     expect(titleValue).toBeInTheDocument();
     expect(titleValue).toHaveAttribute("src", "/weather-icons/wind.svg");

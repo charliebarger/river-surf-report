@@ -1,4 +1,4 @@
-import { TopFlows } from "../pages";
+import { TopFlows } from "@/helpers/types";
 
 export const riverData = {
   name: "msw test mock",

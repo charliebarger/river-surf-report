@@ -1,6 +1,7 @@
 import { SectionWrapper } from "../../utility/SectionWrapper";
 import Image from "next/image";
 import { WeatherStatus } from "../../../report.types";
+import { getImgURL } from "@/helpers/functions";
 import { ConditionNames } from "../../../report.types";
 
 interface boxData {
@@ -31,28 +32,11 @@ const RiverReport = ({
   conditionStatus,
 }: riverReportProps) => {
   const { instantFlow, wind, temperature, weatherStatus } = weatherValues;
-
-  const imgURL = () => {
-    switch (weatherStatus) {
-      case "rain":
-        return "/weather-icons/rainy-3.svg";
-      case "hail":
-        return "/weather-icons/hail.svg";
-      case "snow":
-        return "/weather-icons/snowy-3.svg";
-      case "sunny":
-        return "/weather-icons/clear-day.svg";
-      case "windy":
-        return "/weather-icons/wind.svg";
-      default:
-        return "/weather-icons/clear-day.svg";
-    }
-  };
-
+  const imgUrk = getImgURL(weatherStatus);
   return (
     <SectionWrapper>
-      <div className=" max-w-screen-md m-auto lg:max-w-none xl:max-w-7xl">
-        <div className="flex flex-wrap-reverse  md:grid md:grid-cols-2 gap-7">
+      <div className=" m-auto max-w-screen-md lg:max-w-none xl:max-w-7xl">
+        <div className="flex flex-wrap-reverse  gap-7 md:grid md:grid-cols-2">
           <div className="m-auto">
             <Image
               src={imgUrl}
@@ -63,20 +47,20 @@ const RiverReport = ({
             />
           </div>
           <div className="flex-1">
-            <h3 className=" text-center mt-0 mb-6 lg:text-left font-semibold text-xl ">
+            <h3 className=" mt-0 mb-6 text-center text-xl font-semibold lg:text-left ">
               {`${surfSpotName} - ${riverName}`}
             </h3>
-            <div className=" justify-center lg:justify-start flex gap-4">
-              <div className=" flex  pl-10 relative">
-                <div className=" absolute w-16 h-1.5 bg-slate-400 rotate-90 -left-5 translate-x-1.5 rounded self-center"></div>
+            <div className=" flex justify-center gap-4 lg:justify-start">
+              <div className=" relative  flex pl-10">
+                <div className=" absolute -left-5 h-1.5 w-16 translate-x-1.5 rotate-90 self-center rounded bg-slate-400"></div>
                 <div className="flex flex-col gap-1 ">
-                  <span className=" font-bold text-l">
+                  <span className=" text-l font-bold">
                     <span className="text-4xl">{instantFlow}</span> cfs
                   </span>
                   <span
-                    className={`font-bold text-l  text-white text-center self-start py-1 px-3 rounded
+                    className={`text-l self-start  rounded py-1 px-3 text-center font-bold text-white
                    ${
-                     (conditionStatus.name === "Not Surfable" &&
+                     (conditionStatus.name === "Poor" &&
                        " bg-chartBadBorder") ||
                      (conditionStatus.name === "Good" &&
                        " bg-chartGoodBorder ") ||
@@ -87,7 +71,7 @@ const RiverReport = ({
                   </span>
                 </div>
               </div>
-              <div className=" flex flex-col align-top font-bold pl-4">
+              <div className=" flex flex-col pl-4 align-top font-bold">
                 <div className="flex items-center">
                   <span className="text-xl">Weather</span>
                   <Image
@@ -100,15 +84,15 @@ const RiverReport = ({
                 <div className="flex flex-col ">
                   <div className="flex items-center text-slate-600">
                     <span className=" text-md">Temp : </span>{" "}
-                    <span className=" text-md text-black ml-1">
+                    <span className=" text-md ml-1 text-black">
                       {temperature}{" "}
                     </span>{" "}
-                    <span className="text-sm ml-1 text-black">°F</span>
+                    <span className="ml-1 text-sm text-black">°F</span>
                   </div>
                   <div className="flex items-center text-slate-600">
                     <span className=" text-md">Wind : </span>{" "}
-                    <span className=" text-md text-black ml-1">{wind} </span>{" "}
-                    <span className="text-sm ml-1 text-black">mph</span>
+                    <span className=" text-md ml-1 text-black">{wind} </span>{" "}
+                    <span className="ml-1 text-sm text-black">mph</span>
                   </div>
                 </div>
               </div>

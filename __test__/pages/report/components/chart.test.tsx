@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { riverData as riverDatabaseData } from "@/mocks/handler/api/riverData";
 import { mswServer } from "@/mocks/mswServer";
-import Chart, {FlowRatings} from "@/components/pages/surf-spot/chart/Chart";
+import Chart, { FlowRatings } from "@/components/pages/surf-spot/chart/Chart";
 
 const flowRatings: FlowRatings = {
   goodConditions: {
@@ -23,7 +23,7 @@ const flowRatings: FlowRatings = {
   },
   badConditions: {
     min: 0,
-    caption: "Not Surfable",
+    caption: "Poor",
     color: {
       background: "chartBad",
       border: "chartBadBorder",
@@ -51,7 +51,7 @@ describe("Test sucessessful get request", () => {
     render(<Chart usgsID={usgsID} flowRatings={flowRatings} />);
     const goodText = await waitFor(() => screen.getByText("Good"));
     const fairText = screen.getByText("Fair");
-    const badText = screen.getByText("Not Surfable");
+    const badText = screen.getByText("Poor");
     [goodText, fairText, badText].forEach((item) =>
       expect(item).toBeInTheDocument()
     );

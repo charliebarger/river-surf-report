@@ -2,34 +2,83 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Chart from "../surf-spot/chart/Chart";
+import { RiverAxis } from "@/helpers/API_Calls/riverData";
+import { getImgURL } from "@/helpers/functions";
 
-const DetailedReportCard = () => {
+interface DetailedReportCardProps {
+  locationData: {
+    wave: {
+      name: string;
+      url: string;
+    };
+    state: string;
+    country: string;
+  };
+  riverData: {
+    weather: {
+      temp: number;
+      wind: number;
+    };
+    flow: {
+      current: number;
+      threshold: {
+        fair: number;
+        good: number;
+      };
+      chartData: RiverAxis[];
+    };
+  };
+}
+
+function getFlowRating(
+  currentFlow: number,
+  goodFlow: number,
+  fairFlow: number
+) {
+  if (currentFlow > goodFlow) {
+    return "Good";
+  } else if (currentFlow > fairFlow) {
+    return "Fair";
+  } else {
+    return "Poor";
+  }
+}
+
+const DetailedReportCard = (props: DetailedReportCardProps) => {
+  const { locationData, riverData } = props;
   return (
-    <div className=" bg-white py-3 px-5 font-semibold text-[#1481BA] border-2 border-[#e5e7eb] rounded  max-w-[980px] m-auto mb-6 ">
+    <div className=" m-auto mb-6 max-w-[980px] rounded border-2 border-[#e5e7eb] bg-white py-3  px-5 font-semibold text-[#1481BA] ">
       <div className="flex flex-wrap gap-6 ">
         <div className="flex-1">
-          <div className="pb-2 border-b-2 border-b-[#e5e7eb]">
-            <Link href={"/location/river-run-park"}>River Run Park</Link>
+          <div className="border-b-2 border-b-[#e5e7eb] pb-2">
+            <Link href={locationData.wave.url}>{locationData.wave.name}</Link>
             <div className="text-xs">
-              <Link href={""}>Colorado </Link>
+              <div>{locationData.state} </div>
               <span className=" text-gray-600 ">• </span>
-              <Link href={""}>United States</Link>
+              <div>{locationData.country}</div>
             </div>
           </div>
-          <div className="flex  gap-3 mt-4 text-black ">
-            <div className=" flex relative">
+          <div className="mt-4  flex gap-3 text-black ">
+            <div className=" relative flex">
               <div className="flex flex-col gap-1 ">
-                <span className=" font-bold text-base  md:text-l whitespace-nowrap ">
-                  <span className=" text-2xl  md:text-4xl">321</span> cfs
+                <span className=" md:text-l whitespace-nowrap  text-base font-bold ">
+                  <span className=" text-2xl  md:text-4xl">
+                    {riverData.flow.current}
+                  </span>{" "}
+                  cfs
                 </span>
                 <span
-                  className={`font-bold text-sm md:text-lg  text-white text-center self-start py-1 px-3 rounded bg-chartGoodBorder`}
+                  className={`self-start rounded bg-chartGoodBorder  py-1 px-3 text-center text-sm font-bold text-white md:text-lg`}
                 >
-                  Good
+                  {getFlowRating(
+                    riverData.flow.current,
+                    riverData.flow.threshold.good,
+                    riverData.flow.threshold.fair
+                  )}
                 </span>
               </div>
             </div>
-            <div className=" flex flex-col align-top font-bold pl-4">
+            <div className=" flex flex-col pl-4 align-top font-bold">
               <div className="flex items-center">
                 <span className=" text-lg md:text-xl ">Weather</span>
                 <Image
@@ -40,17 +89,17 @@ const DetailedReportCard = () => {
                 />
               </div>
               <div className="flex flex-col ">
-                <div className="flex items-center text-slate-600 whitespace-nowrap ">
-                  <span className=" text-sm md:text-md">Temp : </span>{" "}
-                  <span className="text-sm md:text-md text-black ml-1">96</span>{" "}
-                  <span className="text-xm md:text-sm ml-1 text-black">°F</span>
+                <div className="flex items-center whitespace-nowrap text-slate-600 ">
+                  <span className=" md:text-md text-sm">Temp : </span>{" "}
+                  <span className="md:text-md ml-1 text-sm text-black">96</span>{" "}
+                  <span className="text-xm ml-1 text-black md:text-sm">°F</span>
                 </div>
-                <div className="flex items-center text-slate-600 whitespace-nowrap ">
-                  <span className=" text-sm md:text-md">Wind : </span>{" "}
-                  <span className=" text-sm md:text-md text-black ml-1">
+                <div className="flex items-center whitespace-nowrap text-slate-600 ">
+                  <span className=" md:text-md text-sm">Wind : </span>{" "}
+                  <span className=" md:text-md ml-1 text-sm text-black">
                     {100}{" "}
                   </span>{" "}
-                  <span className="text-xs md:text-sm ml-1 text-black">
+                  <span className="ml-1 text-xs text-black md:text-sm">
                     mph
                   </span>
                 </div>
@@ -58,7 +107,7 @@ const DetailedReportCard = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 min-w-[50%] aspect-[1.9/1] flex justify-center items-center ">
+        <div className="flex aspect-[1.9/1] min-w-[50%] flex-1 items-center justify-center ">
           <Chart
             usgsID="06710247"
             smallScreen={true}
@@ -81,7 +130,7 @@ const DetailedReportCard = () => {
               },
               badConditions: {
                 min: 100,
-                caption: "Not Surfable",
+                caption: "Poor",
                 color: {
                   background: "chartBad",
                   border: "chartBadBorder",

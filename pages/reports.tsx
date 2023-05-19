@@ -31,71 +31,67 @@ export default function Reports({
         <meta name="description" content="The heart of River Surfing!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="m-auto max-w-screen-xl px-5">
         <PageHeader>Reports</PageHeader>
-        <SectionWrapper>
-          <div className=" grid-flow-col grid-cols-16 gap-x-8 lg:grid ">
-            {sites.map((region) => (
-              <div key={region.continent} className=" col-start-1 ">
-                <h2 className=" mt-4 mb-2  border-b-2 border-slate-200 pb-1 text-lg font-bold ">
-                  {region.continent}
-                </h2>
-                {region.countries.map((country) => (
-                  <div key={country.abbreviation} className="">
-                    <h3 className=" mb-2 mt-4 text-base font-bold text-slate-400 ">
-                      {country.name}
-                    </h3>
-                    <ul className="grid grid-cols-2 gap-2 md:grid-cols-3">
-                      {country.states.map((state) => (
-                        <li
-                          key={state.name}
-                          className="overflow-hidden overflow-ellipsis whitespace-nowrap text-linkColor hover:underline"
+        <div className=" grid-flow-col grid-cols-16 gap-x-8 lg:grid ">
+          {sites.map((region) => (
+            <section key={region.continent} className=" col-start-1 ">
+              <h2 className=" mt-4 mb-2  border-b-2 border-slate-200 pb-1 text-lg font-bold ">
+                {region.continent}
+              </h2>
+              {region.countries.map((country) => (
+                <div key={country.abbreviation} className="">
+                  <h3 className=" mb-2 mt-4 text-base font-bold text-slate-400 ">
+                    {country.name}
+                  </h3>
+                  <ul className="grid grid-cols-2 gap-2 md:grid-cols-3">
+                    {country.states.map((state) => (
+                      <li
+                        key={state.name}
+                        className="overflow-hidden overflow-ellipsis whitespace-nowrap text-linkColor hover:underline"
+                      >
+                        <Link
+                          href={`/reports/${country.abbreviation}/${state.name}`}
                         >
-                          <Link
-                            href={`/reports/${country.abbreviation}/${state.name}`}
-                          >
-                            {country.flag + " " + state.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ))}
-            <aside className=" col-start-2">
-              <div>
-                <h2 className=" mt-4 mb-2 pb-1 text-xl font-bold ">
-                  Favorites
-                </h2>
-                <Link
-                  href={"/sign-up"}
-                  className=" my-2 flex  items-center rounded border-2 border-[#0CAADC] bg-white px-4
+                          {country.flag + " " + state.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          ))}
+          <aside className=" col-start-2">
+            <div>
+              <h2 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Favorites</h2>
+              <Link
+                href={"/sign-up"}
+                className=" my-2 flex  items-center rounded border-2 border-[#0CAADC] bg-white px-4
         py-2 text-base font-medium text-[#0CAADC]
         hover:border-white hover:bg-[#0CAADC] hover:text-white
         "
-                >
-                  <span className=" ml-2 font-bold ">
-                    Log In To Add Favorites
-                  </span>
-                  <span className="ml-auto text-xl font-extrabold">+</span>
-                </Link>
-              </div>
-              <h2 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Top Flows</h2>
-              <div>
-                {topFlows.map(({ waveName, cfs, countryFlag, urlPraram }) => (
-                  <QuickInfoCard
-                    key={urlPraram}
-                    wave={waveName}
-                    cfs={cfs}
-                    flag={countryFlag}
-                    urlParam={urlPraram}
-                  />
-                ))}
-              </div>
-            </aside>
-          </div>
-        </SectionWrapper>
+              >
+                <span className=" ml-2 font-bold ">
+                  Log In To Add Favorites
+                </span>
+                <span className="ml-auto text-xl font-extrabold">+</span>
+              </Link>
+            </div>
+            <h2 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Top Flows</h2>
+            <div>
+              {topFlows.map(({ waveName, cfs, countryFlag, urlPraram }) => (
+                <QuickInfoCard
+                  key={urlPraram}
+                  wave={waveName}
+                  cfs={cfs}
+                  flag={countryFlag}
+                  urlParam={urlPraram}
+                />
+              ))}
+            </div>
+          </aside>
+        </div>
       </main>
     </>
   );

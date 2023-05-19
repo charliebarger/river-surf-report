@@ -6,7 +6,7 @@ const getAllFlowsURL = (site: string): string => {
   return `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${site}&startDT=${dateWeekAgo}&endDT=${dateNow}&parameterCd=00060,00065&siteStatus=all`;
 };
 
-interface RiverAxis {
+export interface RiverAxis {
   dateTime: string;
   value: number;
 }
@@ -37,4 +37,3 @@ const riverAPIcall = async (
 };
 
 export { getAllFlowsURL, riverAPIcall };
-export type { RiverAxis };

@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Header from "@/components/utility/Header";
 import DetailedReportCard from "@/components/pages/states/DetailedReportCard";
+import { RiverAxis } from "@/helpers/API_Calls/riverData";
 
 const StateDetailPage = () => {
   return (
@@ -13,7 +14,7 @@ const StateDetailPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="m-auto max-w-5xl">
-        <section className=" my-8  px-5">
+        <section className=" my-8 px-5">
           <div>
             <h1 className="relative my-8 mb-0 text-3xl font-semibold">
               Colorado
@@ -23,7 +24,7 @@ const StateDetailPage = () => {
             </h2>
           </div>
         </section>
-        <section className=" m-auto  my-8 px-5">
+        <section className=" m-auto my-8 px-5">
           <div>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
               <DetailedReportCard key={index} />
@@ -34,5 +35,11 @@ const StateDetailPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
 
 export default StateDetailPage;
