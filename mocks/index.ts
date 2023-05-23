@@ -1,11 +1,13 @@
-const IS_BROWSER = typeof window !== undefined;
-
-export const setupMocks = async () => {
-  if (IS_BROWSER) {
-    const { mswWorker } = await import("./mswWorker");
-    mswWorker.start();
+async function initMocks() {
+  if (typeof window === "undefined") {
+    const { server } = await import("./mswServer");
+    server.listen();
   } else {
-    const { mswServer } = await import("./mswServer");
-    mswServer.listen();
+    const { worker } = await import("./mswWorker");
+    worker.start();
   }
-};
+}
+
+initMocks();
+
+export {};
