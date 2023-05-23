@@ -1,12 +1,11 @@
-import { Line } from 'react-chartjs-2';
-import { SectionWrapper } from '@/components/utility/SectionWrapper';
-import Annotation from 'chartjs-plugin-annotation';
-import { ColorRing } from 'react-loader-spinner';
-import useChart from './useChart';
-import { useRef } from 'react';
-import { Borders, Backgrounds } from 'report.types';
-import { colors } from '@/helpers/colors';
-import LegendItem from './LegendItem';
+import { Line } from "react-chartjs-2";
+import { SectionWrapper } from "@/components/utility/SectionWrapper";
+import Annotation from "chartjs-plugin-annotation";
+import { useRef } from "react";
+import { Borders, Backgrounds } from "report.types";
+import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
+import { chartDataAndOptions } from "./chartDataAndOptions";
+import LegendItem from "./LegendItem";
 
 import {
   Chart as ChartJS,
@@ -18,7 +17,7 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -32,8 +31,8 @@ ChartJS.register(
   Annotation
 );
 
-interface chartParams {
-  usgsID: string;
+interface chartProps {
+  chartData: RiverAPIReturn;
   smallScreen?: boolean;
   flowRatings: FlowRatings;
 }
@@ -52,20 +51,24 @@ export interface Conditions {
   };
 }
 export function Chart({
-  usgsID,
+  chartData,
   flowRatings,
   smallScreen = false,
-}: chartParams) {
+}: chartProps) {
   const chartWrapperRef = useRef<HTMLDivElement>(null);
-  const chartData = useChart(usgsID, flowRatings, chartWrapperRef);
 
   const getChartState = () => {
-    if (chartData.res !== false) {
+    if (chartData.data) {
+      const dataAndOptions = chartDataAndOptions(
+        chartData.data,
+        flowRatings,
+        chartWrapperRef
+      );
       return (
         <>
-          <Line options={chartData.res.options} data={chartData.res.data} />
+          <Line options={dataAndOptions.options} data={dataAndOptions.data} />
           {!smallScreen && (
-            <div className='flex flex-wrap gap-4 ml-[50px] mt-2'>
+            <div className="ml-[50px] mt-2 flex flex-wrap gap-4">
               {(Object.keys(flowRatings) as Array<keyof FlowRatings>).map(
                 (item, i) => (
                   <LegendItem
@@ -79,43 +82,22 @@ export function Chart({
           )}
         </>
       );
-    } else if (chartData.error) {
-      return (
-        <div className='d-flex text-red-600 text-lg font-bold text-center'>
-          <p className=' m-auto'>Chart Data Not Available at This Time</p>
-        </div>
-      );
     } else {
-      // loading state
       return (
-        <div className='flex justify-center'>
-          <ColorRing
-            visible={true}
-            height='100'
-            width='100'
-            ariaLabel='blocks-loading'
-            wrapperStyle={{}}
-            wrapperClass='blocks-wrapper'
-            colors={[
-              colors.chartBad,
-              colors.chartBad,
-              colors.chartFair,
-              colors.chartGood,
-              colors.chartGood,
-            ]}
-          />
+        <div className="d-flex text-center text-lg font-bold text-red-600">
+          <p className=" m-auto">Chart Data Not Available at This Time</p>
         </div>
       );
     }
   };
 
   return smallScreen ? (
-    <div ref={chartWrapperRef} className='w-full h-full '>
+    <div ref={chartWrapperRef} className="h-full w-full ">
       {getChartState()}
     </div>
   ) : (
     <SectionWrapper>
-      <div ref={chartWrapperRef} className='max-w-5xl m-auto lg:px-5'>
+      <div ref={chartWrapperRef} className="m-auto max-w-5xl lg:px-5">
         {getChartState()}
       </div>
     </SectionWrapper>

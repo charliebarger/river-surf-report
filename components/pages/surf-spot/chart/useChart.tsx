@@ -1,14 +1,16 @@
-import { MutableRefObject, RefObject, useEffect, useState } from 'react';
-import { riverAPIcall } from '@/helpers/API_Calls/riverData';
-import { chartDataAndOptions } from './chartDataAndOptions';
-import { FlowRatings } from './Chart';
-import { ChartOptions, ChartData } from 'chart.js';
+import { MutableRefObject, RefObject, useEffect, useState } from "react";
+import { riverAPIcall } from "@/helpers/API_Calls/riverData";
+import { chartDataAndOptions } from "./chartDataAndOptions";
+import { FlowRatings } from "./Chart";
+import { ChartOptions, ChartData } from "chart.js";
+
+//the data fetched in useChart has been moved to server side rendering. Making this hook redundant. Will delete after testing.
 
 interface fetchInterface {
   res:
     | {
-        options: ChartOptions<'line'>;
-        data: ChartData<'line'>;
+        options: ChartOptions<"line">;
+        data: ChartData<"line">;
       }
     | false;
   error: boolean | string;
@@ -39,7 +41,7 @@ const useChart = (
         }));
       } else {
         const { data } = riverData;
-        if (typeof data === 'object') {
+        if (typeof data === "object") {
           setChartData((prev) => ({
             ...prev,
             loading: false,
