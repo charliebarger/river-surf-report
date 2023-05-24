@@ -5,16 +5,15 @@ import Banner from "@/components/utility/Banner";
 import SurfReport from "@/components/pages/surf-spot/SurfReport";
 import Head from "next/head";
 import LocationInfo from "@/components/pages/surf-spot/LocationInfo";
-import {
-  riverDataInterface,
-  SurfConditionInfo,
-  ConditionNames,
-} from "report.types";
+import { getConditions } from "@/helpers/functions";
+import { riverAPIcall } from "@/helpers/API_Calls/riverData";
+import { RiverData, SurfConditionInfo, ConditionNames } from "report.types";
 
-const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
-  const flowRatings: SurfConditionInfo = {
+const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
+  const { surfReport, environmentInfo } = riverData;
+  const chartFlowProps: SurfConditionInfo = {
     goodConditions: {
-      min: riverData.environmentInfo.flowRatings.goodConditions,
+      min: environmentInfo.flowRatings.goodConditions,
       caption: "Good",
       color: {
         background: "chartGood",
@@ -22,7 +21,7 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
       },
     },
     fairConditions: {
-      min: riverData.environmentInfo.flowRatings.fairConditions,
+      min: environmentInfo.flowRatings.fairConditions,
       caption: "Fair",
       color: {
         background: "chartFair",
@@ -30,31 +29,13 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
       },
     },
     badConditions: {
-      min: riverData.environmentInfo.flowRatings.badConditions,
+      min: environmentInfo.flowRatings.badConditions,
       caption: "Poor",
       color: {
         background: "chartBad",
         border: "chartBadBorder",
       },
     },
-  };
-
-  const getConditions = (): ConditionNames => {
-    const { instantFlow } = riverData.environmentInfo.weatherValues;
-    const { goodConditions, badConditions, fairConditions } =
-      riverData.environmentInfo.flowRatings;
-    if (instantFlow > goodConditions) {
-      return { name: "Good" };
-    } else if (instantFlow < goodConditions && instantFlow > fairConditions) {
-      return { name: "Fair" };
-    } else {
-      return { name: "Poor" };
-    }
-  };
-
-  const report = {
-    date: riverData.surfReport.reportInfo.date,
-    report: riverData.surfReport.reportInfo.report,
   };
 
   return (
@@ -70,16 +51,23 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
       <main>
         <PageHeader>Surf Report</PageHeader>
         <RiverReport
-          imgUrl={riverData.imgUrl}
+          spotImgUrl={riverData.imgUrl}
           surfSpotName={riverData.surfSpot}
           riverName={riverData.riverName}
-          weatherValues={riverData.environmentInfo.weatherValues}
-          conditionStatus={getConditions()}
+          weatherValues={environmentInfo.weatherValues}
+          conditionStatus={getConditions(
+            environmentInfo.weatherValues.instantFlow,
+            environmentInfo.flowRatings.goodConditions,
+            environmentInfo.flowRatings.fairConditions
+          )}
         />
-        <SurfReport reporter={riverData.surfReport.reporter} report={report} />
+        <SurfReport
+          reporter={surfReport.reporter}
+          report={surfReport.reportInfo}
+        />
         <Chart
-          usgsID={riverData.environmentInfo.usgsID}
-          flowRatings={flowRatings}
+          chartData={environmentInfo.chartData}
+          flowRatings={chartFlowProps}
         />
         <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
         <LocationInfo locationData={riverData.locationInfo} />
@@ -89,7 +77,8 @@ const SurfSpot = ({ riverData }: { riverData: riverDataInterface }) => {
 };
 
 export async function getServerSideProps() {
-  const riverData: riverDataInterface = {
+  const chartData = await riverAPIcall("06710247");
+  const riverData: RiverData = {
     riverName: "South Platte River",
     surfSpot: "River Run Park",
     riverDescription:
@@ -97,7 +86,7 @@ export async function getServerSideProps() {
     imgUrl:
       "https://i0.wp.com/endlesswaves.net/wp-content/uploads/2019/08/FB_IMG_1561316137775.jpg",
     environmentInfo: {
-      usgsID: "06710247",
+      chartData: chartData,
       flowRatings: {
         goodConditions: 250,
         fairConditions: 170,

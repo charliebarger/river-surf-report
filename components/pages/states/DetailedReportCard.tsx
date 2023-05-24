@@ -2,10 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Chart from "../surf-spot/chart/Chart";
-import { RiverAxis } from "@/helpers/API_Calls/riverData";
-import { getImgURL } from "@/helpers/functions";
+import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
 
-interface DetailedReportCardProps {
+export interface DetailedReportCardProps {
   locationData: {
     wave: {
       name: string;
@@ -25,7 +24,7 @@ interface DetailedReportCardProps {
         fair: number;
         good: number;
       };
-      chartData: RiverAxis[];
+      chartData: RiverAPIReturn;
     };
   };
 }
@@ -109,7 +108,7 @@ const DetailedReportCard = (props: DetailedReportCardProps) => {
         </div>
         <div className="flex aspect-[1.9/1] min-w-[50%] flex-1 items-center justify-center ">
           <Chart
-            usgsID="06710247"
+            chartData={riverData.flow.chartData}
             smallScreen={true}
             flowRatings={{
               goodConditions: {

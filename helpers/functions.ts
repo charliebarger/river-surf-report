@@ -1,4 +1,6 @@
-import { WeatherStatus } from "report.types";
+import { WeatherStatus, RiverData, ConditionNames } from "report.types";
+import { SurfConditionInfo, SurfConditionStatus } from "report.types";
+
 export const getImgURL = (weatherStatus: WeatherStatus): string => {
   switch (weatherStatus) {
     case "rain":
@@ -14,4 +16,26 @@ export const getImgURL = (weatherStatus: WeatherStatus): string => {
     default:
       return "/weather-icons/clear-day.svg";
   }
+};
+
+export const getConditions = (
+  currentFlow: number,
+  goodFlow: number,
+  fairFlow: number
+): ConditionNames => {
+  if (currentFlow > goodFlow) {
+    return { name: "Good" };
+  } else if (currentFlow < goodFlow && currentFlow > fairFlow) {
+    return { name: "Fair" };
+  } else {
+    return { name: "Poor" };
+  }
+};
+
+export const getSurfStatusStyles = (conditions: SurfConditionStatus) => {
+  return (
+    (conditions === "Poor" && " bg-chartBadBorder") ||
+    (conditions === "Good" && " bg-chartGoodBorder ") ||
+    (conditions === "Fair" && " bg-chartFairBorder")
+  );
 };

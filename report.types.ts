@@ -1,12 +1,13 @@
+import { RiverAPIReturn } from "./helpers/API_Calls/riverData";
 export type WeatherStatus = "windy" | "rain" | "sunny" | "snow" | "hail";
 
-export interface riverDataInterface {
+export interface RiverData {
   riverName: string;
   surfSpot: string;
   riverDescription: string;
   imgUrl: string;
   environmentInfo: {
-    usgsID: string;
+    chartData: RiverAPIReturn;
     flowRatings: FlowRatings;
     weatherValues: {
       instantFlow: number;

@@ -2,7 +2,7 @@ import { SectionWrapper } from "../../utility/SectionWrapper";
 import ProfilePic from "../../profile/ProfilePic";
 import ProfileInfo from "../../profile/ProfileInfo";
 
-interface surfReportParams {
+interface surfReportProps {
   reporter: {
     img: string;
     name: string;
@@ -14,15 +14,14 @@ interface surfReportParams {
   };
 }
 
-const SurfReport = ({ reporter, report }: surfReportParams) => {
+const SurfReport = ({ reporter, report }: surfReportProps) => {
   return (
     <SectionWrapper>
-      {/* <PageSubHeader>Fishing Report</PageSubHeader> */}
       <div className="flex gap-5">
         <ProfilePic headshot={reporter.img} />
         <ProfileInfo name={reporter.name} title={reporter.description} />
       </div>
-      <div className="text-left my-4 py-2 border-y-2">
+      <div className="my-4 border-y-2 py-2 text-left">
         <p className="pb-2">{report.report}</p>
         <div className="  flex flex-col justify-items-start">
           <div className=" text-sm font-semibold">

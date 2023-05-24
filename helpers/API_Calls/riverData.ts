@@ -11,12 +11,15 @@ export interface RiverAxis {
   value: number;
 }
 
-type dataResults = RiverAxis[] | false;
+export type dataResults = RiverAxis[] | false;
+
+export interface RiverAPIReturn {
+  data: dataResults;
+  error: boolean;
+}
 
 // this will be changed to useFetch of some sort | Needs to be DELETED
-const riverAPIcall = async (
-  site: string
-): Promise<{ data: dataResults; error: boolean }> => {
+const riverAPIcall = async (site: string): Promise<RiverAPIReturn> => {
   try {
     const data = await fetch(getAllFlowsURL(site));
 
