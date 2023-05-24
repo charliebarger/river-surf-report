@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Chart from "../surf-spot/chart/Chart";
+import { getConditions } from "@/helpers/functions";
 import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
 
 export interface DetailedReportCardProps {
@@ -29,29 +30,21 @@ export interface DetailedReportCardProps {
   };
 }
 
-function getFlowRating(
-  currentFlow: number,
-  goodFlow: number,
-  fairFlow: number
-) {
-  if (currentFlow > goodFlow) {
-    return "Good";
-  } else if (currentFlow > fairFlow) {
-    return "Fair";
-  } else {
-    return "Poor";
-  }
-}
-
 const DetailedReportCard = (props: DetailedReportCardProps) => {
   const { locationData, riverData } = props;
+
+  const conditionInfo = getConditions(
+    riverData.flow.current,
+    riverData.flow.threshold.good,
+    riverData.flow.threshold.fair
+  );
   return (
     <div className=" m-auto mb-6 max-w-[980px] rounded border-2 border-[#e5e7eb] bg-white py-3  px-5 font-semibold text-[#1481BA] ">
       <div className="flex flex-wrap gap-6 ">
         <div className="flex-1">
           <div className="border-b-2 border-b-[#e5e7eb] pb-2">
             <Link href={locationData.wave.url}>{locationData.wave.name}</Link>
-            <div className="text-xs">
+            <div className="flex gap-1 text-xs text-black ">
               <div>{locationData.state} </div>
               <span className=" text-gray-600 ">• </span>
               <div>{locationData.country}</div>
@@ -67,13 +60,9 @@ const DetailedReportCard = (props: DetailedReportCardProps) => {
                   cfs
                 </span>
                 <span
-                  className={`self-start rounded bg-chartGoodBorder  py-1 px-3 text-center text-sm font-bold text-white md:text-lg`}
+                  className={`self-start rounded ${conditionInfo.colors.dark}  py-1 px-3 text-center text-sm font-bold text-white md:text-lg`}
                 >
-                  {getFlowRating(
-                    riverData.flow.current,
-                    riverData.flow.threshold.good,
-                    riverData.flow.threshold.fair
-                  )}
+                  {conditionInfo.condition}
                 </span>
               </div>
             </div>

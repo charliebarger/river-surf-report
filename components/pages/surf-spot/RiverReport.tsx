@@ -1,7 +1,11 @@
 import { SectionWrapper } from "../../utility/SectionWrapper";
 import Image from "next/image";
 import { WeatherStatus } from "../../../report.types";
-import { getImgURL, getSurfStatusStyles } from "@/helpers/functions";
+import {
+  getConditions,
+  getImgURL,
+  getSurfStatusStyles,
+} from "@/helpers/functions";
 import { ConditionNames, SurfConditionStatus } from "../../../report.types";
 
 export interface riverReportProps {
@@ -16,7 +20,11 @@ export interface riverReportProps {
     highTemp: number;
     weatherStatus: WeatherStatus;
   };
-  conditionStatus: ConditionNames;
+  conditions: {
+    flow: number;
+    goodConditions: number;
+    fairConditions: number;
+  };
 }
 
 const RiverReport = ({
@@ -24,10 +32,17 @@ const RiverReport = ({
   surfSpotName,
   riverName,
   weatherValues,
-  conditionStatus,
+  conditions,
 }: riverReportProps) => {
   const { instantFlow, wind, temperature, weatherStatus } = weatherValues;
   const imgUrl = getImgURL(weatherStatus);
+
+  const conditionInfo = getConditions(
+    instantFlow,
+    conditions.goodConditions,
+    conditions.fairConditions
+  );
+
   return (
     <SectionWrapper>
       <div className=" m-auto max-w-screen-md lg:max-w-none xl:max-w-7xl">
@@ -54,9 +69,9 @@ const RiverReport = ({
                   </span>
                   <span
                     className={`text-l self-start  rounded py-1 px-3 text-center font-bold text-white
-                   ${getSurfStatusStyles(conditionStatus.name)}`}
+                   ${conditionInfo.colors.dark}`}
                   >
-                    {conditionStatus.name}
+                    {conditionInfo.condition}
                   </span>
                 </div>
               </div>

@@ -1,5 +1,6 @@
-import { WeatherStatus, RiverData, ConditionNames } from "report.types";
-import { SurfConditionInfo, SurfConditionStatus } from "report.types";
+import { WeatherStatus, ConditionNames } from "report.types";
+import { SurfConditionStatus } from "report.types";
+import { conditionBackgroundColors, conditionBorderColors } from "report.types";
 
 export const getImgURL = (weatherStatus: WeatherStatus): string => {
   switch (weatherStatus) {
@@ -18,23 +19,49 @@ export const getImgURL = (weatherStatus: WeatherStatus): string => {
   }
 };
 
+interface ConditionRenderInfo {
+  condition: SurfConditionStatus;
+  colors: {
+    light: conditionBackgroundColors;
+    dark: conditionBorderColors;
+  };
+}
+
 export const getConditions = (
   currentFlow: number,
   goodFlow: number,
   fairFlow: number
-): ConditionNames => {
+): ConditionRenderInfo => {
   if (currentFlow > goodFlow) {
-    return { name: "Good" };
+    return {
+      condition: "Good",
+      colors: {
+        light: "bg-chartGood",
+        dark: "bg-chartGoodBorder",
+      },
+    };
   } else if (currentFlow < goodFlow && currentFlow > fairFlow) {
-    return { name: "Fair" };
+    return {
+      condition: "Fair",
+      colors: {
+        light: "bg-chartFair",
+        dark: "bg-chartFairBorder",
+      },
+    };
   } else {
-    return { name: "Poor" };
+    return {
+      condition: "Poor",
+      colors: {
+        light: "bg-chartBad",
+        dark: "bg-chartBadBorder",
+      },
+    };
   }
 };
 
 export const getSurfStatusStyles = (conditions: SurfConditionStatus) => {
   return (
-    (conditions === "Poor" && " bg-chartBadBorder") ||
+    (conditions === "Poor" && "bg-chartBadBorder") ||
     (conditions === "Good" && " bg-chartGoodBorder ") ||
     (conditions === "Fair" && " bg-chartFairBorder")
   );

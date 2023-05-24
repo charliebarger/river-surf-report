@@ -1,5 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  safelist: [
+    "bg-chartBad",
+    "bg-chartBadBorder",
+    "bg-chartFair",
+    "bg-chartFairBorder",
+    "bg-chartGood",
+    "bg-chartGoodBorder",
+  ],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",

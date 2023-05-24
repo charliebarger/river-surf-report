@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import QuickInfoCard from "@/components/utility/QuickInfoCard";
 import Head from "next/head";
-
-import { TopFlows } from "@/helpers/types";
+import { TopFlows } from "report.types";
 
 //index uses ssg and csr for fetching top flows and favorites
 
@@ -49,13 +48,13 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             </Link>
           </div>
           <h3 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Top Flows</h3>
-          {topFlows.map(({ waveName, cfs, countryFlag, urlPraram }) => (
+          {topFlows.map(({ waveName, flows, countryFlag, urlParam }) => (
             <QuickInfoCard
-              key={urlPraram}
-              wave={waveName}
-              cfs={cfs}
-              flag={countryFlag}
-              urlParam={urlPraram}
+              key={urlParam}
+              waveName={waveName}
+              flows={flows}
+              countryFlag={countryFlag}
+              urlParam={urlParam}
             />
           ))}
         </div>
@@ -145,33 +144,53 @@ export async function getServerSideProps() {
   const topFlows: TopFlows[] = [
     {
       waveName: "Munich City Wave",
-      cfs: 100,
       countryFlag: "🇩🇪",
-      urlPraram: "munich-city-wave",
+      urlParam: "munich-city-wave",
+      flows: {
+        current: 300,
+        good: 200,
+        fair: 100,
+      },
     },
     {
       waveName: "Bend Whitewater Park",
-      cfs: 150,
       countryFlag: "🇺🇸",
-      urlPraram: "bend-whitewater-park",
+      urlParam: "bend-whitewater-park",
+      flows: {
+        current: 100,
+        good: 200,
+        fair: 100,
+      },
     },
     {
       waveName: "Habitat 67 Wave",
-      cfs: 200,
       countryFlag: "🇨🇦",
-      urlPraram: "habitat-67-wave",
+      urlParam: "habitat-67-wave",
+      flows: {
+        current: 100,
+        good: 200,
+        fair: 100,
+      },
     },
     {
       waveName: "River Arno Wave",
-      cfs: 120,
       countryFlag: "🇮🇹",
-      urlPraram: "river-arno-wave",
+      urlParam: "river-arno-wave",
+      flows: {
+        current: 150,
+        good: 200,
+        fair: 100,
+      },
     },
     {
       waveName: "Sevilla Wave",
-      cfs: 180,
       countryFlag: "🇪🇸",
-      urlPraram: "sevilla-wave",
+      urlParam: "sevilla-wave",
+      flows: {
+        current: 100,
+        good: 200,
+        fair: 100,
+      },
     },
   ];
 

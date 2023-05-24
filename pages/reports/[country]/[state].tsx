@@ -6,11 +6,17 @@ import DetailedReportCard, {
 } from "@/components/pages/states/DetailedReportCard";
 import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
 
+interface StateDetailPageProps {
+  state: string;
+  country: string;
+  cardData: DetailedReportCardProps[];
+}
+
 const StateDetailPage = ({
-  mockWaveData,
-}: {
-  mockWaveData: DetailedReportCardProps[];
-}) => {
+  cardData,
+  state,
+  country,
+}: StateDetailPageProps) => {
   return (
     <>
       <Head>
@@ -22,17 +28,17 @@ const StateDetailPage = ({
       <main className="m-auto max-w-5xl">
         <section className=" my-8 px-5">
           <div>
-            <h1 className="relative my-8 mb-0 text-3xl font-semibold">
-              Colorado
+            <h1 className="relative my-8 mb-0 text-3xl font-semibold capitalize ">
+              {state}
             </h1>
-            <h2 className=" text-lg font-semibold text-[#1481BA]">
-              United States
+            <h2 className=" text-lg font-semibold capitalize text-[#1481BA]">
+              {country}
             </h2>
           </div>
         </section>
         <section className=" m-auto my-8 px-5">
           <div>
-            {mockWaveData.map((item, index) => (
+            {cardData.map((item, index) => (
               <DetailedReportCard
                 key={item.locationData.country + index}
                 locationData={item.locationData}
@@ -255,10 +261,15 @@ export async function getServerSideProps() {
       },
     },
   ];
+
+  const detailProps: StateDetailPageProps = {
+    state: "Colorado",
+    country: "United States",
+    cardData: mockWaveData,
+  };
+
   return {
-    props: {
-      mockWaveData,
-    },
+    props: detailProps,
   };
 }
 

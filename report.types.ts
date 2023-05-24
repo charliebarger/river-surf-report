@@ -1,6 +1,17 @@
 import { RiverAPIReturn } from "./helpers/API_Calls/riverData";
 export type WeatherStatus = "windy" | "rain" | "sunny" | "snow" | "hail";
 
+export interface TopFlows {
+  waveName: string;
+  countryFlag: string;
+  urlParam: string;
+  flows: {
+    current: number;
+    good: number;
+    fair: number;
+  };
+}
+
 export interface RiverData {
   riverName: string;
   surfSpot: string;
@@ -85,5 +96,14 @@ type BackgroundFair = "chartFair";
 
 export type Backgrounds = BackgroundBad | BackgroundGood | BackgroundFair;
 export type Borders = BorderBad | BorderFair | BorderGood;
+
+export type conditionBackgroundColors =
+  | "bg-chartBad"
+  | "bg-chartGood"
+  | "bg-chartFair";
+export type conditionBorderColors =
+  | "bg-chartBadBorder"
+  | "bg-chartGoodBorder"
+  | "bg-chartFairBorder";
 
 export type SurfConditionStatus = "Good" | "Fair" | "Poor";
