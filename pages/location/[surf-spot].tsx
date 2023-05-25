@@ -1,5 +1,5 @@
 import RiverReport from "@/components/pages/surf-spot/RiverReport";
-import Chart from "@/components/pages/surf-spot/chart/Chart";
+import Chart from "@/components/chart/Chart";
 import PageHeader from "@/components/utility/PageHeader";
 import Banner from "@/components/utility/Banner";
 import SurfReport from "@/components/pages/surf-spot/SurfReport";
@@ -55,11 +55,13 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
           surfSpotName={riverData.surfSpot}
           riverName={riverData.riverName}
           weatherValues={environmentInfo.weatherValues}
-          conditionStatus={getConditions(
-            environmentInfo.weatherValues.instantFlow,
-            environmentInfo.flowRatings.goodConditions,
-            environmentInfo.flowRatings.fairConditions
-          )}
+          conditions={{
+            flow: riverData.environmentInfo.weatherValues.instantFlow,
+            goodConditions:
+              riverData.environmentInfo.flowRatings.goodConditions,
+            fairConditions:
+              riverData.environmentInfo.flowRatings.fairConditions,
+          }}
         />
         <SurfReport
           reporter={surfReport.reporter}
@@ -83,8 +85,7 @@ export async function getServerSideProps() {
     surfSpot: "River Run Park",
     riverDescription:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde totam quam accusantium numquam debitis odio in fugit ut ab, quidem quod magni est obcaecati sit id blanditiis tempora quisquam, ratione voluptatibus consequatur excepturi? Impedit quos explicabo atque nulla temporibus nihil vitae eos pariatur amet voluptatibus voluptates magnam odio, quasi deserunt?",
-    imgUrl:
-      "https://i0.wp.com/endlesswaves.net/wp-content/uploads/2019/08/FB_IMG_1561316137775.jpg",
+    imgUrl: "/jake_voss.jpg",
     environmentInfo: {
       chartData: chartData,
       flowRatings: {
@@ -109,7 +110,7 @@ export async function getServerSideProps() {
     },
     surfReport: {
       reporter: {
-        img: "https://cdn.vox-cdn.com/thumbor/eEZwVD9UYHSfXdKW-X1gKe-4XWs=/0x73:1100x806/1400x1400/filters:focal(0x73:1100x806):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/8270369/tv_eastbound_down01.0.jpg",
+        img: "/assets/images/logo.tiff",
         name: "Christian Seguna",
         description: "River Surfing God | Passionate Lover",
       },

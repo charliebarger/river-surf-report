@@ -1,13 +1,74 @@
 import React from "react";
 import Link from "next/link";
-import List from "./ListGenerator";
 import Image from "next/image";
-import SearchBar from "./SearchBar";
-import ReportSVG from "./icons8-ocean-wave.svg";
-import WaveSVG from "./WaveSVG";
-import MapSVG from "./MapSVG";
-import ContactSVG from "./ContactSVG";
+import WaveSVG from "@/assets/images/wave.svg";
+import ContactSVG from "@/assets/images/contact.svg";
+import MapSVG from "@/assets/images/map.svg";
 import { useState } from "react";
+
+const SearchBar = ({ searchState }: { searchState: string }) => {
+  return (
+    <div className="absolute left-0 right-0 top-10 grid items-center gap-[2px] rounded border-2 border-[#e5e7eb] bg-[#e5e7eb] font-normal ">
+      <div className=" flex items-center gap-4 bg-white p-3 hover:bg-[#f6f6f6]">
+        <div className="flex h-8 w-8 items-center justify-center rounded bg-[#e5e7eb] p-1 ">
+          <Image
+            width={50}
+            height={30}
+            src={"/coloradoFlag.png"}
+            alt="Colorado Flag"
+            style={{ height: "auto" }}
+          ></Image>
+        </div>
+        <div className="flex flex-col">
+          <span className=" font-semibold ">Colorado</span>
+          <div className=" text-[#94a3b8] ">
+            <span>United States </span>
+            <span>| </span>
+            <span>38 Waves</span>
+          </div>
+        </div>
+      </div>
+      <div className=" flex items-center gap-4 bg-white p-3 hover:bg-[#f6f6f6]">
+        <div className="flex h-8 w-8 items-center justify-center rounded bg-[#e5e7eb] p-1 ">
+          <Image
+            width={50}
+            height={30}
+            src={"/coloradoFlag.png"}
+            alt="Colorado Flag"
+            style={{ height: "auto" }}
+          ></Image>
+        </div>
+        <div className="flex flex-col">
+          <span className=" font-semibold ">Colorado</span>
+          <div className=" text-[#94a3b8] ">
+            <span>United States </span>
+            <span>| </span>
+            <span>38 Waves</span>
+          </div>
+        </div>
+      </div>
+      <div className=" flex items-center gap-4 bg-white p-3 hover:bg-[#f6f6f6]">
+        <div className="flex h-8 w-8 items-center justify-center rounded bg-[#e5e7eb] p-1 ">
+          <Image
+            width={50}
+            height={30}
+            src={"/coloradoFlag.png"}
+            alt="Colorado Flag"
+            style={{ height: "auto" }}
+          ></Image>
+        </div>
+        <div className="flex flex-col">
+          <span className=" font-semibold ">Colorado</span>
+          <div className=" text-[#94a3b8] ">
+            <span>United States </span>
+            <span>| </span>
+            <span>38 Waves</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Header = () => {
   const [searchState, setSearchState] = useState<string>("");

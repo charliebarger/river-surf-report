@@ -20,7 +20,8 @@
       "@/pages/*": ["pages/*"],
       "@/mocks/*": ["mocks/*"],
       "@/helpers/*": ["helpers/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/assets/*": ["assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "."],
