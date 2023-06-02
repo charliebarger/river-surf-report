@@ -5,17 +5,17 @@ import { conditionBackgroundColors, conditionBorderColors } from "report.types";
 export const getImgURL = (weatherStatus: WeatherStatus): string => {
   switch (weatherStatus) {
     case "rain":
-      return "/weather-icons/rainy-3.svg";
+      return "/assets/images/weather-icons/rainy-3.png";
     case "hail":
-      return "/weather-icons/hail.svg";
+      return "/assets/images/weather-icons/hail.png";
     case "snow":
-      return "/weather-icons/snowy-3.svg";
+      return "/assets/images/weather-icons/snow.png";
     case "sunny":
-      return "/weather-icons/clear-day.svg";
+      return "/assets/images/weather-icons/sunny.png";
     case "windy":
-      return "/weather-icons/wind.svg";
+      return "/assets/images/weather-icons/windy.png";
     default:
-      return "/weather-icons/clear-day.svg";
+      return "/assets/images/weather-icons/clear-day.png";
   }
 };
 

@@ -14,7 +14,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f6f6f6;
-  margin-bottom: 5.5rem;
 }
 
 code {
@@ -30,4 +29,10 @@ html {
 *:after {
   box-sizing: inherit;
   font-family: "Roboto", sans-serif;
+}
+
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

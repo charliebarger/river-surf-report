@@ -15,7 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Header />
-      <Component {...pageProps} />
+      <div className="flex-1">
+        <Component {...pageProps} />
+      </div>
       <Footer />
     </QueryClientProvider>
   );
