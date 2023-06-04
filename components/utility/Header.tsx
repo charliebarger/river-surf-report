@@ -155,7 +155,7 @@ const Header = () => {
                     <span>Map</span>
                   </Link>
                   <Link
-                    href="/reports"
+                    href="/contact"
                     className="flex gap-2 fill-[#adb5bd]  text-[#adb5bd] hover:fill-[#0daadc] hover:text-[#0daadc] lg:block "
                   >
                     <div className="mb-1 flex justify-center">
