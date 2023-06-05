@@ -4,6 +4,12 @@ import { Marker, Popup } from "react-map-gl";
 import Image from "next/image";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { WeatherStatus } from "report.types";
+import Link from "next/link";
+import {
+  BaseWeatherCard,
+  CardWrapper,
+  DetailedWeatherCardPropsWithoutChartData,
+} from "@/components/utility/DetailedWeatherCard";
 
 import PageHeader from "@/components/utility/PageHeader";
 
@@ -74,14 +80,58 @@ const riverSurfSpotsUSA: MapSpots[] = [
   },
 ];
 
+const examplePopupInfo: DetailedWeatherCardPropsWithoutChartData = {
+  locationData: {
+    wave: {
+      name: "St. Louis Whitewater Park",
+      url: "/st-louis-whitewater-park",
+    },
+    state: "Missouri",
+    country: "United States",
+  },
+  riverData: {
+    weather: {
+      temp: 69,
+      wind: 12,
+    },
+    flow: {
+      current: 100,
+      threshold: {
+        fair: 80,
+        good: 110,
+      },
+    },
+  },
+};
+
+const PopupInfo = () => (
+  <CardWrapper>
+    <BaseWeatherCard
+      locationData={examplePopupInfo.locationData}
+      riverData={examplePopupInfo.riverData}
+    />
+    <div className="mt-8 flex gap-2 text-base ">
+      <Link
+        href="/"
+        className=" flex h-full cursor-pointer rounded-md border-2 border-gray-200 bg-gray-100 py-1  px-8 font-medium text-black  hover:bg-gray-200  "
+      >
+        View Full Report
+      </Link>
+      <Link
+        href="/"
+        className=" flex h-full cursor-pointer rounded-md border-2 border-[#089f85] bg-[#069f85]  py-1 px-8 font-medium text-white  hover:bg-white hover:text-[#089f85] "
+      >
+        Add To Favorites
+      </Link>
+    </div>
+  </CardWrapper>
+);
+
 const MyMap = () => {
   const [popUpInfo, setPopUpInfo] = useState<MapSpots | null>(null);
   return (
     <div className=" my-8">
       <div className="relative  m-auto h-[70vh] w-full max-w-screen-lg ">
-        <div className=" absolute top-0 right-0 z-10 m-4 rounded bg-white p-2  ">
-          <h3>St. Louis Whitewater Park</h3>
-        </div>
         <Map
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           initialViewState={{
@@ -113,14 +163,19 @@ const MyMap = () => {
             </Marker>
           ))}
           {popUpInfo && (
-            <Popup
-              anchor="top"
-              latitude={popUpInfo.location.latitude}
-              longitude={popUpInfo.location.longitude}
-              onClose={() => setPopUpInfo(null)}
-            >
-              <div className="bg-red">{popUpInfo.name}</div>
-            </Popup>
+            <>
+              <Popup
+                anchor="top"
+                latitude={popUpInfo.location.latitude}
+                longitude={popUpInfo.location.longitude}
+                onClose={() => setPopUpInfo(null)}
+              >
+                <div className="bg-red">{popUpInfo.name}</div>
+              </Popup>
+              <div className=" absolute top-4 right-4 text-lg ">
+                <PopupInfo />
+              </div>
+            </>
           )}
         </Map>
       </div>
