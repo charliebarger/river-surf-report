@@ -1,15 +1,19 @@
 import React, { useRef, useState } from "react";
-import { Map } from "react-map-gl";
-import { Marker, Popup } from "react-map-gl";
+import {
+  Map,
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl,
+} from "react-map-gl";
 import Image from "next/image";
+import { getConditions } from "@/helpers/functions";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { WeatherStatus } from "report.types";
 import Link from "next/link";
-import {
-  BaseWeatherCard,
-  CardWrapper,
-  DetailedWeatherCardPropsWithoutChartData,
-} from "@/components/utility/DetailedWeatherCard";
+import { CardWrapper } from "@/components/utility/DetailedWeatherCard";
 
 import PageHeader from "@/components/utility/PageHeader";
 
@@ -80,14 +84,42 @@ const riverSurfSpotsUSA: MapSpots[] = [
   },
 ];
 
-const examplePopupInfo: DetailedWeatherCardPropsWithoutChartData = {
+interface PopupInfoProps {
+  locationData: {
+    wave: {
+      name: string;
+      url: string;
+    };
+    state: string;
+    stateUrL: string;
+    country: string;
+    countryUrl: string;
+  };
+  riverData: {
+    weather: {
+      temp: number;
+      wind: number;
+    };
+    flow: {
+      current: number;
+      threshold: {
+        fair: number;
+        good: number;
+      };
+    };
+  };
+}
+
+const examplePopupInfo: PopupInfoProps = {
   locationData: {
     wave: {
       name: "St. Louis Whitewater Park",
       url: "/st-louis-whitewater-park",
     },
     state: "Missouri",
+    stateUrL: "/missouri",
     country: "United States",
+    countryUrl: "/usa",
   },
   riverData: {
     weather: {
@@ -104,35 +136,122 @@ const examplePopupInfo: DetailedWeatherCardPropsWithoutChartData = {
   },
 };
 
-const PopupInfo = () => (
-  <CardWrapper>
-    <BaseWeatherCard
-      locationData={examplePopupInfo.locationData}
-      riverData={examplePopupInfo.riverData}
-    />
-    <div className="mt-8 flex gap-2 text-base ">
-      <Link
-        href="/"
-        className=" flex h-full cursor-pointer rounded-md border-2 border-gray-200 bg-gray-100 py-1  px-8 font-medium text-black  hover:bg-gray-200  "
-      >
-        View Full Report
-      </Link>
-      <Link
-        href="/"
-        className=" flex h-full cursor-pointer rounded-md border-2 border-[#089f85] bg-[#069f85]  py-1 px-8 font-medium text-white  hover:bg-white hover:text-[#089f85] "
-      >
-        Add To Favorites
-      </Link>
-    </div>
-  </CardWrapper>
-);
+const PopupInfo = () => {
+  const conditionInfo = getConditions(
+    examplePopupInfo.riverData.flow.current,
+    examplePopupInfo.riverData.flow.threshold.good,
+    examplePopupInfo.riverData.flow.threshold.fair
+  );
+
+  return (
+    <CardWrapper>
+      <div className="flex-1">
+        <div className="border-b-2 border-b-[#e5e7eb] pb-2">
+          <Link
+            className=" whitespace-nowrap "
+            href={examplePopupInfo.locationData.wave.url}
+          >
+            {examplePopupInfo.locationData.wave.name}
+          </Link>
+          <div className="flex gap-1 whitespace-nowrap text-xs text-black  ">
+            <Link
+              href={examplePopupInfo.locationData.stateUrL}
+              className=" hover:underline "
+            >
+              {examplePopupInfo.locationData.state}{" "}
+            </Link>
+            <span className=" text-gray-600 ">• </span>
+            <Link
+              href={examplePopupInfo.locationData.countryUrl}
+              className="hover:underline"
+            >
+              {examplePopupInfo.locationData.country}
+            </Link>
+          </div>
+        </div>
+        <div>
+          <h2 className="my-2 text-xl text-black ">Current Conditions</h2>
+          <div className="  flex justify-around gap-3 text-black">
+            <div className=" relative flex">
+              <div className="flex flex-col gap-1 ">
+                <span className=" whitespace-nowrap text-base  font-medium md:text-lg ">
+                  <span className=" text-2xl  md:text-4xl">
+                    {examplePopupInfo.riverData.flow.current}
+                  </span>{" "}
+                  cfs
+                </span>
+                <span
+                  className={`self-start rounded ${conditionInfo.colors.dark}  w-full py-1 px-3 text-center text-sm font-bold text-white md:text-lg`}
+                >
+                  {conditionInfo.condition}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 ">
+              <Image
+                src={"/assets/images/weather-icons/sunny.png"}
+                alt={"weather icon"}
+                style={{ height: "60px", width: "60px" }}
+                width={80}
+                height={80}
+              />
+
+              <div className=" flex flex-col align-top font-bold ">
+                <div className="flex items-center  gap-1">
+                  <span className=" text-lg md:text-xl ">Sunny</span>
+                </div>
+                <div className="flex flex-col ">
+                  <div className="flex items-center whitespace-nowrap text-slate-600 ">
+                    <span className=" md:text-md text-sm">Temp : </span>{" "}
+                    <span className="md:text-md ml-1 text-sm text-black">
+                      96
+                    </span>{" "}
+                    <span className="text-xm ml-1 text-black md:text-sm">
+                      °F
+                    </span>
+                  </div>
+                  <div className="flex items-center whitespace-nowrap text-slate-600 ">
+                    <span className=" md:text-md text-sm">Wind : </span>{" "}
+                    <span className=" md:text-md ml-1 text-sm text-black">
+                      {100}{" "}
+                    </span>{" "}
+                    <span className="ml-1 text-xs text-black md:text-sm">
+                      mph
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-8 flex gap-2 text-base ">
+        <Link
+          href="/"
+          className=" flex h-full cursor-pointer rounded-md border-2 border-gray-200 bg-gray-100 py-1  px-8 font-medium text-black  hover:bg-gray-200  "
+        >
+          View Full Report
+        </Link>
+        <Link
+          href="/"
+          className=" flex h-full cursor-pointer rounded-md border-2 border-[#089f85] bg-[#069f85]  py-1 px-8 font-medium text-white  hover:bg-white hover:text-[#089f85] "
+        >
+          Add To Favorites
+        </Link>
+      </div>
+    </CardWrapper>
+  );
+};
 
 const MyMap = () => {
   const [popUpInfo, setPopUpInfo] = useState<MapSpots | null>(null);
+  const [hoverdItem, setHoverdItem] = useState<MapSpots | null>(null);
   return (
     <div className=" my-8">
       <div className="relative  m-auto h-[70vh] w-full max-w-screen-lg ">
         <Map
+          onRender={(event) => event.target.resize()}
+          onClick={() => setPopUpInfo(null)}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           initialViewState={{
             latitude: 40,
@@ -147,6 +266,10 @@ const MyMap = () => {
           }}
           mapStyle="mapbox://styles/mapbox/navigation-day-v1"
         >
+          <GeolocateControl position="top-left" />
+          <FullscreenControl position="top-left" />
+          <NavigationControl position="top-left" />
+
           {riverSurfSpotsUSA.map((spot, i) => (
             <Marker
               style={{ cursor: "pointer" }}
@@ -159,23 +282,38 @@ const MyMap = () => {
                 console.log(spot);
               }}
             >
-              <Image width={20} height={20} alt="yes" src="/icons/pin.png" />
+              <Image
+                onMouseEnter={() => setHoverdItem(spot)}
+                onMouseLeave={() => setHoverdItem(null)}
+                width={20}
+                height={20}
+                alt="yes"
+                src={
+                  spot === popUpInfo
+                    ? "/icons/map/bluePin.png"
+                    : "/icons/map/redPin.png"
+                }
+              />
             </Marker>
           ))}
-          {popUpInfo && (
-            <>
-              <Popup
-                anchor="top"
-                latitude={popUpInfo.location.latitude}
-                longitude={popUpInfo.location.longitude}
-                onClose={() => setPopUpInfo(null)}
-              >
-                <div className="bg-red">{popUpInfo.name}</div>
-              </Popup>
-              <div className=" absolute top-4 right-4 text-lg ">
-                <PopupInfo />
+          {hoverdItem && (
+            <Popup
+              anchor="bottom"
+              offset={15}
+              closeButton={false}
+              latitude={hoverdItem.location.latitude}
+              longitude={hoverdItem.location.longitude}
+              onClose={() => setPopUpInfo(null)}
+            >
+              <div className=" rounded-full bg-slate-800 py-1 px-2 font-medium text-white ">
+                {hoverdItem.name}
               </div>
-            </>
+            </Popup>
+          )}
+          {popUpInfo && (
+            <div className=" absolute top-4 right-4 text-lg ">
+              <PopupInfo />
+            </div>
           )}
         </Map>
       </div>
