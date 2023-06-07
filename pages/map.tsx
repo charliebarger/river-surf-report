@@ -13,9 +13,8 @@ import { getConditions } from "@/helpers/functions";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { WeatherStatus } from "report.types";
 import Link from "next/link";
+import CloseSVG from "@/assets/images/close.svg";
 import { CardWrapper } from "@/components/utility/DetailedWeatherCard";
-
-import PageHeader from "@/components/utility/PageHeader";
 
 interface MapSpots {
   name: string;
@@ -84,7 +83,7 @@ const riverSurfSpotsUSA: MapSpots[] = [
   },
 ];
 
-interface PopupInfoProps {
+interface PopupInfoData {
   locationData: {
     wave: {
       name: string;
@@ -110,7 +109,7 @@ interface PopupInfoProps {
   };
 }
 
-const examplePopupInfo: PopupInfoProps = {
+const examplePopupInfo: PopupInfoData = {
   locationData: {
     wave: {
       name: "St. Louis Whitewater Park",
@@ -136,7 +135,11 @@ const examplePopupInfo: PopupInfoProps = {
   },
 };
 
-const PopupInfo = () => {
+interface PopupInfoProps {
+  handleClosePopup: () => void;
+}
+
+const PopupInfo = ({ handleClosePopup }: PopupInfoProps) => {
   const conditionInfo = getConditions(
     examplePopupInfo.riverData.flow.current,
     examplePopupInfo.riverData.flow.threshold.good,
@@ -146,28 +149,38 @@ const PopupInfo = () => {
   return (
     <CardWrapper>
       <div className="flex-1">
-        <div className="border-b-2 border-b-[#e5e7eb] pb-2">
-          <Link
-            className=" whitespace-nowrap "
-            href={examplePopupInfo.locationData.wave.url}
-          >
-            {examplePopupInfo.locationData.wave.name}
-          </Link>
-          <div className="flex gap-1 whitespace-nowrap text-xs text-black  ">
+        <div className="flex justify-between border-b-2 border-b-[#e5e7eb] pb-2">
+          <div>
             <Link
-              href={examplePopupInfo.locationData.stateUrL}
-              className=" hover:underline "
+              className=" whitespace-nowrap "
+              href={examplePopupInfo.locationData.wave.url}
             >
-              {examplePopupInfo.locationData.state}{" "}
+              {examplePopupInfo.locationData.wave.name}
             </Link>
-            <span className=" text-gray-600 ">• </span>
-            <Link
-              href={examplePopupInfo.locationData.countryUrl}
-              className="hover:underline"
-            >
-              {examplePopupInfo.locationData.country}
-            </Link>
+            <div className="flex gap-1 whitespace-nowrap text-xs text-black  ">
+              <Link
+                href={examplePopupInfo.locationData.stateUrL}
+                className=" hover:underline "
+              >
+                {examplePopupInfo.locationData.state}{" "}
+              </Link>
+              <span className=" text-gray-600 ">• </span>
+              <Link
+                href={examplePopupInfo.locationData.countryUrl}
+                className="hover:underline"
+              >
+                {examplePopupInfo.locationData.country}
+              </Link>
+            </div>
           </div>
+          <button
+            type="button"
+            aria-label="Close popup"
+            className="w-8 fill-gray-400 hover:fill-gray-600 "
+            onClick={handleClosePopup}
+          >
+            <CloseSVG />
+          </button>
         </div>
         <div>
           <h2 className="my-2 text-xl text-black ">Current Conditions</h2>
@@ -225,7 +238,7 @@ const PopupInfo = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8 flex gap-2 text-base ">
+      <div className="mt-8 flex flex-col gap-2 text-base lg:flex-row ">
         <Link
           href="/"
           className=" flex h-full cursor-pointer rounded-md border-2 border-gray-200 bg-gray-100 py-1  px-8 font-medium text-black  hover:bg-gray-200  "
@@ -247,7 +260,7 @@ const MyMap = () => {
   const [popUpInfo, setPopUpInfo] = useState<MapSpots | null>(null);
   const [hoverdItem, setHoverdItem] = useState<MapSpots | null>(null);
   return (
-    <div className=" my-8">
+    <div className=" m-4 overflow-hidden rounded-lg md:m-8">
       <div className="relative  m-auto h-[70vh] w-full max-w-screen-lg ">
         <Map
           onRender={(event) => event.target.resize()}
@@ -312,7 +325,7 @@ const MyMap = () => {
           )}
           {popUpInfo && (
             <div className=" absolute top-4 right-4 text-lg ">
-              <PopupInfo />
+              <PopupInfo handleClosePopup={() => setPopUpInfo(null)} />
             </div>
           )}
         </Map>
