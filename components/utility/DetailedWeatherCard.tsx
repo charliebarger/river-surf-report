@@ -32,7 +32,7 @@ export interface DetailedWeatherCardProps {
 }
 
 export const CardWrapper = ({ children }: PropsWithChildren) => (
-  <div className="rounded border-2 border-[#e5e7eb] bg-white p-2 font-semibold  text-[#1481BA] lg:py-3 lg:px-5">
+  <div className="flex-1 rounded border-2 border-[#e5e7eb] bg-white  p-2 font-semibold text-[#1481BA] lg:py-3 lg:px-5 ">
     {children}
   </div>
 );

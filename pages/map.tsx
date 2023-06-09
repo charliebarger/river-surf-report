@@ -148,7 +148,7 @@ const PopupInfo = ({ handleClosePopup }: PopupInfoProps) => {
 
   return (
     <CardWrapper>
-      <div className="flex-1">
+      <div>
         <div className="flex justify-between border-b-2 border-b-[#e5e7eb] pb-2">
           <div>
             <Link
@@ -324,7 +324,7 @@ const MyMap = () => {
             </Popup>
           )}
           {popUpInfo && (
-            <div className=" absolute top-4 right-4 text-lg ">
+            <div className=" absolute right-0 top-0 z-10 w-full max-w-md p-2 text-lg ">
               <PopupInfo handleClosePopup={() => setPopUpInfo(null)} />
             </div>
           )}
