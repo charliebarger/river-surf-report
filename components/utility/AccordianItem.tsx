@@ -29,7 +29,7 @@ export function AccordionItem({ header, ...rest }: AccordionItemProps) {
       contentProps={{
         className: `transition-height duration-200 ease-out `,
       }}
-      panelProps={{ className: '   flex flex-col gap-[2px] bg-slate-200 ' }}
+      panelProps={{ className: '   flex flex-col gap-[2px] bg-white ' }}
     />
   );
 }
