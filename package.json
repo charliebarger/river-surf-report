@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.1",
+    "@szhsin/react-accordion": "^1.2.1",
     "@types/chart.js": "^2.9.37",
     "@types/date-fns": "^2.6.0",
     "@types/node": "18.11.18",
