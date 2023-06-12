@@ -1,9 +1,10 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import QuickInfoCard from "@/components/utility/QuickInfoCard";
-import Head from "next/head";
-import { TopFlows } from "report.types";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import QuickInfoCard from '@/components/utility/QuickInfoCard';
+import Head from 'next/head';
+import { TopFlows } from 'report.types';
+import FreeStickerBanner from '@/components/utility/FreeStickerBanner';
 
 //index uses ssg and csr for fetching top flows and favorites
 
@@ -11,43 +12,43 @@ import { TopFlows } from "report.types";
 
 const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
   return (
-    <main className="m-auto max-w-screen-xl px-5 ">
+    <main>
       <Head>
         <title>Surf Otter : River Surf Reports</title>
         <meta
-          name="description"
-          content="Discover the latest river surf reports and explore exciting new waves with Surf Otter. Get detailed information on wave conditions, weather, and more for the best river surf spots. Plan your next river surf session with our comprehensive app. Catch the perfect wave now!"
+          name='description'
+          content='Discover the latest river surf reports and explore exciting new waves with Surf Otter. Get detailed information on wave conditions, weather, and more for the best river surf spots. Plan your next river surf session with our comprehensive app. Catch the perfect wave now!'
         />
       </Head>
-      <div className="relative my-10 text-center font-semibold ">
-        <h1 className="text-5xl text-primaryColor">Surf Otter</h1>
-        <h2 className="text-xl text-primaryColor">River Surf Reports</h2>
+      <div className='relative m-auto my-10 max-w-screen-xl px-5 text-center font-semibold '>
+        <h1 className='text-5xl text-primaryColor'>Surf Otter</h1>
+        <h2 className='text-xl text-primaryColor'>River Surf Reports</h2>
       </div>
-      <section className="m-auto my-10 flex flex-col gap-6 lg:flex-row ">
-        <div className=" flex-1 ">
-          <div className=" relative aspect-video">
+      <section className='m-auto  my-10 flex max-w-screen-xl flex-col gap-6 px-5 lg:flex-row '>
+        <div className=' flex-1 '>
+          <div className=' relative aspect-video'>
             <Image
-              src={"/river-surf-welcome.png"}
-              alt={"An Otter, the river surf site mascot, riding a wave"}
+              src={'/river-surf-welcome.png'}
+              alt={'An Otter, the river surf site mascot, riding a wave'}
               fill
-              style={{ objectFit: "contain" }}
-              sizes="(max-width: 976px) 100vw,
-              50vw"
+              style={{ objectFit: 'contain' }}
+              sizes='(max-width: 976px) 100vw,
+              50vw'
             />
           </div>
         </div>
-        <div className=" flex-1">
+        <div className=' flex-1'>
           <div>
-            <h3 className="mb-2 pb-1 text-xl font-bold ">Favorites</h3>
+            <h3 className='mb-2 pb-1 text-xl font-bold '>Favorites</h3>
             <Link
-              href={"/sign-up"}
-              className="  mb-2  flex items-center rounded border-2 border-[#0CAADC] bg-white px-4 py-2 text-base font-medium text-[#0CAADC] hover:border-white hover:bg-[#0CAADC] hover:text-white"
+              href={'/sign-up'}
+              className='  mb-2  flex items-center rounded border-2 border-[#0CAADC] bg-white px-4 py-2 text-base font-medium text-[#0CAADC] hover:border-white hover:bg-[#0CAADC] hover:text-white'
             >
-              <span className=" ml-2 font-bold ">Log In To Add Favorites</span>
-              <span className="ml-auto text-xl font-extrabold">+</span>
+              <span className=' ml-2 font-bold '>Log In To Add Favorites</span>
+              <span className='ml-auto text-xl font-extrabold'>+</span>
             </Link>
           </div>
-          <h3 className=" mt-4 mb-2 pb-1 text-xl font-bold ">Top Flows</h3>
+          <h3 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Top Flows</h3>
           {topFlows.map(({ waveName, flows, countryFlag, urlParam }) => (
             <QuickInfoCard
               key={urlParam}
@@ -59,21 +60,24 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
           ))}
         </div>
       </section>
-      <section className="m-auto my-10 flex flex-col gap-6 px-5 lg:flex-row">
-        <div className="flex-1">
-          <h3 className="mb-4 text-3xl font-semibold text-primaryColor ">
+      {/* <div className='my-10'>
+        <FreeStickerBanner />
+      </div> */}
+      <section className='m-auto my-10 flex max-w-screen-xl flex-col gap-6 px-5 px-5 lg:flex-row'>
+        <div className='flex-1'>
+          <h3 className='mb-4 text-3xl font-semibold text-primaryColor '>
             Discover New Waves and Surf Reports
           </h3>
-          <div className=" text-lg ">
-            <p className="mb-2">
-              Check out our{" "}
-              <Link className="text-[#0CAADC] underline" href="/explore">
+          <div className=' text-lg '>
+            <p className='mb-2'>
+              Check out our{' '}
+              <Link className='text-[#0CAADC] underline' href='/explore'>
                 Explore
-              </Link>{" "}
-              and{" "}
-              <Link className="text-[#0CAADC] underline" href="/map">
+              </Link>{' '}
+              and{' '}
+              <Link className='text-[#0CAADC] underline' href='/map'>
                 Map
-              </Link>{" "}
+              </Link>{' '}
               pages to find exciting new river waves and stay updated with the
               latest surf reports. Explore the best river surf spots and get
               detailed information about wave conditions, weather, and more.
@@ -84,49 +88,49 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             </p>
           </div>
         </div>
-        <div className=" relative  h-96 flex-[2] overflow-hidden ">
-          <div className=" ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] ">
+        <div className=' relative  h-96 flex-[2] overflow-hidden '>
+          <div className=' ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] '>
             <Image
-              src={"/river-run-map.png"}
-              alt="Map of River Run Park"
+              src={'/river-run-map.png'}
+              alt='Map of River Run Park'
               width={917}
               height={384}
             />
           </div>
         </div>
       </section>
-      <section className="m-auto my-10 flex flex-col-reverse gap-6 px-5 lg:flex-row">
-        <figure className="flex flex-col">
-          <div className=" relative  h-96 flex-[2] overflow-hidden ">
-            <div className=" ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] ">
+      <section className='m-auto  my-10 flex max-w-screen-xl flex-col-reverse gap-6 px-5  lg:flex-row'>
+        <figure className='flex flex-col'>
+          <div className=' relative  h-96 flex-[2] overflow-hidden '>
+            <div className=' ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] '>
               <Image
-                src={"/jake_voss.jpg"}
-                alt="Surfer riding a river wave at River Run Park"
+                src={'/jake_voss.jpg'}
+                alt='Surfer riding a river wave at River Run Park'
                 width={917}
                 height={384}
               />
             </div>
           </div>
-          <figcaption className="mt-2 font-medium">
+          <figcaption className='mt-2 font-medium'>
             Photo by Jake Voss
           </figcaption>
         </figure>
-        <div className="flex-1">
-          <h3 className="mb-4 text-3xl font-semibold text-primaryColor">
+        <div className='flex-1'>
+          <h3 className='mb-4 text-3xl font-semibold text-primaryColor'>
             Can&#x27;t Find the Wave You&#x27;re Looking For?
           </h3>
-          <div className=" text-lg">
-            <p className="mb-2">
+          <div className=' text-lg'>
+            <p className='mb-2'>
               If you&#x27;re having trouble finding the wave you are looking
               for, or if you encounter any issues while using our site, we want
               to hear from you! We&#x27;re constantly working to improve our
               site and add new waves to our database.
             </p>
             <p>
-              Please don&#x27;t hesitate to{" "}
-              <Link className="text-[#0CAADC] underline" href="/contact">
+              Please don&#x27;t hesitate to{' '}
+              <Link className='text-[#0CAADC] underline' href='/contact'>
                 contact us
-              </Link>{" "}
+              </Link>{' '}
               and let us know about any problems or suggestions you may have.
               Your feedback is invaluable in helping us provide the best
               possible experience for our users.
@@ -143,9 +147,9 @@ export default Index;
 export async function getServerSideProps() {
   const topFlows: TopFlows[] = [
     {
-      waveName: "Munich City Wave",
-      countryFlag: "🇩🇪",
-      urlParam: "munich-city-wave",
+      waveName: 'Munich City Wave',
+      countryFlag: '🇩🇪',
+      urlParam: 'munich-city-wave',
       flows: {
         current: 300,
         good: 200,
@@ -153,9 +157,9 @@ export async function getServerSideProps() {
       },
     },
     {
-      waveName: "Bend Whitewater Park",
-      countryFlag: "🇺🇸",
-      urlParam: "bend-whitewater-park",
+      waveName: 'Bend Whitewater Park',
+      countryFlag: '🇺🇸',
+      urlParam: 'bend-whitewater-park',
       flows: {
         current: 100,
         good: 200,
@@ -163,9 +167,9 @@ export async function getServerSideProps() {
       },
     },
     {
-      waveName: "Habitat 67 Wave",
-      countryFlag: "🇨🇦",
-      urlParam: "habitat-67-wave",
+      waveName: 'Habitat 67 Wave',
+      countryFlag: '🇨🇦',
+      urlParam: 'habitat-67-wave',
       flows: {
         current: 100,
         good: 200,
@@ -173,9 +177,9 @@ export async function getServerSideProps() {
       },
     },
     {
-      waveName: "River Arno Wave",
-      countryFlag: "🇮🇹",
-      urlParam: "river-arno-wave",
+      waveName: 'River Arno Wave',
+      countryFlag: '🇮🇹',
+      urlParam: 'river-arno-wave',
       flows: {
         current: 150,
         good: 200,
@@ -183,9 +187,9 @@ export async function getServerSideProps() {
       },
     },
     {
-      waveName: "Sevilla Wave",
-      countryFlag: "🇪🇸",
-      urlParam: "sevilla-wave",
+      waveName: 'Sevilla Wave',
+      countryFlag: '🇪🇸',
+      urlParam: 'sevilla-wave',
       flows: {
         current: 100,
         good: 200,
