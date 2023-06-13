@@ -31,7 +31,7 @@ export default function Reports({
         <meta name='description' content='The heart of River Surfing!' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='m-auto mb-10 max-w-screen-xl px-5'>
+      <main className='m-auto mb-10 max-w-screen-xl px-4 md:px-6'>
         <PageHeader>Reports</PageHeader>
         <div className=' grid-flow-col grid-cols-16 gap-x-8 lg:grid '>
           {sites.map((region) => (
@@ -67,10 +67,7 @@ export default function Reports({
               <h2 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Favorites</h2>
               <Link
                 href={'/sign-up'}
-                className=' my-2 flex  items-center rounded border-2 border-[#0CAADC] bg-white px-4
-        py-2 text-base font-medium text-[#0CAADC]
-        hover:border-white hover:bg-[#0CAADC] hover:text-white
-        '
+                className=' my-2 flex  items-center rounded border-2 border-[#0CAADC] bg-white px-4 py-2 text-base font-medium text-[#0CAADC] hover:border-white hover:bg-[#0CAADC] hover:text-white'
               >
                 <span className=' ml-2 font-bold '>
                   Log In To Add Favorites

@@ -30,10 +30,10 @@ const StateDetailPage = ({
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='m-auto max-w-5xl'>
-        <section className=' my-8 px-5'>
+      <main className='mb-4 px-4 md:px-6 '>
+        <section className=' mx-auto my-6 max-w-5xl '>
           <div>
-            <h1 className='relative my-8 mb-0 text-3xl font-semibold capitalize '>
+            <h1 className='relative my-6 mb-0 text-3xl font-semibold capitalize '>
               {state}
             </h1>
             <h2 className=' text-lg font-semibold capitalize text-[#1481BA]'>
@@ -41,11 +41,11 @@ const StateDetailPage = ({
             </h2>
           </div>
         </section>
-        <section className=' m-auto my-10 mt-8 px-5'>
-          <div>
+        <section className=' mx-auto max-w-5xl '>
+          <div className=' flex flex-col gap-6  '>
             {cardData.map((item, index) => (
               <div
-                className='m-auto mb-6 max-w-[980px]'
+                className='m-auto w-full max-w-[980px]'
                 key={item.locationData.country + index}
               >
                 <DetailedWeatherCard

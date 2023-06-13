@@ -4,15 +4,12 @@ import Image from 'next/image';
 import QuickInfoCard from '@/components/utility/QuickInfoCard';
 import Head from 'next/head';
 import { TopFlows } from 'report.types';
-import FreeStickerBanner from '@/components/utility/FreeStickerBanner';
-
-//index uses ssg and csr for fetching top flows and favorites
 
 //favorites still needs to be implemented
 
 const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
   return (
-    <main>
+    <main className=' mb-10 px-4 md:px-6 '>
       <Head>
         <title>Surf Otter : River Surf Reports</title>
         <meta
@@ -20,11 +17,11 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
           content='Discover the latest river surf reports and explore exciting new waves with Surf Otter. Get detailed information on wave conditions, weather, and more for the best river surf spots. Plan your next river surf session with our comprehensive app. Catch the perfect wave now!'
         />
       </Head>
-      <div className='relative m-auto my-10 max-w-screen-xl px-5 text-center font-semibold '>
+      <div className='smax-w-screen-xl relative m-auto my-6 text-center font-semibold md:my-10 '>
         <h1 className='text-5xl text-primaryColor'>Surf Otter</h1>
         <h2 className='text-xl text-primaryColor'>River Surf Reports</h2>
       </div>
-      <section className='m-auto  my-10 flex max-w-screen-xl flex-col gap-6 px-5 lg:flex-row '>
+      <section className='m-auto my-6  mx-auto  flex max-w-screen-xl flex-col gap-4 md:my-10 lg:flex-row lg:gap-6 '>
         <div className=' flex-1 '>
           <div className=' relative aspect-video'>
             <Image
@@ -60,10 +57,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
           ))}
         </div>
       </section>
-      {/* <div className='my-10'>
-        <FreeStickerBanner />
-      </div> */}
-      <section className='m-auto my-10 flex max-w-screen-xl flex-col gap-6 px-5 px-5 lg:flex-row'>
+      <section className='m-auto my-6 mx-auto flex max-w-screen-xl flex-col gap-4 md:my-10 lg:flex-row lg:gap-6'>
         <div className='flex-1'>
           <h3 className='mb-4 text-3xl font-semibold text-primaryColor '>
             Discover New Waves and Surf Reports
@@ -88,28 +82,28 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             </p>
           </div>
         </div>
-        <div className=' relative  h-96 flex-[2] overflow-hidden '>
-          <div className=' ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] '>
+        <div className='flex-[2]'>
+          <div className='aspect-video  w-full overflow-hidden lg:aspect-auto lg:h-[384px]  '>
             <Image
               src={'/river-run-map.png'}
               alt='Map of River Run Park'
               width={917}
               height={384}
+              className=' h-full w-full object-cover object-center'
             />
           </div>
         </div>
       </section>
-      <section className='m-auto  my-10 flex max-w-screen-xl flex-col-reverse gap-6 px-5  lg:flex-row'>
-        <figure className='flex flex-col'>
-          <div className=' relative  h-96 flex-[2] overflow-hidden '>
-            <div className=' ml-[50%] flex h-[238px] w-full -translate-x-1/2 items-center justify-center lg:h-[384px] lg:w-[917px] '>
-              <Image
-                src={'/jake_voss.jpg'}
-                alt='Surfer riding a river wave at River Run Park'
-                width={917}
-                height={384}
-              />
-            </div>
+      <section className='m-auto mx-auto  mt-6  flex max-w-screen-xl flex-col-reverse gap-4 md:mt-10 lg:flex-row lg:gap-6'>
+        <figure className='flex flex-[2] flex-col '>
+          <div className='aspect-video  w-full overflow-hidden lg:aspect-auto lg:h-[384px]  '>
+            <Image
+              src={'/jake_voss.jpg'}
+              alt='Map of River Run Park'
+              width={917}
+              height={384}
+              className=' h-full w-full object-cover object-center'
+            />
           </div>
           <figcaption className='mt-2 font-medium'>
             Photo by Jake Voss
