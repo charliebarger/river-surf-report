@@ -52,7 +52,7 @@ const Contact = () => {
     <main>
       <div className='m-auto  max-w-screen-md px-5 '>
         <PageHeader>Contact</PageHeader>
-        <div className='my-4 flex flex-wrap '>
+        <div className='my-4 flex '>
           <div>
             <p className='mb-4'>
               We are always working to make the site better, and your feedback
