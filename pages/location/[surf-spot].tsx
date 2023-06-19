@@ -63,16 +63,31 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
               riverData.environmentInfo.flowRatings.fairConditions,
           }}
         />
-        <SurfReport
-          reporter={surfReport.reporter}
-          report={surfReport.reportInfo}
-        />
-        <Chart
-          chartData={environmentInfo.chartData}
-          flowRatings={chartFlowProps}
-        />
+        <div
+          className="
+        border-y
+         border-y-white bg-white
+        "
+        >
+          <SurfReport
+            reporter={surfReport.reporter}
+            report={surfReport.reportInfo}
+          />
+
+          <Chart
+            chartData={environmentInfo.chartData}
+            flowRatings={chartFlowProps}
+          />
+        </div>
         <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
-        <LocationInfo locationData={riverData.locationInfo} />
+        <div
+          className="
+         border-y border-y-white
+         bg-white
+        "
+        >
+          <LocationInfo locationData={riverData.locationInfo} />
+        </div>
       </main>
     </>
   );

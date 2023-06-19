@@ -47,7 +47,7 @@ const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
   );
 
   return (
-    <div className="rounded border-2 border-[#e5e7eb] bg-white py-3  px-5 font-semibold text-[#1481BA] ">
+    <div className="rounded-lg border-2 border-[#e5e7eb] bg-white p-3 font-semibold text-[#1481BA] ">
       <div className="flex flex-wrap gap-6 ">
         <div className="flex-1">
           <div className="border-b-2 border-b-[#e5e7eb] pb-2">
@@ -64,7 +64,7 @@ const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
             <div className=" relative flex">
               <div className="flex flex-col gap-1 ">
                 <span className=" md:text-l whitespace-nowrap  text-base font-bold ">
-                  <span className=" text-2xl  md:text-4xl">
+                  <span className=" text-2xl  md:text-2xl">
                     {riverData.flow.current}
                   </span>{" "}
                   cfs
@@ -78,12 +78,12 @@ const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
             </div>
             <div className=" flex flex-col pl-4 align-top font-bold">
               <div className="flex items-center  gap-1">
-                <span className=" text-lg md:text-xl ">Weather</span>
+                <span className=" text-lg md:text-xl ">Sunny</span>
                 <Image
                   src={"/assets/images/weather-icons/sunny.png"}
                   alt={"weather icon"}
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
               <div className="flex flex-col ">
@@ -106,7 +106,7 @@ const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
           </div>
         </div>
         {riverData.flow.chartData && (
-          <div className="flex aspect-[1.9/1] min-w-[50%] flex-1 items-center justify-center ">
+          <div className="flex aspect-[1.9/1] min-w-[50%] flex-1 items-center justify-center self-center ">
             <Chart
               chartData={riverData.flow.chartData}
               smallScreen={true}

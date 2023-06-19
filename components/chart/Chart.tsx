@@ -62,7 +62,8 @@ export function Chart({
       const dataAndOptions = chartDataAndOptions(
         chartData.data,
         flowRatings,
-        chartWrapperRef
+        chartWrapperRef,
+        smallScreen
       );
       return (
         <>
