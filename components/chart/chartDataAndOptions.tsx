@@ -1,11 +1,11 @@
-import format from "date-fns/format";
-import parseISO from "date-fns/parseISO";
-import { RiverAxis } from "@/helpers/API_Calls/riverData";
-import { RefObject } from "react";
-import Annotation from "chartjs-plugin-annotation";
-import { colors } from "@/helpers/colors";
-import { _DeepPartialObject } from "chart.js/dist/types/utils";
-import { FlowRatings } from "./Chart";
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
+import { RiverAxis } from '@/helpers/API_Calls/riverData';
+import { RefObject } from 'react';
+import Annotation from 'chartjs-plugin-annotation';
+import { colors } from '@/helpers/colors';
+import { _DeepPartialObject } from 'chart.js/dist/types/utils';
+import { FlowRatings } from './Chart';
 import {
   CartesianScaleTypeRegistry,
   ScaleOptionsByType,
@@ -22,7 +22,7 @@ import {
   Legend,
   Filler,
   PluginOptionsByType,
-} from "chart.js";
+} from 'chart.js';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +36,7 @@ ChartJS.register(
   Annotation
 );
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
 // specifies colors (in this case of the fill) based on height of y axis
 const up = (
@@ -65,11 +65,11 @@ const plugins = (
   goodConditions: number,
   fairConditions: number,
   displayStatus: boolean
-): _DeepPartialObject<PluginOptionsByType<"line">> => ({
+): _DeepPartialObject<PluginOptionsByType<'line'>> => ({
   annotation: {
     annotations: {
       line1: {
-        type: "line",
+        type: 'line',
         borderDash: [10],
         yMin: goodConditions,
         yMax: goodConditions,
@@ -80,13 +80,13 @@ const plugins = (
           borderColor: colors.chartGoodBorder,
           content: `Good: ${goodConditions}`,
           display: displayStatus,
-          position: "start",
-          backgroundColor: "hsl(100deg 100% 100% / 100%)",
-          color: "black ",
+          position: 'start',
+          backgroundColor: 'hsl(100deg 100% 100% / 100%)',
+          color: 'black ',
         },
       },
       line2: {
-        type: "line",
+        type: 'line',
         borderDash: [10],
         yMin: fairConditions,
         yMax: fairConditions,
@@ -97,9 +97,9 @@ const plugins = (
           borderColor: colors.chartFair,
           content: `Fair: ${fairConditions}`,
           display: displayStatus,
-          position: "start",
-          backgroundColor: "hsl(100deg 100% 100% / 100%)",
-          color: "black ",
+          position: 'start',
+          backgroundColor: 'hsl(100deg 100% 100% / 100%)',
+          color: 'black ',
         },
       },
     },
@@ -107,11 +107,11 @@ const plugins = (
 
   title: {
     display: true,
-    text: "River Flows",
-    color: "black",
+    text: 'River Flows (CFS) ',
+    color: 'black',
     font: {
       size: 12,
-      weight: "bolder",
+      weight: 'bolder',
     },
     padding: {
       bottom: 10,
@@ -119,21 +119,21 @@ const plugins = (
   },
   legend: { display: false },
   tooltip: {
-    borderColor: "#cc8a8c",
+    borderColor: '#cc8a8c',
     displayColors: false,
     callbacks: {
       label: function (context) {
-        let label = context.dataset.label || "";
+        let label = context.dataset.label || '';
         if (label) {
-          label += ": ";
+          label += ': ';
         }
         if (context.parsed.y !== null) {
-          label += context.parsed.y + " " + "cfs";
+          label += context.parsed.y + ' ' + 'cfs';
         }
         return label;
       },
       title: function (context) {
-        return format(parseISO(context[0].label), "LLL d, yyyy, h:m a");
+        return format(parseISO(context[0].label), 'LLL d, yyyy, h:m a');
       },
     },
   },
@@ -147,18 +147,18 @@ const scales = (
   [key: string]: ScaleOptionsByType<keyof CartesianScaleTypeRegistry>;
 }> => {
   const scaleValue = {
-    majorTickColor: smallScreen ? "black" : colors.primaryColor,
+    majorTickColor: smallScreen ? 'black' : colors.primaryColor,
     majorTickFontSize: smallScreen ? 10 : 12,
-    majorTickFontWeight: "bold",
+    majorTickFontWeight: 'bold',
   };
   return {
     x: {
       title: {
         display: smallScreen ? false : true,
-        text: "Date",
+        text: 'Date',
         font: {
           size: 12,
-          weight: "500",
+          weight: '500',
         },
       },
       ticks: {
@@ -185,14 +185,14 @@ const scales = (
         // For a category axis, the val is the index so the lookup via getLabelForValue is needed
         callback: function (value, index, values) {
           const tick = this.getLabelForValue(Number(value));
-          const time = format(parseISO(tick), "HH.mm");
-          if (time === "08.00" || time === "16.00" || time === "00.00") {
-            if (time === "00.00") {
+          const time = format(parseISO(tick), 'HH.mm');
+          if (time === '08.00' || time === '16.00' || time === '00.00') {
+            if (time === '00.00') {
               values[index].major = true;
 
-              return format(parseISO(tick), "LLL d");
+              return format(parseISO(tick), 'LLL d');
             } else {
-              return format(parseISO(tick), "ha");
+              return format(parseISO(tick), 'ha');
             }
           }
         },
@@ -212,14 +212,14 @@ const scales = (
         font: {
           size: 12,
         },
-        color: "black",
+        color: 'black',
       },
       title: {
         display: smallScreen ? false : true,
-        text: "Discharge Rate (cfs)",
+        text: 'Discharge Rate (cfs)',
         font: {
           size: 12,
-          weight: "500",
+          weight: '500',
         },
       },
     },
@@ -233,8 +233,8 @@ export const chartDataAndOptions: (
   chartWrapperRef: RefObject<HTMLDivElement>,
   smallScreen: boolean
 ) => {
-  options: ChartOptions<"line">;
-  data: ChartData<"line">;
+  options: ChartOptions<'line'>;
+  data: ChartData<'line'>;
 } = (riverData, conditions, chartWrapperRef) => {
   const highestValue: number = riverData.reduce(
     (acc, cur) => Math.max(acc, cur.value),
@@ -249,7 +249,7 @@ export const chartDataAndOptions: (
       responsive: true,
       aspectRatio: 16 / 9,
       interaction: {
-        mode: "index",
+        mode: 'index',
         intersect: false,
       },
       plugins: plugins(
@@ -283,7 +283,7 @@ export const chartDataAndOptions: (
       labels: riverData.map((item) => item.dateTime),
       datasets: [
         {
-          label: "Discharge Rate",
+          label: 'Discharge Rate',
           data: riverData.map((item) => item.value),
           borderWidth: 2,
           fill: true,
