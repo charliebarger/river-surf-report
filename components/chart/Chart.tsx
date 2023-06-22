@@ -1,11 +1,11 @@
-import { Line } from "react-chartjs-2";
-import { SectionWrapper } from "@/components/utility/SectionWrapper";
-import Annotation from "chartjs-plugin-annotation";
-import { useRef } from "react";
-import { Borders, Backgrounds } from "report.types";
-import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
-import { chartDataAndOptions } from "./chartDataAndOptions";
-import LegendItem from "./LegendItem";
+import { Line } from 'react-chartjs-2';
+import { SectionWrapper } from '@/components/utility/SectionWrapper';
+import Annotation from 'chartjs-plugin-annotation';
+import { useRef } from 'react';
+import { Borders, Backgrounds } from 'report.types';
+import { RiverAPIReturn } from '@/helpers/API_Calls/riverData';
+import { chartDataAndOptions } from './chartDataAndOptions';
+import LegendItem from './LegendItem';
 
 import {
   Chart as ChartJS,
@@ -17,7 +17,7 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js";
+} from 'chart.js';
 
 ChartJS.register(
   CategoryScale,
@@ -69,7 +69,7 @@ export function Chart({
         <>
           <Line options={dataAndOptions.options} data={dataAndOptions.data} />
           {!smallScreen && (
-            <div className="ml-[50px] mt-2 flex flex-wrap gap-4">
+            <div className='ml-[50px] mt-2 flex flex-wrap gap-4'>
               {(Object.keys(flowRatings) as Array<keyof FlowRatings>).map(
                 (item, i) => (
                   <LegendItem
@@ -85,20 +85,20 @@ export function Chart({
       );
     } else {
       return (
-        <div className="d-flex text-center text-lg font-bold text-red-600">
-          <p className=" m-auto">Chart Data Not Available at This Time</p>
+        <div className='d-flex text-center text-lg font-bold text-red-600'>
+          <p className=' m-auto'>Chart Data Not Available at This Time</p>
         </div>
       );
     }
   };
 
   return smallScreen ? (
-    <div ref={chartWrapperRef} className="h-full w-full ">
+    <div ref={chartWrapperRef} className='h-full w-full '>
       {getChartState()}
     </div>
   ) : (
     <SectionWrapper>
-      <div ref={chartWrapperRef} className="m-auto max-w-5xl lg:px-5">
+      <div ref={chartWrapperRef} className='m-auto max-w-5xl '>
         {getChartState()}
       </div>
     </SectionWrapper>

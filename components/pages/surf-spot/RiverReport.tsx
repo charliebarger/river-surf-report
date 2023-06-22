@@ -41,8 +41,8 @@ const RiverReport = ({
   return (
     <SectionWrapper>
       <div className=' m-auto max-w-screen-md lg:max-w-none xl:max-w-7xl'>
-        <div className='flex flex-wrap  gap-7 md:grid md:grid-cols-2'>
-          <div className=' m-auto aspect-[16/12] max-w-screen-sm md:m-0 md:ml-auto '>
+        <div className='flex flex-wrap gap-5  md:grid md:grid-cols-2 md:gap-7'>
+          <div className=' m-auto aspect-[16/12] w-full md:m-0 md:ml-auto md:max-w-screen-md '>
             <Image
               src={spotImgUrl}
               alt='surf location'
@@ -52,26 +52,28 @@ const RiverReport = ({
             />
           </div>
           <div className='flex-1'>
-            <h3 className=' mt-0 mb-6 text-2xl font-semibold  '>
-              {`${surfSpotName} - ${riverName}`}
-            </h3>
+            <div className='flex'>
+              <h3 className=' mt-0 mb-4 border-b-2 border-gray-300 pb-1 text-xl font-semibold lg:text-2xl  '>
+                {`${surfSpotName} - ${riverName}`}
+              </h3>
+            </div>
             <div className=' flex  justify-start gap-4'>
               <div className='  flex items-baseline gap-3 text-black '>
                 <div className=' relative  flex  '>
                   <div className='flex flex-col gap-1 '>
-                    <span className=' whitespace-nowrap  text-xl font-bold  md:text-2xl '>
+                    <span className=' whitespace-nowrap  text-xl font-semibold  md:text-2xl '>
                       <span>{200}</span> cfs
                     </span>
                     <span
-                      className={`self-start rounded ${conditionInfo.colors.dark}   py-1 px-3 text-center text-lg font-bold text-white md:text-xl`}
+                      className={`self-start rounded ${conditionInfo.colors.dark}   py-1 px-3 text-center text-lg font-semibold text-white md:text-xl`}
                     >
                       {conditionInfo.condition}
                     </span>
                   </div>
                 </div>
-                <div className=' flex flex-col pl-4 align-top font-bold'>
+                <div className=' flex flex-col pl-4 align-top font-semibold'>
                   <div className='flex items-center  gap-1'>
-                    <span className='whitespace-nowrap  text-xl font-bold  md:text-2xl '>
+                    <span className='whitespace-nowrap  text-xl font-semibold  md:text-2xl '>
                       Sunny
                     </span>
                     <Image

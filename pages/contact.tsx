@@ -211,7 +211,7 @@ const Contact = () => {
               <div className='col-span-3 mt-2 '>
                 <button
                   type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto'
+                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5   text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto md:px-6'
                 >
                   Submit
                 </button>
@@ -298,7 +298,7 @@ const Contact = () => {
               <div className='col-span-3 mt-2 '>
                 <button
                   type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto'
+                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto md:px-6'
                 >
                   Submit
                 </button>
