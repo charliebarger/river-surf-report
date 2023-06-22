@@ -52,7 +52,7 @@ const Contact = () => {
     <main>
       <div className='m-auto  max-w-screen-md px-5 '>
         <PageHeader>Contact</PageHeader>
-        <div className='my-4 flex '>
+        <div className='my-4 flex flex-col gap-4 md:flex-row '>
           <div>
             <p className='mb-4'>
               We are always working to make the site better, and your feedback
@@ -61,11 +61,11 @@ const Contact = () => {
               welcome to reach out to us directly at [email protected]. Thank
               you for your feedback!
             </p>
-            <Link className='flex items-center gap-2 text-[#0CAADC] ' href='/'>
-              <span>Developer? Make a pull request to add your wave!</span>
-              <div className='h-5 w-5'>
-                <GitHubSVG className='fill-[#0CAADC]' />
-              </div>
+            <Link className='items-center gap-2 text-[#0CAADC] ' href='/'>
+              <p>
+                Developer? Make a pull request to add your wave!{' '}
+                <GitHubSVG className='inline-block w-5 fill-[#0CAADC] align-middle ' />
+              </p>
             </Link>
           </div>
           <Image
