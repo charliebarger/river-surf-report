@@ -22,7 +22,7 @@ const FreeStickersPage = () => {
     formState: { errors },
   } = useForm<FreeStickersForm>();
   return (
-    <main className='m-auto  mb-10 max-w-screen-md px-4 md:px-6'>
+    <main className='m-auto mb-8  max-w-screen-md px-4 md:px-6 lg:mb-10'>
       <div className='my-10 flex items-center justify-center gap-4'>
         <div>
           <h1

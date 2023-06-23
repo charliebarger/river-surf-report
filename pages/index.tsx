@@ -9,7 +9,7 @@ import { TopFlows } from 'report.types';
 
 const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
   return (
-    <main className=' mb-10 px-4 md:px-6 '>
+    <main className='mb-8  px-4  md:px-6 lg:mb-10 '>
       <Head>
         <title>Surf Otter : River Surf Reports</title>
         <meta

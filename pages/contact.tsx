@@ -17,11 +17,13 @@ interface WaveIsNotHereForm {
   goodCondition: number;
   fairCondition: number;
   flowSite: string;
+  name: string;
   email: string;
 }
 
 interface GeneralFeedback {
   userText: string;
+  name: string;
   email: string;
 }
 
@@ -49,10 +51,10 @@ const Contact = () => {
 
   const wave = watch('waveName');
   return (
-    <main>
+    <main className='mb-8 lg:mb-10'>
       <div className='m-auto  max-w-screen-md px-5 '>
         <PageHeader>Contact</PageHeader>
-        <div className='my-4 flex flex-col gap-4 md:flex-row '>
+        <div className='my-4 flex flex-col gap-4 sm:flex-row '>
           <div>
             <p className='mb-4'>
               We are always working to make the site better, and your feedback
@@ -73,16 +75,19 @@ const Contact = () => {
             height={200}
             width={200}
             src='/construction-otter.png'
+            className='flex-0
+            self-start
+            '
           />
         </div>
 
         <Accordion className='my-8 mx-auto' transition transitionTimeout={200}>
           <AccordionItem header='My Wave is Not Here'>
             <form
-              className='grid grid-cols-3 gap-4 p-6'
+              className='grid grid-cols-1 gap-4 p-4 sm:grid-cols-3 sm:p-6'
               onSubmit={handleSubmit((data) => console.log(data))}
             >
-              <div className='col-span-2 '>
+              <div className='sm:col-span-2 '>
                 <label
                   htmlFor='waveName'
                   className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
@@ -98,7 +103,12 @@ const Contact = () => {
                   className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 />
               </div>
-              <div className='col-span-3 grid grid-cols-3 gap-4'>
+              <div
+                className='
+              flex
+              flex-col gap-4
+               sm:col-span-3 sm:grid sm:grid-cols-3'
+              >
                 <div className='col-span-1'>
                   <label
                     htmlFor='parkingAddress'
@@ -120,7 +130,7 @@ const Contact = () => {
                     htmlFor='state'
                     className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
                   >
-                    State/Provinde
+                    State/Province
                   </label>
                   <input
                     {...register('state', {
@@ -148,7 +158,7 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              <div className='col-span-1 '>
+              <div className='sm:col-span-2 lg:col-span-1 '>
                 <label
                   htmlFor='goodCondition'
                   className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
@@ -164,7 +174,7 @@ const Contact = () => {
                   className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 />
               </div>
-              <div className='col-span-1 '>
+              <div className='sm:col-span-2 lg:col-span-1  '>
                 <label
                   htmlFor='fairCondition'
                   className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
@@ -175,12 +185,12 @@ const Contact = () => {
                   {...register('fairCondition', {
                     required: '*This field is required',
                   })}
-                  type='text'
+                  type='number'
                   id='fairCondition'
                   className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 />
               </div>
-              <div className='col-span-2 '>
+              <div className='sm:col-span-2 '>
                 <label
                   htmlFor='flowSite'
                   className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
@@ -194,7 +204,21 @@ const Contact = () => {
                   className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 />
               </div>
-              <div className='col-span-2 '>
+              <div className='sm:col-span-2'>
+                <label
+                  htmlFor='name'
+                  className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
+                >
+                  Your Name
+                </label>
+                <input
+                  {...register('name')}
+                  type='text'
+                  id='name'
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+                />
+              </div>
+              <div className='sm:col-span-2 '>
                 <label
                   htmlFor='email'
                   className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
@@ -208,10 +232,10 @@ const Contact = () => {
                   className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
                 />
               </div>
-              <div className='col-span-3 mt-2 '>
+              <div className='mt-2 sm:col-span-3 '>
                 <button
                   type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5   text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto md:px-6'
+                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
                 >
                   Submit
                 </button>
@@ -223,7 +247,7 @@ const Contact = () => {
             style={{ margin: '1rem 0' }}
           >
             <form
-              className='grid grid-cols-3 gap-2 p-4'
+              className='flex flex-col gap-2 p-4 sm:grid sm:grid-cols-3'
               onSubmit={handleSubmit((data) => console.log(data))}
             >
               <div className='col-span-full '>
@@ -239,6 +263,21 @@ const Contact = () => {
                   className='block h-32 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 '
                 />
               </div>
+              <div className='sm:col-span-2'>
+                <label
+                  htmlFor='name'
+                  className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
+                >
+                  Your Name
+                </label>
+                <input
+                  {...register('name')}
+                  type='text'
+                  id='name'
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+                />
+              </div>
+
               <div className='col-span-2 '>
                 <label
                   htmlFor='email'
@@ -256,7 +295,7 @@ const Contact = () => {
               <div className='col-span-3 mt-2 '>
                 <button
                   type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto'
+                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
                 >
                   Submit
                 </button>
@@ -265,7 +304,7 @@ const Contact = () => {
           </AccordionItem>
           <AccordionItem header='Other' style={{ margin: '1rem 0' }}>
             <form
-              className='grid grid-cols-3 gap-2 p-4'
+              className='flex flex-col gap-2 p-4 sm:grid sm:grid-cols-3'
               onSubmit={handleSubmit((data) => console.log(data))}
             >
               <div className='col-span-full '>
@@ -281,6 +320,21 @@ const Contact = () => {
                   className='block h-32 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 '
                 />
               </div>
+              <div className='sm:col-span-2'>
+                <label
+                  htmlFor='name'
+                  className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'
+                >
+                  Your Name
+                </label>
+                <input
+                  {...register('name')}
+                  type='text'
+                  id='name'
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+                />
+              </div>
+
               <div className='col-span-2 '>
                 <label
                   htmlFor='email'
@@ -298,7 +352,7 @@ const Contact = () => {
               <div className='col-span-3 mt-2 '>
                 <button
                   type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto md:px-6'
+                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
                 >
                   Submit
                 </button>
@@ -307,7 +361,7 @@ const Contact = () => {
           </AccordionItem>
         </Accordion>
       </div>
-      <div className='my-10'>
+      <div className=' mt-8 lg:mt-10'>
         <FreeStickerBanner />
       </div>
     </main>

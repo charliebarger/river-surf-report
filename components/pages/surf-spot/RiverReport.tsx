@@ -2,6 +2,8 @@ import { SectionWrapper } from '../../utility/SectionWrapper';
 import Image from 'next/image';
 import { WeatherStatus } from '../../../report.types';
 import { getConditions, getImgURL } from '@/helpers/functions';
+import DetailedWeatherCard from '@/components/utility/DetailedWeatherCard';
+import WeatherDetails from '@/components/utility/WeatherDetails';
 
 export interface riverReportProps {
   spotImgUrl: string;
@@ -29,8 +31,7 @@ const RiverReport = ({
   weatherValues,
   conditions,
 }: riverReportProps) => {
-  const { instantFlow, wind, temperature, weatherStatus } = weatherValues;
-  const imgUrl = getImgURL(weatherStatus);
+  const { instantFlow, weatherStatus } = weatherValues;
 
   const conditionInfo = getConditions(
     instantFlow,
@@ -57,48 +58,22 @@ const RiverReport = ({
                 {`${surfSpotName} - ${riverName}`}
               </h3>
             </div>
-            <div className=' flex  justify-start gap-4'>
-              <div className='  flex items-baseline gap-3 text-black '>
-                <div className=' relative  flex  '>
-                  <div className='flex flex-col gap-1 '>
-                    <span className=' whitespace-nowrap  text-xl font-semibold  md:text-2xl '>
-                      <span>{200}</span> cfs
-                    </span>
-                    <span
-                      className={`self-start rounded ${conditionInfo.colors.dark}   py-1 px-3 text-center text-lg font-semibold text-white md:text-xl`}
-                    >
-                      {conditionInfo.condition}
-                    </span>
-                  </div>
-                </div>
-                <div className=' flex flex-col pl-4 align-top font-semibold'>
-                  <div className='flex items-center  gap-1'>
-                    <span className='whitespace-nowrap  text-xl font-semibold  md:text-2xl '>
-                      Sunny
-                    </span>
-                    <Image
-                      className='relative bottom-2'
-                      src={'/assets/images/weather-icons/sunny.png'}
-                      alt={'weather icon'}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div className='flex flex-col '>
-                    <div className='flex items-baseline whitespace-nowrap text-slate-600 '>
-                      <span>Temp : </span>{' '}
-                      <span className=' ml-1 text-black '>96</span>
-                      <span className=' self-start text-sm text-black'>°F</span>
-                    </div>
-                    <div className='flex items-center whitespace-nowrap text-slate-600 '>
-                      <span>Wind : </span>{' '}
-                      <span className='ml-1 text-black '>{100} </span>{' '}
-                      <span className='ml-1 text-sm text-black '>mph</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <WeatherDetails
+              weather={{
+                temp: weatherValues.temperature,
+                wind: weatherValues.wind,
+                weatherStatus: 'hail',
+              }}
+              riverData={{
+                flow: {
+                  current: instantFlow,
+                  threshold: {
+                    fair: conditions.fairConditions,
+                    good: conditions.goodConditions,
+                  },
+                },
+              }}
+            />
           </div>
         </div>
       </div>

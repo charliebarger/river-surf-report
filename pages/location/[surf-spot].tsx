@@ -50,23 +50,26 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
       </Head>
       <main>
         <PageHeader>Surf Report</PageHeader>
-        <RiverReport
-          spotImgUrl={riverData.imgUrl}
-          surfSpotName={riverData.surfSpot}
-          riverName={riverData.riverName}
-          weatherValues={environmentInfo.weatherValues}
-          conditions={{
-            flow: riverData.environmentInfo.weatherValues.instantFlow,
-            goodConditions:
-              riverData.environmentInfo.flowRatings.goodConditions,
-            fairConditions:
-              riverData.environmentInfo.flowRatings.fairConditions,
-          }}
-        />
+        <div>
+          <RiverReport
+            spotImgUrl={riverData.imgUrl}
+            surfSpotName={riverData.surfSpot}
+            riverName={riverData.riverName}
+            weatherValues={environmentInfo.weatherValues}
+            conditions={{
+              flow: riverData.environmentInfo.weatherValues.instantFlow,
+              goodConditions:
+                riverData.environmentInfo.flowRatings.goodConditions,
+              fairConditions:
+                riverData.environmentInfo.flowRatings.fairConditions,
+            }}
+          />
+        </div>
         <div
           className='
         border-y
          border-y-white bg-white
+        
         '
         >
           <SurfReport
@@ -84,7 +87,8 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
           className='
          border-y border-y-white
          bg-white
-         pb-10
+         pb-2
+          lg:pb-6
         '
         >
           <LocationInfo locationData={riverData.locationInfo} />

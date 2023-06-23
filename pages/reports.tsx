@@ -31,7 +31,7 @@ export default function Reports({
         <meta name='description' content='The heart of River Surfing!' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='m-auto mb-10 max-w-screen-xl px-4 md:px-6'>
+      <main className='m-auto mb-8 max-w-screen-xl  px-4 md:px-6 lg:mb-10'>
         <PageHeader>Reports</PageHeader>
         <div className=' grid-flow-col grid-cols-16 gap-x-8 lg:grid '>
           <aside className=' col-start-2'>

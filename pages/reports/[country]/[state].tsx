@@ -30,7 +30,7 @@ const StateDetailPage = ({
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='mb-4 px-4 md:px-6 '>
+      <main className='mb-8 px-4  md:px-6 lg:mb-10 '>
         <section className=' mx-auto my-6 max-w-4xl  '>
           <div>
             <h1 className='relative mb-0 text-3xl font-semibold capitalize '>
