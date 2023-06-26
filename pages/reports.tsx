@@ -39,7 +39,7 @@ export default function Reports({
               <h2 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Favorites</h2>
               <Link
                 href={'/sign-up'}
-                className=' my-2 flex  items-center rounded border-2 border-[#0CAADC] bg-white px-4 py-2 text-base font-medium text-[#0CAADC] hover:border-white hover:bg-[#0CAADC] hover:text-white'
+                className=' my-2 flex  items-center rounded border-2 border-sky-500 bg-white px-4 py-2 text-base font-medium text-sky-500 hover:border-white hover:bg-sky-500 hover:text-white'
               >
                 <span className=' ml-2 font-bold '>
                   Log In To Add Favorites

@@ -46,7 +46,7 @@ const RiverReport = ({
           <div className=' m-auto aspect-[16/12] w-full md:m-0 md:ml-auto md:max-w-screen-md '>
             <Image
               src={spotImgUrl}
-              alt='surf location'
+              alt={`A picture of ${surfSpotName} on the ${riverName}`}
               width={500}
               height={500}
               className=' h-full w-full object-cover object-center '
@@ -54,9 +54,9 @@ const RiverReport = ({
           </div>
           <div className='flex-1'>
             <div className='flex'>
-              <h3 className=' mt-0 mb-4 border-b-2 border-gray-300 pb-1 text-xl font-semibold lg:text-2xl  '>
+              <h2 className=' mt-0 mb-4 border-b-2 border-gray-300 pb-1 text-xl font-semibold lg:text-2xl  '>
                 {`${surfSpotName} - ${riverName}`}
-              </h3>
+              </h2>
             </div>
             <WeatherDetails
               weather={{

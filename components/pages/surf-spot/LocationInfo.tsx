@@ -18,7 +18,7 @@ const LocationInfo = ({ locationData }: locationInfoProps) => {
         <PageSubHeader>Location</PageSubHeader>
         <div className=' gap-3 lg:container lg:m-auto lg:grid lg:max-w-screen-lg lg:grid-cols-2'>
           <div className=' pb-3 text-left'>
-            <h4 className=' text-md font-bold'>{parkingSpotName}</h4>
+            <h3 className=' text-md font-bold'>{parkingSpotName}</h3>
             <address>{address}</address>
           </div>
           <div className=' m-auto aspect-video w-full lg:aspect-square '>

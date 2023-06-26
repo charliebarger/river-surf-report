@@ -42,6 +42,7 @@ html {
   padding: 0;
   background-color: rgb(30 41 59);
   border-radius: 10px;
+  top: 1px;
 }
 
 .mapboxgl-map .mapboxgl-popup > .mapboxgl-popup-tip {

@@ -39,7 +39,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             <h3 className='mb-2 pb-1 text-xl font-bold '>Favorites</h3>
             <Link
               href={'/sign-up'}
-              className='  mb-2  flex items-center rounded border-2 border-[#0CAADC] bg-white px-4 py-2 text-base font-medium text-[#0CAADC] hover:border-white hover:bg-[#0CAADC] hover:text-white'
+              className='  mb-2  flex items-center rounded border-2 border-sky-500 bg-white px-4 py-2 text-base font-medium text-sky-500  hover:border-white hover:bg-sky-500 hover:text-white'
             >
               <span className=' ml-2 font-bold '>Log In To Add Favorites</span>
               <span className='ml-auto text-xl font-extrabold'>+</span>
@@ -65,11 +65,11 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
           <div className=' text-lg '>
             <p className='mb-2'>
               Check out our{' '}
-              <Link className='text-[#0CAADC] underline' href='/explore'>
+              <Link className='text-sky-500 underline' href='/explore'>
                 Explore
               </Link>{' '}
               and{' '}
-              <Link className='text-[#0CAADC] underline' href='/map'>
+              <Link className='text-sky-500 underline' href='/map'>
                 Map
               </Link>{' '}
               pages to find exciting new river waves and stay updated with the
@@ -94,7 +94,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
           </div>
         </div>
       </section>
-      <section className='m-auto mx-auto  mt-6  flex max-w-screen-xl flex-col-reverse gap-4 md:mt-10 lg:flex-row lg:gap-6'>
+      <section className='flex-col-riverse m-auto  mx-auto  mt-6 flex max-w-screen-xl gap-4 md:mt-10 lg:flex-row lg:gap-6'>
         <figure className='flex flex-[2] flex-col '>
           <div className='aspect-video  w-full overflow-hidden lg:aspect-auto lg:h-[384px]  '>
             <Image
@@ -122,7 +122,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             </p>
             <p>
               Please don&#x27;t hesitate to{' '}
-              <Link className='text-[#0CAADC] underline' href='/contact'>
+              <Link className='text-sky-500 underline' href='/contact'>
                 contact us
               </Link>{' '}
               and let us know about any problems or suggestions you may have.

@@ -81,13 +81,14 @@ const Header = () => {
           <div className='items-center justify-between py-3 px-5 lg:flex'>
             <div className='flex items-center justify-between'>
               <Link
+                aria-label='Home Page'
                 href='/'
                 className=' flex items-center gap-3 rounded-full text-2xl '
               >
                 <div className='rounded-full   p-1'>
                   <Image
                     src={'/assets/images/logo.png'}
-                    alt={'logo'}
+                    alt={'Surf Otter Logo'}
                     height={50}
                     width={175}
                   />
@@ -129,13 +130,13 @@ const Header = () => {
                 searchState && sidebarIsOpen
                   ? ' overflow-visible '
                   : 'overflow-hidden'
-              } transition-height tra top-full right-0 left-0 z-50 flex flex-1 flex-col-reverse gap-4 bg-primaryColor px-0 duration-300  ease-in lg:static lg:mx-6 lg:flex lg:h-auto  lg:flex-row lg:items-center lg:gap-6 lg:overflow-visible lg:p-0 `}
+              } transition-height tra flex-col-riverse top-full right-0 left-0 z-50 flex flex-1 gap-4 bg-primaryColor px-0 duration-300  ease-in lg:static lg:mx-6 lg:flex lg:h-auto  lg:flex-row lg:items-center lg:gap-6 lg:overflow-visible lg:p-0 `}
             >
               <div className='   text-white lg:text-xs '>
                 <div className=' m-auto flex h-full max-w-[1000px] flex-col items-start justify-around gap-4  self-stretch lg:flex-row lg:items-center lg:gap-6'>
                   <Link
                     href='/reports'
-                    className='flex gap-2 fill-[#adb5bd] text-[#adb5bd] hover:fill-[#0daadc] hover:text-[#0daadc] lg:block '
+                    className='flex gap-2 fill-[#adb5bd] text-[#adb5bd] hover:fill-[#0daadc] hover:text-[#0daadc] lg:block  '
                   >
                     <div className='mb-1 flex justify-center'>
                       <WaveSVG />

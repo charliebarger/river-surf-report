@@ -8,6 +8,7 @@ import GitHubSVG from '@/assets/images/github-mark.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import FreeStickerBanner from '@/components/utility/FreeStickerBanner';
+import SubmitButton from '@/components/utility/SubmitButton';
 
 interface WaveIsNotHereForm {
   waveName: string;
@@ -63,15 +64,15 @@ const Contact = () => {
               welcome to reach out to us directly at [email protected]. Thank
               you for your feedback!
             </p>
-            <Link className='items-center gap-2 text-[#0CAADC] ' href='/'>
+            <Link className='items-center gap-2 text-sky-500 ' href='/'>
               <p>
                 Developer? Make a pull request to add your wave!{' '}
-                <GitHubSVG className='inline-block w-5 fill-[#0CAADC] align-middle ' />
+                <GitHubSVG className='inline-block w-5 fill-sky-500 align-middle ' />
               </p>
             </Link>
           </div>
           <Image
-            alt='rever otter taking notes'
+            alt='river otter taking notes'
             height={200}
             width={200}
             src='/construction-otter.png'
@@ -233,12 +234,7 @@ const Contact = () => {
                 />
               </div>
               <div className='mt-2 sm:col-span-3 '>
-                <button
-                  type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
-                >
-                  Submit
-                </button>
+                <SubmitButton text='Submit' onClick={() => {}} />
               </div>
             </form>
           </AccordionItem>
@@ -293,12 +289,7 @@ const Contact = () => {
                 />
               </div>
               <div className='col-span-3 mt-2 '>
-                <button
-                  type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
-                >
-                  Submit
-                </button>
+                <SubmitButton text='Submit' onClick={() => {}} />
               </div>
             </form>
           </AccordionItem>
@@ -350,12 +341,7 @@ const Contact = () => {
                 />
               </div>
               <div className='col-span-3 mt-2 '>
-                <button
-                  type='submit'
-                  className=' dark:hover:bg-[#0daadc]dark:focus:ring-blue-800 w-full rounded-lg bg-[#0daadc] px-4 py-2.5 text-center font-medium text-white hover:bg-[#0daadc] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-[#0daadc] sm:w-auto sm:px-6'
-                >
-                  Submit
-                </button>
+                <SubmitButton text='Submit' onClick={() => {}} />
               </div>
             </form>
           </AccordionItem>

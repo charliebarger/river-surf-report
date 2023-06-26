@@ -87,8 +87,8 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
           className='
          border-y border-y-white
          bg-white
-         pb-2
-          lg:pb-6
+         pb-8
+          lg:pb-10
         '
         >
           <LocationInfo locationData={riverData.locationInfo} />

@@ -10,6 +10,7 @@ import {
 } from 'react-map-gl';
 import Image from 'next/image';
 import { getConditions } from '@/helpers/functions';
+import Head from 'next/head';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { WeatherStatus } from 'report.types';
 import Link from 'next/link';
@@ -188,14 +189,14 @@ const PopupInfo = ({ handleClosePopup }: PopupInfoProps) => {
           <div className='  flex justify-around gap-3 text-black'>
             <div className=' relative flex'>
               <div className='flex flex-col gap-1 '>
-                <span className=' whitespace-nowrap text-base  font-medium md:text-lg '>
-                  <span className=' text-2xl  md:text-4xl'>
+                <span className=' whitespace-nowrap text-base font-semibold md:text-lg '>
+                  <span className=' text-3xl  md:text-4xl '>
                     {examplePopupInfo.riverData.flow.current}
                   </span>{' '}
                   cfs
                 </span>
                 <span
-                  className={`self-start rounded ${conditionInfo.colors.dark}  w-full py-1 px-3 text-center text-sm font-bold text-white md:text-lg`}
+                  className={`self-start rounded ${conditionInfo.colors.dark}  -base w-full py-1 px-3 text-center font-semibold text-white md:text-lg`}
                 >
                   {conditionInfo.condition}
                 </span>
@@ -262,6 +263,17 @@ const MyMap = () => {
   const [hoverdItem, setHoverdItem] = useState<MapSpots | null>(null);
   return (
     <main className=' m-4 mb-8 overflow-hidden rounded-lg md:m-8 '>
+      <Head>
+        <title>Wave Map</title>
+        <meta
+          name='description'
+          content="Discover the ultimate river surfing experience with River Otter's interactive map! Stay up-to-date with real-time river surf reports, locate the best spots, and ride the waves like never before. Catch the perfect wave with our comprehensive river surf map. Dive in now!"
+        />
+        {/* add og meta tags */}
+        {/* <meta property="og:title" content=""></meta>
+        <meta property="og:site_name" content=""></meta>
+        <meta property="og:url" content=""></meta> */}
+      </Head>
       <div className='relative  m-auto h-[70vh] w-full max-w-screen-lg '>
         <Map
           onRender={(event) => event.target.resize()}
