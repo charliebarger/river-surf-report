@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import QuickInfoCard from '@/components/utility/QuickInfoCard';
+import FlowInfoQuickCard from '@/components/utility/highlighted-flows/FlowInfoQuickCard';
 import Head from 'next/head';
+import FavoriteLink from '@/components/utility/highlighted-flows/FavoriteLink';
+import HighlightedFlows from '@/components/utility/highlighted-flows/HighlightedFlows';
 import { TopFlows } from 'report.types';
 
 //favorites still needs to be implemented
@@ -34,28 +36,7 @@ const Index = ({ topFlows }: { topFlows: TopFlows[] }) => {
             />
           </div>
         </div>
-        <div className=' flex-1'>
-          <div>
-            <h3 className='mb-2 pb-1 text-xl font-bold '>Favorites</h3>
-            <Link
-              href={'/sign-up'}
-              className='  mb-2  flex items-center rounded border-2 border-sky-500 bg-white px-4 py-2 text-base font-medium text-sky-500  hover:border-white hover:bg-sky-500 hover:text-white'
-            >
-              <span className=' ml-2 font-bold '>Log In To Add Favorites</span>
-              <span className='ml-auto text-xl font-extrabold'>+</span>
-            </Link>
-          </div>
-          <h3 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Top Flows</h3>
-          {topFlows.map(({ waveName, flows, countryFlag, urlParam }) => (
-            <QuickInfoCard
-              key={urlParam}
-              waveName={waveName}
-              flows={flows}
-              countryFlag={countryFlag}
-              urlParam={urlParam}
-            />
-          ))}
-        </div>
+        <HighlightedFlows topFlows={topFlows} />
       </section>
       <section className='m-auto my-6 mx-auto flex max-w-screen-xl flex-col gap-4 md:my-10 lg:flex-row lg:gap-6'>
         <div className='flex-1'>

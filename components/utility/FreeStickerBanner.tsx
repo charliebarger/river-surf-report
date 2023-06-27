@@ -22,7 +22,7 @@ const FreeStickerBanner = () => {
 
         <div className=' rounded-full border-8 border-black bg-white p-8 '>
           <Image
-            alt='rever otter taking notes'
+            alt='river otter taking notes'
             height={100}
             width={100}
             src='/construction-otter.png'

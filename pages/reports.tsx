@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import PageHeader from '@/components/utility/PageHeader';
-import { SectionWrapper } from '@/components/utility/SectionWrapper';
 import Link from 'next/link';
-import QuickInfoCard from '@/components/utility/QuickInfoCard';
 import { TopFlows } from 'report.types';
+import HighlightedFlows from '@/components/utility/highlighted-flows/HighlightedFlows';
 
 interface Sites {
   continent: string;
@@ -35,32 +34,7 @@ export default function Reports({
         <PageHeader>Reports</PageHeader>
         <div className=' grid-flow-col grid-cols-16 gap-x-8 lg:grid '>
           <aside className=' col-start-2'>
-            <div>
-              <h2 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Favorites</h2>
-              <Link
-                href={'/sign-up'}
-                className=' my-2 flex  items-center rounded border-2 border-sky-500 bg-white px-4 py-2 text-base font-medium text-sky-500 hover:border-white hover:bg-sky-500 hover:text-white'
-              >
-                <span className=' ml-2 font-bold '>
-                  Log In To Add Favorites
-                </span>
-                <span className='ml-auto text-xl font-extrabold'>+</span>
-              </Link>
-            </div>
-            <div className=' hidden lg:block '>
-              <h2 className=' mt-4 mb-2 pb-1 text-xl font-bold '>Top Flows</h2>
-              <div>
-                {topFlows.map(({ waveName, flows, countryFlag, urlParam }) => (
-                  <QuickInfoCard
-                    key={urlParam}
-                    waveName={waveName}
-                    flows={flows}
-                    countryFlag={countryFlag}
-                    urlParam={urlParam}
-                  />
-                ))}
-              </div>
-            </div>
+            <HighlightedFlows topFlows={topFlows} hideTopFlows={true} />
           </aside>
           {sites.map((region) => (
             <section key={region.continent} className=' col-start-1 '>
@@ -68,7 +42,7 @@ export default function Reports({
                 {region.continent}
               </h2>
               {region.countries.map((country) => (
-                <div key={country.abbreviation} className=''>
+                <section key={country.abbreviation} className=''>
                   <h3 className=' mb-2 mt-4 text-base font-bold text-slate-400 '>
                     {country.name}
                   </h3>
@@ -86,7 +60,7 @@ export default function Reports({
                       </li>
                     ))}
                   </ul>
-                </div>
+                </section>
               ))}
             </section>
           ))}
