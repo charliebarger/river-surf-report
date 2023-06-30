@@ -269,10 +269,7 @@ const MyMap = () => {
           name='description'
           content="Discover the ultimate river surfing experience with River Otter's interactive map! Stay up-to-date with real-time river surf reports, locate the best spots, and ride the waves like never before. Catch the perfect wave with our comprehensive river surf map. Dive in now!"
         />
-        {/* add og meta tags */}
-        {/* <meta property="og:title" content=""></meta>
-        <meta property="og:site_name" content=""></meta>
-        <meta property="og:url" content=""></meta> */}
+       
       </Head>
       <div className='relative  m-auto h-[70vh] w-full max-w-screen-lg '>
         <Map
