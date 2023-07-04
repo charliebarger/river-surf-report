@@ -5,7 +5,6 @@ import Banner from '@/components/utility/Banner';
 import SurfReport from '@/components/pages/surf-spot/SurfReport';
 import Head from 'next/head';
 import LocationInfo from '@/components/pages/surf-spot/LocationInfo';
-import { getConditions } from '@/helpers/functions';
 import { riverAPIcall } from '@/helpers/API_Calls/riverData';
 import { RiverData, SurfConditionInfo, ConditionNames } from 'report.types';
 
@@ -65,13 +64,7 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
             }}
           />
         </div>
-        <div
-          className='
-        border-y
-         border-y-white bg-white
-        
-        '
-        >
+        <div className='border-y border-y-white bg-white'>
           <SurfReport
             reporter={surfReport.reporter}
             report={surfReport.reportInfo}
@@ -85,10 +78,7 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
         <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
         <div
           className='
-         border-y border-y-white
-         bg-white
-         pb-8
-          lg:pb-10
+         border-y border-y-white bg-white pb-8 lg:pb-10
         '
         >
           <LocationInfo locationData={riverData.locationInfo} />

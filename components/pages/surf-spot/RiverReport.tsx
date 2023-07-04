@@ -2,7 +2,6 @@ import { SectionWrapper } from '../../utility/SectionWrapper';
 import Image from 'next/image';
 import { WeatherStatus } from '../../../report.types';
 import { getConditions, getImgURL } from '@/helpers/functions';
-import DetailedWeatherCard from '@/components/utility/DetailedWeatherCard';
 import WeatherDetails from '@/components/utility/WeatherDetails';
 
 export interface riverReportProps {

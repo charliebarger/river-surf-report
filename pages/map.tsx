@@ -15,7 +15,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { WeatherStatus } from 'report.types';
 import Link from 'next/link';
 import CloseSVG from '@/assets/images/close.svg';
-import { CardWrapper } from '@/components/utility/DetailedWeatherCard';
+import { CardWrapper } from '@/components/utility/DetailedConditionsCard';
 import { isMobile } from 'react-device-detect';
 
 interface MapSpots {
@@ -269,7 +269,6 @@ const MyMap = () => {
           name='description'
           content="Discover the ultimate river surfing experience with River Otter's interactive map! Stay up-to-date with real-time river surf reports, locate the best spots, and ride the waves like never before. Catch the perfect wave with our comprehensive river surf map. Dive in now!"
         />
-       
       </Head>
       <div className='relative  m-auto h-[70vh] w-full max-w-screen-lg '>
         <Map

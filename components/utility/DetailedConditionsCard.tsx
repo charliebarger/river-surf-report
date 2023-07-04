@@ -7,7 +7,7 @@ import { RiverData } from 'report.types';
 import { PropsWithChildren } from 'react';
 import WeatherDetails from './WeatherDetails';
 
-export interface DetailedWeatherCardProps {
+export interface DetailedConditionsCardProps {
   locationData: {
     wave: {
       name: string;
@@ -38,7 +38,7 @@ export const CardWrapper = ({ children }: PropsWithChildren) => (
   </div>
 );
 
-const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
+const DetailedConditionsCard = (props: DetailedConditionsCardProps) => {
   const { locationData, riverData } = props;
 
   const conditionInfo = getConditions(
@@ -112,4 +112,4 @@ const DetailedWeatherCard = (props: DetailedWeatherCardProps) => {
   );
 };
 
-export default DetailedWeatherCard;
+export default DetailedConditionsCard;

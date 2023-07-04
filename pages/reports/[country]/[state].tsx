@@ -1,20 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '@/components/utility/Header';
-import Link from 'next/link';
-import Image from 'next/image';
 import { RiverAPIReturn } from '@/helpers/API_Calls/riverData';
-import { getConditions } from '@/helpers/functions';
-import Chart from '@/components/chart/Chart';
-import DetailedWeatherCard, {
-  DetailedWeatherCardProps,
-  CardWrapper,
-} from '@/components/utility/DetailedWeatherCard';
+import DetailedConditionsCard, {
+  DetailedConditionsCardProps,
+} from '@/components/utility/DetailedConditionsCard';
 
 interface StateDetailPageProps {
   state: string;
   country: string;
-  cardData: DetailedWeatherCardProps[];
+  cardData: DetailedConditionsCardProps[];
 }
 
 const StateDetailPage = ({
@@ -48,7 +42,7 @@ const StateDetailPage = ({
                 className='m-auto w-full max-w-4xl'
                 key={item.locationData.country + index}
               >
-                <DetailedWeatherCard
+                <DetailedConditionsCard
                   locationData={item.locationData}
                   riverData={item.riverData}
                 />
@@ -148,7 +142,7 @@ export async function getServerSideProps() {
     error: false,
   };
 
-  const mockWaveData: DetailedWeatherCardProps[] = [
+  const mockWaveData: DetailedConditionsCardProps[] = [
     {
       locationData: {
         wave: {

@@ -1,21 +1,21 @@
-import { WeatherStatus, ConditionNames } from "report.types";
-import { SurfConditionStatus } from "report.types";
-import { conditionBackgroundColors, conditionBorderColors } from "report.types";
+import { WeatherStatus, ConditionNames } from 'report.types';
+import { SurfConditionStatus } from 'report.types';
+import { conditionBackgroundColors, conditionBorderColors } from 'report.types';
 
 export const getImgURL = (weatherStatus: WeatherStatus): string => {
   switch (weatherStatus) {
-    case "rain":
-      return "/assets/images/weather-icons/rainy-3.png";
-    case "hail":
-      return "/assets/images/weather-icons/hail.png";
-    case "snow":
-      return "/assets/images/weather-icons/snow.png";
-    case "sunny":
-      return "/assets/images/weather-icons/sunny.png";
-    case "windy":
-      return "/assets/images/weather-icons/windy.png";
+    case 'rain':
+      return '/assets/images/weather-icons/rainy-3.png';
+    case 'hail':
+      return '/assets/images/weather-icons/hail.png';
+    case 'snow':
+      return '/assets/images/weather-icons/snow.png';
+    case 'sunny':
+      return '/assets/images/weather-icons/sunny.png';
+    case 'windy':
+      return '/assets/images/weather-icons/windy.png';
     default:
-      return "/assets/images/weather-icons/clear-day.png";
+      return '/assets/images/weather-icons/clear-day.png';
   }
 };
 
@@ -32,28 +32,28 @@ export const getConditions = (
   goodFlow: number,
   fairFlow: number
 ): ConditionRenderInfo => {
-  if (currentFlow > goodFlow) {
+  if (currentFlow >= goodFlow) {
     return {
-      condition: "Good",
+      condition: 'Good',
       colors: {
-        light: "bg-chartGood",
-        dark: "bg-chartGoodBorder",
+        light: 'bg-chartGood',
+        dark: 'bg-chartGoodBorder',
       },
     };
-  } else if (currentFlow < goodFlow && currentFlow > fairFlow) {
+  } else if (currentFlow <= goodFlow && currentFlow >= fairFlow) {
     return {
-      condition: "Fair",
+      condition: 'Fair',
       colors: {
-        light: "bg-chartFair",
-        dark: "bg-chartFairBorder",
+        light: 'bg-chartFair',
+        dark: 'bg-chartFairBorder',
       },
     };
   } else {
     return {
-      condition: "Poor",
+      condition: 'Poor',
       colors: {
-        light: "bg-chartBad",
-        dark: "bg-chartBadBorder",
+        light: 'bg-chartBad',
+        dark: 'bg-chartBadBorder',
       },
     };
   }
@@ -61,8 +61,8 @@ export const getConditions = (
 
 export const getSurfStatusStyles = (conditions: SurfConditionStatus) => {
   return (
-    (conditions === "Poor" && "bg-chartBadBorder") ||
-    (conditions === "Good" && " bg-chartGoodBorder ") ||
-    (conditions === "Fair" && " bg-chartFairBorder")
+    (conditions === 'Poor' && 'bg-chartBadBorder') ||
+    (conditions === 'Good' && ' bg-chartGoodBorder ') ||
+    (conditions === 'Fair' && ' bg-chartFairBorder')
   );
 };
