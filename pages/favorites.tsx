@@ -341,7 +341,6 @@ const Favorites = () => {
           </DragOverlay> */}
         </DndContext>
       </section>
-      xp
     </main>
   );
 };
