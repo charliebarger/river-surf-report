@@ -3,8 +3,24 @@ import { DetailedConditionsCardProps } from '@/components/utility/DetailedCondit
 import { RiverAPIReturn } from '@/helpers/API_Calls/riverData';
 import DetailedConditionsCard from '@/components/utility/DetailedConditionsCard';
 import { useSortable } from '@dnd-kit/sortable';
-import { DndContext, DragEndEvent, useSensors } from '@dnd-kit/core';
-import { TouchSensor, MouseSensor, useSensor } from '@dnd-kit/core';
+import {
+  restrictToVerticalAxis,
+  restrictToWindowEdges,
+} from '@dnd-kit/modifiers';
+import {
+  DndContext,
+  DragEndEvent,
+  useSensors,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  KeyboardSensor,
+  MouseSensor,
+  closestCenter,
+  DragOverlay,
+  DragStartEvent,
+  UniqueIdentifier,
+} from '@dnd-kit/core';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { CSS } from '@dnd-kit/utilities';
 import {
@@ -245,24 +261,23 @@ const DraggableWrapper = ({
   } as const;
 
   return (
-    <div ref={setNodeRef} style={stylez} {...attributes} {...listeners}>
+    <li ref={setNodeRef} style={stylez} {...attributes} {...listeners}>
       {children}
-    </div>
+    </li>
   );
 };
-
-interface Index {
-  index: string;
-}
 
 const Favorites = () => {
   const [mockedCards, setMockedCards] =
     useState<MockedRiverData[]>(mockWaveData);
   const touchSensor = useSensor(TouchSensor);
   const mouseSensor = useSensor(MouseSensor);
-  const [parent] = useAutoAnimate(/* optional config */);
+  const keyboardSensor = useSensor(KeyboardSensor, {
+    coordinateGetter: sortableKeyboardCoordinates,
+  });
+  const [activeId, setActiveId] = useState<MockedRiverData | null>(null);
 
-  const sensors = useSensors(mouseSensor, touchSensor);
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -280,33 +295,50 @@ const Favorites = () => {
     }
   }
 
+  function handleDragStart(event: DragStartEvent) {
+    const { active } = event;
+    const activeCard = mockedCards.find((item) => item.id === active.id);
+    if (activeCard) {
+      setActiveId(activeCard);
+    }
+  }
+
   return (
     <main className='mb-8 px-4  md:px-6 lg:mb-10 '>
       <h1 className='relative mx-auto my-6 max-w-4xl text-3xl font-semibold capitalize '>
         Favorites
       </h1>
       <section className=' mx-auto max-w-4xl '>
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+        <DndContext
+          onDragEnd={handleDragEnd}
+          onDragStart={handleDragStart}
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
+        >
           <SortableContext
             items={mockedCards.map((item) => item.id)}
             strategy={verticalListSortingStrategy}
           >
-            <ul className=' flex flex-col gap-6' ref={parent}>
+            <ul className=' m-auto flex w-full max-w-4xl flex-col gap-6'>
               {mockedCards.map((item, index) => (
-                <li
-                  className='m-auto w-full max-w-4xl'
-                  key={item.locationData.country + index}
-                >
-                  <DraggableWrapper key={index} id={item.id}>
-                    <DetailedConditionsCard
-                      locationData={item.locationData}
-                      riverData={item.riverData}
-                    />
-                  </DraggableWrapper>
-                </li>
+                <DraggableWrapper key={item.id} id={item.id}>
+                  <DetailedConditionsCard
+                    locationData={item.locationData}
+                    riverData={item.riverData}
+                  />
+                </DraggableWrapper>
               ))}
             </ul>
           </SortableContext>
+          {/* <DragOverlay>
+            {activeId ? (
+              <DetailedConditionsCard
+                locationData={activeId.locationData}
+                riverData={activeId.riverData}
+              />
+            ) : null}
+          </DragOverlay> */}
         </DndContext>
       </section>
       xp
