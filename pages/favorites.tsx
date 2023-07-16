@@ -3,6 +3,7 @@ import { DetailedConditionsCardProps } from "@/components/utility/DetailedCondit
 import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
 import DetailedConditionsCard from "@/components/utility/DetailedConditionsCard";
 import { useSortable } from "@dnd-kit/sortable";
+import EditConditionsCard from "@/components/utility/EditConditionsCard";
 import {
   restrictToVerticalAxis,
   restrictToWindowEdges,
@@ -17,11 +18,8 @@ import {
   KeyboardSensor,
   MouseSensor,
   closestCenter,
-  DragOverlay,
   DragStartEvent,
-  UniqueIdentifier,
 } from "@dnd-kit/core";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { CSS } from "@dnd-kit/utilities";
 import {
   arrayMove,
@@ -276,6 +274,7 @@ const Favorites = () => {
     coordinateGetter: sortableKeyboardCoordinates,
   });
   const [activeId, setActiveId] = useState<MockedRiverData | null>(null);
+  const [editable, setEditable] = useState<boolean>(false);
 
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
@@ -309,7 +308,10 @@ const Favorites = () => {
         <h1 className="relative text-3xl font-semibold capitalize ">
           Favorites
         </h1>
-        <button className="ml-2 self-center rounded-md border border-blue-500 py-1 px-2 text-sm font-semibold text-blue-500 ">
+        <button
+          className="ml-2 self-center rounded-md border border-blue-500 py-1 px-2 text-sm font-semibold text-blue-500 "
+          onClick={() => setEditable(!editable)}
+        >
           Edit
         </button>
       </div>
@@ -324,30 +326,34 @@ const Favorites = () => {
           </select>
         </div>
       </div>
+
       <section className=" mx-auto max-w-4xl ">
-        <DndContext
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
-        >
-          <SortableContext
-            items={mockedCards.map((item) => item.id)}
-            strategy={verticalListSortingStrategy}
+        {editable ? (
+          <DndContext
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
           >
-            <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
-              {mockedCards.map((item, index) => (
-                <DraggableWrapper key={item.id} id={item.id}>
-                  <DetailedConditionsCard
-                    locationData={item.locationData}
-                    riverData={item.riverData}
-                  />
-                </DraggableWrapper>
-              ))}
-            </ul>
-          </SortableContext>
-          {/* <DragOverlay>
+            <SortableContext
+              items={mockedCards.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+                {mockedCards.map((item, index) => (
+                  <DraggableWrapper key={item.id} id={item.id}>
+                    <EditConditionsCard
+                      key={item.id}
+                      waveName={item.locationData.wave.name}
+                      country={item.locationData.country}
+                      state={item.locationData.state}
+                    />
+                  </DraggableWrapper>
+                ))}
+              </ul>
+            </SortableContext>
+            {/* <DragOverlay>
             {activeId ? (
               <DetailedConditionsCard
                 locationData={activeId.locationData}
@@ -355,7 +361,18 @@ const Favorites = () => {
               />
             ) : null}
           </DragOverlay> */}
-        </DndContext>
+          </DndContext>
+        ) : (
+          <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+            {mockedCards.map((item) => (
+              <DetailedConditionsCard
+                key={item.id}
+                locationData={item.locationData}
+                riverData={item.riverData}
+              />
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   );
