@@ -1,24 +1,30 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useReducer, useState } from "react";
 import { DetailedConditionsCardProps } from "@/components/utility/DetailedConditionsCard";
+import { getConditions } from "@/helpers/functions";
 import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
 import DetailedConditionsCard from "@/components/utility/DetailedConditionsCard";
+import PageSubHeader from "@/components/utility/PageSubHeader";
 import { useSortable } from "@dnd-kit/sortable";
-import EditConditionsCard from "@/components/utility/EditConditionsCard";
+import Button from "./EditButton";
+import DragHandler from "@/assets/images/dragHandler.svg";
+import TrashCan from "@/assets/images/trashCan.svg";
+import { SurfConditionStatus } from "report.types";
 import {
   restrictToVerticalAxis,
+  restrictToParentElement,
   restrictToWindowEdges,
 } from "@dnd-kit/modifiers";
 import {
   DndContext,
   DragEndEvent,
   useSensors,
-  PointerSensor,
   TouchSensor,
   useSensor,
   KeyboardSensor,
   MouseSensor,
   closestCenter,
   DragStartEvent,
+  UniqueIdentifier,
 } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import {
@@ -27,6 +33,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { set } from "date-fns";
 
 const mockRiverAxisData: RiverAPIReturn = {
   data: [
@@ -246,10 +253,23 @@ const mockWaveData: MockedRiverData[] = [
   },
 ];
 
-const DraggableWrapper = ({
-  children,
+interface DraggableEditCardProps {
+  waveName: string;
+  state: string;
+  country: string;
+  isActive: boolean;
+  id: string;
+  dispatch: React.Dispatch<SortAction>;
+}
+
+const DraggableEditCard = ({
+  waveName,
+  state,
+  country,
+  isActive,
   id,
-}: PropsWithChildren<{ id: string }>) => {
+  dispatch,
+}: DraggableEditCardProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
 
@@ -259,48 +279,262 @@ const DraggableWrapper = ({
   } as const;
 
   return (
-    <li ref={setNodeRef} style={stylez} {...attributes} {...listeners}>
-      {children}
+    <li ref={setNodeRef} style={stylez} className={isActive ? "z-40" : ""}>
+      <div
+        className={`flex items-center justify-between rounded-lg border-2 border-[#e5e7eb] bg-white p-3 font-semibold text-[#1481BA] ${
+          isActive && " shadow-xl  "
+        }
+        } `}
+      >
+        <div className="flex gap-4">
+          <button className="w-6" type="button" onClick={() => {}}>
+            <TrashCan
+              className="w-6 fill-red-600 "
+              onClick={() =>
+                dispatch({
+                  type: "DELETE",
+                  payload: id,
+                })
+              }
+            />
+          </button>
+          <div>
+            <div className=" whitespace-nowrap text-lg ">{waveName}</div>
+            <div className="flex gap-1 whitespace-nowrap text-sm text-black ">
+              <div>{state} </div>
+              <span className=" text-gray-600 ">• </span>
+              <div>{country}</div>
+            </div>
+          </div>
+        </div>
+        <DragHandler
+          className="w-6 fill-gray-400 "
+          {...attributes}
+          {...listeners}
+        />
+      </div>
     </li>
   );
 };
 
-const Favorites = () => {
-  const [mockedCards, setMockedCards] =
-    useState<MockedRiverData[]>(mockWaveData);
+interface SortAndDeleteFavotites {
+  cards: MockedRiverData[];
+  dispatch: React.Dispatch<SortAction>;
+}
+
+const SortAndDeleteFavotites = ({
+  cards,
+  dispatch,
+}: SortAndDeleteFavotites) => {
   const touchSensor = useSensor(TouchSensor);
   const mouseSensor = useSensor(MouseSensor);
   const keyboardSensor = useSensor(KeyboardSensor, {
     coordinateGetter: sortableKeyboardCoordinates,
   });
-  const [activeId, setActiveId] = useState<MockedRiverData | null>(null);
-  const [editable, setEditable] = useState<boolean>(false);
-
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-
-    console.log(active.id, over?.id);
     if (active.id && over?.id !== undefined) {
       if (active.id !== over.id) {
-        setMockedCards((items) => {
-          const oldIndex = items.findIndex((item) => item.id === active.id);
-
-          const newIndex = items.findIndex((item) => item.id === over.id);
-          return arrayMove(items, oldIndex, newIndex);
+        dispatch({
+          type: SortActionKind.SORT,
+          payload: {
+            activeId: active.id,
+            overId: over.id,
+          },
         });
       }
     }
+    setActiveId(null);
   }
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
-    const activeCard = mockedCards.find((item) => item.id === active.id);
-    if (activeCard) {
-      setActiveId(activeCard);
-    }
+    setActiveId(active.id);
   }
+
+  return (
+    <DndContext
+      onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      modifiers={[
+        restrictToVerticalAxis,
+        restrictToWindowEdges,
+        restrictToParentElement,
+      ]}
+    >
+      <SortableContext
+        items={cards.map((item) => item.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+          {cards.map((item) => (
+            <DraggableEditCard
+              key={item.id}
+              waveName={item.locationData.wave.name}
+              state={item.locationData.state}
+              country={item.locationData.country}
+              id={item.id}
+              isActive={activeId === item.id}
+              dispatch={dispatch}
+            />
+          ))}
+        </ul>
+      </SortableContext>
+    </DndContext>
+  );
+};
+
+const FavoriteWaveList = ({ cards }: { cards: MockedRiverData[] }) => {
+  console.log(cards, "redo");
+  return (
+    <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+      {cards.map((item) => (
+        <DetailedConditionsCard
+          key={item.id}
+          locationData={item.locationData}
+          riverData={item.riverData}
+        />
+      ))}
+    </ul>
+  );
+};
+
+enum SortActionKind {
+  MY_ORDER = "MY_ORDER",
+  HIGHEST = "HIGHEST",
+  Rating = "Rating",
+  ALPHABETICAL = "ALPHABETICAL",
+  SORT = "SORT",
+}
+
+// An interface for our actions
+
+interface DeleteAction {
+  type: "DELETE";
+  payload: string;
+}
+
+const surfConditions: { [key in SurfConditionStatus]: number } = {
+  Good: 3,
+  Fair: 2,
+  Poor: 1,
+};
+
+const SortByBestRating = (flowItms: MockedRiverData[]) => {
+  return [...flowItms].sort((a, b) => {
+    const aCondition = getConditions(
+      a.riverData.flow.current,
+      a.riverData.flow.threshold.good,
+      a.riverData.flow.threshold.fair
+    ).condition;
+
+    const bCondition = getConditions(
+      b.riverData.flow.current,
+      b.riverData.flow.threshold.good,
+      b.riverData.flow.threshold.fair
+    ).condition;
+
+    return surfConditions[bCondition] - surfConditions[aCondition];
+  });
+};
+
+const SortByPlace = (
+  flowItms: MockedRiverData[],
+  activeId: UniqueIdentifier,
+  overId: UniqueIdentifier
+) => {
+  const oldIndex = flowItms.findIndex((item) => item.id === activeId);
+  const newIndex = flowItms.findIndex((item) => item.id === overId);
+  return arrayMove(flowItms, oldIndex, newIndex);
+};
+
+const SortByAlphabetical = (flowItms: MockedRiverData[]) => {
+  return [...flowItms].sort((a, b) => {
+    const aName = a.locationData.wave.name.toUpperCase();
+    const bName = b.locationData.wave.name.toUpperCase();
+    if (aName < bName) {
+      return -1;
+    }
+    if (aName > bName) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
+const SortByHighestCurrentFlow = (flowItms: MockedRiverData[]) => {
+  return [...flowItms].sort((a, b) => {
+    return b.riverData.flow.current - a.riverData.flow.current;
+  });
+};
+
+type SortAction =
+  | { type: SortActionKind.MY_ORDER }
+  | { type: SortActionKind.HIGHEST }
+  | { type: SortActionKind.Rating }
+  | { type: SortActionKind.ALPHABETICAL }
+  | {
+      type: SortActionKind.SORT;
+      payload: { activeId: UniqueIdentifier; overId: UniqueIdentifier };
+    }
+  | { type: "DELETE"; payload: string };
+
+const reducer = (state: MockedRiverData[], action: SortAction) => {
+  switch (action.type) {
+    case SortActionKind.MY_ORDER:
+      return mockWaveData;
+    case SortActionKind.HIGHEST:
+      return SortByHighestCurrentFlow(state);
+    case SortActionKind.Rating:
+      return SortByBestRating(state);
+    case SortActionKind.ALPHABETICAL:
+      return SortByAlphabetical(state);
+    case SortActionKind.SORT:
+      return SortByPlace(state, action.payload.activeId, action.payload.overId);
+    case "DELETE":
+      return state.filter((item) => item.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const Favorites = () => {
+  const [state, dispatch] = useReducer(reducer, mockWaveData);
+  const [editable, setEditable] = useState<boolean>(false);
+  console.log(state);
+
+  const handleEdit = () => {
+    setEditable((prevState) => !prevState);
+  };
+
+  type SortOption = "My Order" | "Highest Flows" | "Rating" | "Alphabetical";
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    console.log("reached", selectedValue);
+    switch (selectedValue) {
+      case "My Order":
+        dispatch({ type: SortActionKind.MY_ORDER });
+        break;
+      case "Highest Flows":
+        console.log("reached");
+        dispatch({ type: SortActionKind.HIGHEST });
+        break;
+      case "Rating":
+        dispatch({ type: SortActionKind.Rating });
+        break;
+      case "Alphabetical":
+        dispatch({ type: SortActionKind.ALPHABETICAL });
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <main className="mb-8 px-4  md:px-6 lg:mb-10 ">
@@ -308,72 +542,34 @@ const Favorites = () => {
         <h1 className="relative text-3xl font-semibold capitalize ">
           Favorites
         </h1>
-        <button
-          className="ml-2 self-center rounded-md border border-blue-500 py-1 px-2 text-sm font-semibold text-blue-500 "
-          onClick={() => setEditable(!editable)}
-        >
-          Edit
-        </button>
-      </div>
-      <div className="mx-auto my-6 flex max-w-4xl items-center gap-2  ">
-        <span>Sort By:</span>
-        <div className="flex-1 rounded border border-gray-400 bg-white px-2 ">
-          <select className="w-full py-2 ">
-            <option>My Order</option>
-            <option>Highest Flows</option>
-            <option>Rating</option>
-            <option>Alphabetical</option>
-          </select>
-        </div>
-      </div>
-
-      <section className=" mx-auto max-w-4xl ">
         {editable ? (
-          <DndContext
-            onDragEnd={handleDragEnd}
-            onDragStart={handleDragStart}
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
-          >
-            <SortableContext
-              items={mockedCards.map((item) => item.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
-                {mockedCards.map((item, index) => (
-                  <DraggableWrapper key={item.id} id={item.id}>
-                    <EditConditionsCard
-                      key={item.id}
-                      waveName={item.locationData.wave.name}
-                      country={item.locationData.country}
-                      state={item.locationData.state}
-                    />
-                  </DraggableWrapper>
-                ))}
-              </ul>
-            </SortableContext>
-            {/* <DragOverlay>
-            {activeId ? (
-              <DetailedConditionsCard
-                locationData={activeId.locationData}
-                riverData={activeId.riverData}
-              />
-            ) : null}
-          </DragOverlay> */}
-          </DndContext>
+          <Button buttonType="controls" handleClick={handleEdit} type="button">
+            Done
+          </Button>
         ) : (
-          <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
-            {mockedCards.map((item) => (
-              <DetailedConditionsCard
-                key={item.id}
-                locationData={item.locationData}
-                riverData={item.riverData}
-              />
-            ))}
-          </ul>
+          <Button buttonType="controls" handleClick={handleEdit} type="button">
+            Edit
+          </Button>
         )}
-      </section>
+      </div>
+      {!editable && (
+        <div className="mx-auto my-6 flex max-w-4xl items-center gap-2  ">
+          <span>Sort By:</span>
+          <div className="flex-1 rounded border border-gray-400 bg-white px-2 ">
+            <select className="w-full py-2" onChange={handleSortChange}>
+              <option>My Order</option>
+              <option>Highest Flows</option>
+              <option>Rating</option>
+              <option>Alphabetical</option>
+            </select>
+          </div>
+        </div>
+      )}
+      {editable ? (
+        <SortAndDeleteFavotites cards={state} dispatch={dispatch} />
+      ) : (
+        <FavoriteWaveList cards={state} />
+      )}
     </main>
   );
 };
