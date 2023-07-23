@@ -7,6 +7,10 @@ import Head from 'next/head';
 import LocationInfo from '@/components/pages/surf-spot/LocationInfo';
 import { riverAPIcall } from '@/helpers/API_Calls/riverData';
 import { RiverData, SurfConditionInfo, ConditionNames } from 'report.types';
+import { SectionWrapper } from '@/components/utility/SectionWrapper';
+import PageSubHeader from '@/components/utility/PageSubHeader';
+import { getImgURL } from '@/helpers/functions';
+import Image from 'next/image';
 
 const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
   const { surfReport, environmentInfo } = riverData;
@@ -48,7 +52,6 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
         <meta property="og:url" content=""></meta> */}
       </Head>
       <main>
-        <PageHeader>Surf Report</PageHeader>
         <div>
           <RiverReport
             spotImgUrl={riverData.imgUrl}
@@ -64,7 +67,55 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
             }}
           />
         </div>
+        
         <div className='border-y border-y-white bg-white'>
+          <SectionWrapper>
+            <PageSubHeader  >Conditions</PageSubHeader>
+            <div className='mt-2 flex  gap-1 ' > 
+              <div>
+
+               <div>
+                <span className=' font-semibold  '  >Current Rating:</span>{" "}
+                <span className=' bg-red-500 p-1 px-2 rounded text-white font-semibold ' >Poor</span>
+              </div>
+              <div>
+                <span className=' font-semibold '  >Current Flow:</span>
+                <span> {" "}55 CFS</span>
+              </div>
+              <div>
+                <span className=' font-semibold  ' >Water Temperature:</span>{" "}
+                <span className='' >75°F </span>
+              </div>
+              </div>
+              <div className=' flex flex-col pl-4 align-top font-bold'>
+        <div className='flex items-center  gap-1'>
+          <span className='whitespace-nowrap  text-xl font-bold  capitalize md:text-2xl '>
+            {/* {weather.weatherStatus} */}
+          </span>
+          <Image
+            className='relative bottom-2'
+            src={getImgURL(environmentInfo.weatherValues.weatherStatus)}
+            alt={'weather icon'}
+            width={30}
+            height={30}
+          />
+        </div>
+        <div className='flex flex-col '>
+          <div className='flex items-baseline whitespace-nowrap text-slate-600 '>
+            <span>Temp : </span>{' '}
+            <span className=' ml-1 text-black '>96</span>
+            <span className=' self-start text-sm text-black'>°F</span>
+          </div>
+          <div className='flex items-center whitespace-nowrap text-slate-600 '>
+            <span>Wind : </span>{' '}
+            <span className='ml-1 text-black '>100 </span>{' '}
+            <span className='ml-1 text-sm text-black '>mph</span>
+          </div>
+        </div>
+      </div>
+               
+            </div>
+          </SectionWrapper>
           <SurfReport
             reporter={surfReport.reporter}
             report={surfReport.reportInfo}
@@ -75,7 +126,6 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
             flowRatings={chartFlowProps}
           />
         </div>
-        <Banner title={riverData.surfSpot} body={riverData.riverDescription} />
         <div
           className='
          border-y border-y-white bg-white pb-8 lg:pb-10

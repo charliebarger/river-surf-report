@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { WeatherStatus } from '../../../report.types';
 import { getConditions, getImgURL } from '@/helpers/functions';
 import WeatherDetails from '@/components/utility/WeatherDetails';
+import { useState } from 'react';
 
 export interface riverReportProps {
   spotImgUrl: string;
@@ -23,6 +24,27 @@ export interface riverReportProps {
   };
 }
 
+const ShowMoreText = ({ text }: { text: string }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  // Function to toggle the "Show More" state
+  const toggleShowMore = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <div className='relative'>
+      <div className={`${!expanded && 'line-clamp-3'}`}>{text}</div>
+      <button
+        onClick={toggleShowMore}
+        className=' mt-2  text-sm font-bold text-sky-500 underline  '
+      >
+        {expanded ? 'Read Less' : 'Read More'}
+      </button>
+    </div>
+  );
+};
+
 const RiverReport = ({
   spotImgUrl,
   surfSpotName,
@@ -41,7 +63,11 @@ const RiverReport = ({
   return (
     <SectionWrapper>
       <div className=' m-auto max-w-screen-md lg:max-w-none xl:max-w-7xl'>
-        <div className='flex flex-wrap gap-5  md:grid md:grid-cols-2 md:gap-7'>
+        <h1 className=' sm:text-2xl mb-4 text-center text-xl font-semibold '>
+          {`${surfSpotName} - ${riverName}`}
+        </h1>
+
+        <div className='flex flex-wrap gap-2  md:grid md:grid-cols-2 md:gap-7'>
           <div className=' m-auto aspect-[16/12] w-full md:m-0 md:ml-auto md:max-w-screen-md '>
             <Image
               src={spotImgUrl}
@@ -51,12 +77,16 @@ const RiverReport = ({
               className=' h-full w-full object-cover object-center '
             />
           </div>
-          <div className='flex-1'>
-            <div className='flex'>
-              <h2 className=' mt-0 mb-4 border-b-2 border-gray-300 pb-1 text-xl font-semibold lg:text-2xl  '>
-                {`${surfSpotName} - ${riverName}`}
-              </h2>
-            </div>
+          <ShowMoreText
+            text=' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde totam
+            quam accusantium numquam debitis odio in fugit ut ab, quidem quod
+            magni est obcaecati sit id blanditiis tempora quisquam, ratione
+            voluptatibus consequatur excepturi? Impedit quos explicabo atque
+            nulla temporibus nihil vitae eos pariatur amet voluptatibus
+            voluptates magnam odio, quasi deserunt?'
+          />
+
+          {/* <div className='flex-1'>
             <WeatherDetails
               weather={{
                 temp: weatherValues.temperature,
@@ -73,7 +103,7 @@ const RiverReport = ({
                 },
               }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </SectionWrapper>

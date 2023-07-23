@@ -1,19 +1,19 @@
-import React, { PropsWithChildren, useReducer, useState } from "react";
-import { DetailedConditionsCardProps } from "@/components/utility/DetailedConditionsCard";
-import { getConditions } from "@/helpers/functions";
-import { RiverAPIReturn } from "@/helpers/API_Calls/riverData";
-import DetailedConditionsCard from "@/components/utility/DetailedConditionsCard";
-import PageSubHeader from "@/components/utility/PageSubHeader";
-import { useSortable } from "@dnd-kit/sortable";
-import Button from "./EditButton";
-import DragHandler from "@/assets/images/dragHandler.svg";
-import TrashCan from "@/assets/images/trashCan.svg";
-import { SurfConditionStatus } from "report.types";
+import React, { PropsWithChildren, useReducer, useState } from 'react';
+import { DetailedConditionsCardProps } from '@/components/utility/DetailedConditionsCard';
+import { getConditions } from '@/helpers/functions';
+import { RiverAPIReturn } from '@/helpers/API_Calls/riverData';
+import DetailedConditionsCard from '@/components/utility/DetailedConditionsCard';
+import PageSubHeader from '@/components/utility/PageSubHeader';
+import { useSortable } from '@dnd-kit/sortable';
+import Button from './EditButton';
+import DragHandler from '@/assets/images/dragHandler.svg';
+import TrashCan from '@/assets/images/trashCan.svg';
+import { SurfConditionStatus } from 'report.types';
 import {
   restrictToVerticalAxis,
   restrictToParentElement,
   restrictToWindowEdges,
-} from "@dnd-kit/modifiers";
+} from '@dnd-kit/modifiers';
 import {
   DndContext,
   DragEndEvent,
@@ -25,96 +25,96 @@ import {
   closestCenter,
   DragStartEvent,
   UniqueIdentifier,
-} from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
+} from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { set } from "date-fns";
+} from '@dnd-kit/sortable';
+import { set } from 'date-fns';
 
 const mockRiverAxisData: RiverAPIReturn = {
   data: [
     {
-      dateTime: "2023-05-22T08:00:00",
+      dateTime: '2023-05-22T08:00:00',
       value: 10,
     },
     {
-      dateTime: "2023-05-22T09:00:00",
+      dateTime: '2023-05-22T09:00:00',
       value: 15,
     },
     {
-      dateTime: "2023-05-22T10:00:00",
+      dateTime: '2023-05-22T10:00:00',
       value: 20,
     },
     {
-      dateTime: "2023-05-22T11:00:00",
+      dateTime: '2023-05-22T11:00:00',
       value: 18,
     },
     {
-      dateTime: "2023-05-22T12:00:00",
+      dateTime: '2023-05-22T12:00:00',
       value: 25,
     },
     {
-      dateTime: "2023-05-22T13:00:00",
+      dateTime: '2023-05-22T13:00:00',
       value: 30,
     },
     {
-      dateTime: "2023-05-22T14:00:00",
+      dateTime: '2023-05-22T14:00:00',
       value: 28,
     },
     {
-      dateTime: "2023-05-22T15:00:00",
+      dateTime: '2023-05-22T15:00:00',
       value: 32,
     },
     {
-      dateTime: "2023-05-22T16:00:00",
+      dateTime: '2023-05-22T16:00:00',
       value: 35,
     },
     {
-      dateTime: "2023-05-22T17:00:00",
+      dateTime: '2023-05-22T17:00:00',
       value: 38,
     },
     {
-      dateTime: "2023-05-22T18:00:00",
+      dateTime: '2023-05-22T18:00:00',
       value: 36,
     },
     {
-      dateTime: "2023-05-22T19:00:00",
+      dateTime: '2023-05-22T19:00:00',
       value: 33,
     },
     {
-      dateTime: "2023-05-22T20:00:00",
+      dateTime: '2023-05-22T20:00:00',
       value: 28,
     },
     {
-      dateTime: "2023-05-22T21:00:00",
+      dateTime: '2023-05-22T21:00:00',
       value: 25,
     },
     {
-      dateTime: "2023-05-22T22:00:00",
+      dateTime: '2023-05-22T22:00:00',
       value: 23,
     },
     {
-      dateTime: "2023-05-22T23:00:00",
+      dateTime: '2023-05-22T23:00:00',
       value: 20,
     },
     {
-      dateTime: "2023-05-23T00:00:00",
+      dateTime: '2023-05-23T00:00:00',
       value: 18,
     },
     {
-      dateTime: "2023-05-23T01:00:00",
+      dateTime: '2023-05-23T01:00:00',
       value: 15,
     },
     {
-      dateTime: "2023-05-23T02:00:00",
+      dateTime: '2023-05-23T02:00:00',
       value: 13,
     },
     {
-      dateTime: "2023-05-23T03:00:00",
+      dateTime: '2023-05-23T03:00:00',
       value: 10,
     },
   ],
@@ -127,14 +127,14 @@ interface MockedRiverData extends DetailedConditionsCardProps {
 
 const mockWaveData: MockedRiverData[] = [
   {
-    id: "1",
+    id: '1',
     locationData: {
       wave: {
-        name: "Boulder Creek Wave",
-        url: "https://example.com/boulder-creek-wave",
+        name: 'Boulder Creek Wave',
+        url: 'https://example.com/boulder-creek-wave',
       },
-      state: "Colorado",
-      country: "United States",
+      state: 'Colorado',
+      country: 'United States',
     },
     riverData: {
       weather: {
@@ -152,14 +152,14 @@ const mockWaveData: MockedRiverData[] = [
     },
   },
   {
-    id: "2",
+    id: '2',
     locationData: {
       wave: {
-        name: "Glenwood Wave",
-        url: "https://example.com/glenwood-wave",
+        name: 'Glenwood Wave',
+        url: 'https://example.com/glenwood-wave',
       },
-      state: "Colorado",
-      country: "United States",
+      state: 'Colorado',
+      country: 'United States',
     },
     riverData: {
       weather: {
@@ -177,14 +177,14 @@ const mockWaveData: MockedRiverData[] = [
     },
   },
   {
-    id: "3",
+    id: '3',
     locationData: {
       wave: {
-        name: "Animas River Wave",
-        url: "https://example.com/animas-river-wave",
+        name: 'Animas River Wave',
+        url: 'https://example.com/animas-river-wave',
       },
-      state: "Colorado",
-      country: "United States",
+      state: 'Colorado',
+      country: 'United States',
     },
     riverData: {
       weather: {
@@ -202,14 +202,14 @@ const mockWaveData: MockedRiverData[] = [
     },
   },
   {
-    id: "4",
+    id: '4',
     locationData: {
       wave: {
-        name: "Clear Creek Whitewater Park",
-        url: "https://example.com/clear-creek-whitewater-park",
+        name: 'Clear Creek Whitewater Park',
+        url: 'https://example.com/clear-creek-whitewater-park',
       },
-      state: "Colorado",
-      country: "United States",
+      state: 'Colorado',
+      country: 'United States',
     },
     riverData: {
       weather: {
@@ -227,14 +227,14 @@ const mockWaveData: MockedRiverData[] = [
     },
   },
   {
-    id: "5",
+    id: '5',
     locationData: {
       wave: {
-        name: "South Platte River Wave",
-        url: "https://example.com/south-platte-river-wave",
+        name: 'South Platte River Wave',
+        url: 'https://example.com/south-platte-river-wave',
       },
-      state: "Colorado",
-      country: "United States",
+      state: 'Colorado',
+      country: 'United States',
     },
     riverData: {
       weather: {
@@ -279,36 +279,36 @@ const DraggableEditCard = ({
   } as const;
 
   return (
-    <li ref={setNodeRef} style={stylez} className={isActive ? "z-40" : ""}>
+    <li ref={setNodeRef} style={stylez} className={isActive ? 'z-40' : ''}>
       <div
         className={`flex items-center justify-between rounded-lg border-2 border-[#e5e7eb] bg-white p-3 font-semibold text-[#1481BA] ${
-          isActive && " shadow-xl  "
+          isActive && ' shadow-xl  '
         }
         } `}
       >
-        <div className="flex gap-4">
-          <button className="w-6" type="button" onClick={() => {}}>
+        <div className='flex gap-4'>
+          <button className='w-6' type='button' onClick={() => {}}>
             <TrashCan
-              className="w-6 fill-red-600 "
+              className='w-6 fill-red-600 '
               onClick={() =>
                 dispatch({
-                  type: "DELETE",
+                  type: 'DELETE',
                   payload: id,
                 })
               }
             />
           </button>
           <div>
-            <div className=" whitespace-nowrap text-lg ">{waveName}</div>
-            <div className="flex gap-1 whitespace-nowrap text-sm text-black ">
+            <div className=' whitespace-nowrap text-lg '>{waveName}</div>
+            <div className='flex gap-1 whitespace-nowrap text-sm text-black '>
               <div>{state} </div>
-              <span className=" text-gray-600 ">• </span>
+              <span className=' text-gray-600 '>• </span>
               <div>{country}</div>
             </div>
           </div>
         </div>
         <DragHandler
-          className="w-6 fill-gray-400 "
+          className='w-6 fill-gray-400 '
           {...attributes}
           {...listeners}
         />
@@ -371,7 +371,7 @@ const SortAndDeleteFavotites = ({
         items={cards.map((item) => item.id)}
         strategy={verticalListSortingStrategy}
       >
-        <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+        <ul className=' m-auto flex w-full max-w-4xl flex-col gap-6'>
           {cards.map((item) => (
             <DraggableEditCard
               key={item.id}
@@ -390,9 +390,9 @@ const SortAndDeleteFavotites = ({
 };
 
 const FavoriteWaveList = ({ cards }: { cards: MockedRiverData[] }) => {
-  console.log(cards, "redo");
+  console.log(cards, 'redo');
   return (
-    <ul className=" m-auto flex w-full max-w-4xl flex-col gap-6">
+    <ul className=' m-auto flex w-full max-w-4xl flex-col gap-6'>
       {cards.map((item) => (
         <DetailedConditionsCard
           key={item.id}
@@ -405,17 +405,17 @@ const FavoriteWaveList = ({ cards }: { cards: MockedRiverData[] }) => {
 };
 
 enum SortActionKind {
-  MY_ORDER = "MY_ORDER",
-  HIGHEST = "HIGHEST",
-  Rating = "Rating",
-  ALPHABETICAL = "ALPHABETICAL",
-  SORT = "SORT",
+  MY_ORDER = 'MY_ORDER',
+  HIGHEST = 'HIGHEST',
+  Rating = 'Rating',
+  ALPHABETICAL = 'ALPHABETICAL',
+  SORT = 'SORT',
 }
 
 // An interface for our actions
 
 interface DeleteAction {
-  type: "DELETE";
+  type: 'DELETE';
   payload: string;
 }
 
@@ -482,7 +482,7 @@ type SortAction =
       type: SortActionKind.SORT;
       payload: { activeId: UniqueIdentifier; overId: UniqueIdentifier };
     }
-  | { type: "DELETE"; payload: string };
+  | { type: 'DELETE'; payload: string };
 
 const reducer = (state: MockedRiverData[], action: SortAction) => {
   switch (action.type) {
@@ -496,7 +496,7 @@ const reducer = (state: MockedRiverData[], action: SortAction) => {
       return SortByAlphabetical(state);
     case SortActionKind.SORT:
       return SortByPlace(state, action.payload.activeId, action.payload.overId);
-    case "DELETE":
+    case 'DELETE':
       return state.filter((item) => item.id !== action.payload);
     default:
       return state;
@@ -512,23 +512,23 @@ const Favorites = () => {
     setEditable((prevState) => !prevState);
   };
 
-  type SortOption = "My Order" | "Highest Flows" | "Rating" | "Alphabetical";
+  type SortOption = 'My Order' | 'Highest Flows' | 'Rating' | 'Alphabetical';
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    console.log("reached", selectedValue);
+    console.log('reached', selectedValue);
     switch (selectedValue) {
-      case "My Order":
+      case 'My Order':
         dispatch({ type: SortActionKind.MY_ORDER });
         break;
-      case "Highest Flows":
-        console.log("reached");
+      case 'Highest Flows':
+        console.log('reached');
         dispatch({ type: SortActionKind.HIGHEST });
         break;
-      case "Rating":
+      case 'Rating':
         dispatch({ type: SortActionKind.Rating });
         break;
-      case "Alphabetical":
+      case 'Alphabetical':
         dispatch({ type: SortActionKind.ALPHABETICAL });
         break;
       default:
@@ -537,26 +537,29 @@ const Favorites = () => {
   };
 
   return (
-    <main className="mb-8 px-4  md:px-6 lg:mb-10 ">
-      <div className="mx-auto my-6 flex max-w-4xl items-center justify-between ">
-        <h1 className="relative text-3xl font-semibold capitalize ">
+    <main className='mb-8 px-4  md:px-6 lg:mb-10 '>
+      <div className='mx-auto my-6 flex max-w-4xl items-center justify-between '>
+        <h1 className='relative text-3xl font-semibold capitalize '>
           Favorites
         </h1>
         {editable ? (
-          <Button buttonType="controls" handleClick={handleEdit} type="button">
+          <Button buttonType='controls' handleClick={handleEdit} type='button'>
             Done
           </Button>
         ) : (
-          <Button buttonType="controls" handleClick={handleEdit} type="button">
+          <Button buttonType='controls' handleClick={handleEdit} type='button'>
             Edit
           </Button>
         )}
       </div>
       {!editable && (
-        <div className="mx-auto my-6 flex max-w-4xl items-center gap-2  ">
+        <div className='mx-auto my-6 flex max-w-4xl items-center gap-2  '>
           <span>Sort By:</span>
-          <div className="flex-1 rounded border border-gray-400 bg-white px-2 ">
-            <select className="w-full py-2" onChange={handleSortChange}>
+          <div className='flex-1 rounded border border-gray-400 bg-white px-2 '>
+            <select
+              className='w-full py-2 focus:outline-none'
+              onChange={handleSortChange}
+            >
               <option>My Order</option>
               <option>Highest Flows</option>
               <option>Rating</option>
