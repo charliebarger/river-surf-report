@@ -61,13 +61,17 @@ const RiverReport = ({
   );
 
   return (
-    <SectionWrapper>
-      <div className=' m-auto max-w-screen-md lg:max-w-none xl:max-w-7xl'>
-        <h1 className=' sm:text-2xl mb-4 text-center text-xl font-semibold '>
-          {`${surfSpotName} - ${riverName}`}
-        </h1>
+    <>
+      <div className='m-auto mb-4 max-w-screen-md pt-6 lg:max-w-none xl:max-w-7xl'>
+        <div className=' mb-4 flex gap-2 pl-2 font-semibold'>
+          <div className='w-2 rounded-full bg-red-500 ' />
+          <div className='flex flex-col'>
+            <h1 className=' text-2xl'>{surfSpotName}</h1>
+            <h2 className=' text-lg text-gray-600 '>{riverName}</h2>
+          </div>
+        </div>
 
-        <div className='flex flex-wrap gap-2  md:grid md:grid-cols-2 md:gap-7'>
+        <div className='flex flex-wrap md:grid md:grid-cols-2 md:gap-7'>
           <div className=' m-auto aspect-[16/12] w-full md:m-0 md:ml-auto md:max-w-screen-md '>
             <Image
               src={spotImgUrl}
@@ -77,14 +81,16 @@ const RiverReport = ({
               className=' h-full w-full object-cover object-center '
             />
           </div>
-          <ShowMoreText
-            text=' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde totam
+          <div className='p-2'>
+            <ShowMoreText
+              text=' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde totam
             quam accusantium numquam debitis odio in fugit ut ab, quidem quod
             magni est obcaecati sit id blanditiis tempora quisquam, ratione
             voluptatibus consequatur excepturi? Impedit quos explicabo atque
             nulla temporibus nihil vitae eos pariatur amet voluptatibus
             voluptates magnam odio, quasi deserunt?'
-          />
+            />
+          </div>
 
           {/* <div className='flex-1'>
             <WeatherDetails
@@ -106,7 +112,7 @@ const RiverReport = ({
           </div> */}
         </div>
       </div>
-    </SectionWrapper>
+    </>
   );
 };
 

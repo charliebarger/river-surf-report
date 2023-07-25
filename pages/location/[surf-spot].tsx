@@ -51,7 +51,7 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
         <meta property="og:site_name" content=""></meta>
         <meta property="og:url" content=""></meta> */}
       </Head>
-      <main>
+      <main className='bg-white'>
         <div>
           <RiverReport
             spotImgUrl={riverData.imgUrl}
@@ -67,53 +67,52 @@ const SurfSpot = ({ riverData }: { riverData: RiverData }) => {
             }}
           />
         </div>
-        
         <div className='border-y border-y-white bg-white'>
           <SectionWrapper>
-            <PageSubHeader  >Conditions</PageSubHeader>
-            <div className='mt-2 flex  gap-1 ' > 
+            <PageSubHeader>Conditions</PageSubHeader>
+            <div className='mt-2 flex  gap-1 '>
               <div>
-
-               <div>
-                <span className=' font-semibold  '  >Current Rating:</span>{" "}
-                <span className=' bg-red-500 p-1 px-2 rounded text-white font-semibold ' >Poor</span>
-              </div>
-              <div>
-                <span className=' font-semibold '  >Current Flow:</span>
-                <span> {" "}55 CFS</span>
-              </div>
-              <div>
-                <span className=' font-semibold  ' >Water Temperature:</span>{" "}
-                <span className='' >75°F </span>
-              </div>
+                <div>
+                  <span className=' font-semibold  '>Current Rating:</span>{' '}
+                  <span className=' rounded bg-red-500 p-1 px-2 font-semibold text-white '>
+                    Poor
+                  </span>
+                </div>
+                <div>
+                  <span className=' font-semibold '>Current Flow:</span>
+                  <span> 55 CFS</span>
+                </div>
+                <div>
+                  <span className=' font-semibold  '>Water Temperature:</span>{' '}
+                  <span className=''>75°F </span>
+                </div>
               </div>
               <div className=' flex flex-col pl-4 align-top font-bold'>
-        <div className='flex items-center  gap-1'>
-          <span className='whitespace-nowrap  text-xl font-bold  capitalize md:text-2xl '>
-            {/* {weather.weatherStatus} */}
-          </span>
-          <Image
-            className='relative bottom-2'
-            src={getImgURL(environmentInfo.weatherValues.weatherStatus)}
-            alt={'weather icon'}
-            width={30}
-            height={30}
-          />
-        </div>
-        <div className='flex flex-col '>
-          <div className='flex items-baseline whitespace-nowrap text-slate-600 '>
-            <span>Temp : </span>{' '}
-            <span className=' ml-1 text-black '>96</span>
-            <span className=' self-start text-sm text-black'>°F</span>
-          </div>
-          <div className='flex items-center whitespace-nowrap text-slate-600 '>
-            <span>Wind : </span>{' '}
-            <span className='ml-1 text-black '>100 </span>{' '}
-            <span className='ml-1 text-sm text-black '>mph</span>
-          </div>
-        </div>
-      </div>
-               
+                <div className='flex items-center  gap-1'>
+                  <span className='whitespace-nowrap  text-xl font-bold  capitalize md:text-2xl '>
+                    {/* {weather.weatherStatus} */}
+                  </span>
+                  <Image
+                    className='relative bottom-2'
+                    src={getImgURL(environmentInfo.weatherValues.weatherStatus)}
+                    alt={'weather icon'}
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div className='flex flex-col '>
+                  <div className='flex items-baseline whitespace-nowrap text-slate-600 '>
+                    <span>Temp : </span>{' '}
+                    <span className=' ml-1 text-black '>96</span>
+                    <span className=' self-start text-sm text-black'>°F</span>
+                  </div>
+                  <div className='flex items-center whitespace-nowrap text-slate-600 '>
+                    <span>Wind : </span>{' '}
+                    <span className='ml-1 text-black '>100 </span>{' '}
+                    <span className='ml-1 text-sm text-black '>mph</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </SectionWrapper>
           <SurfReport
